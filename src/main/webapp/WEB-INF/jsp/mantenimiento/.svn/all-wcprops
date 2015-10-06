@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/sis_cnl/!svn/ver/3/alertas/WebContent/WEB-INF/jsp/mantenimiento
+END
+entidad_lista.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/entidad_lista.jsp
+END
+usuario_registro.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/usuario_registro.jsp
+END
+entidad_registro.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/entidad_registro.jsp
+END
+usuario_permisos.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/usuario_permisos.jsp
+END
+usuario_vista.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/usuario_vista.jsp
+END
+entidad_vista.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/entidad_vista.jsp
+END
+usuario_clave.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/usuario_clave.jsp
+END
+usuario_lista.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/sis_cnl/!svn/ver/6/alertas/WebContent/WEB-INF/jsp/mantenimiento/usuario_lista.jsp
+END

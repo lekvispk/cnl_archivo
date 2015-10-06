@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+   	   xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://jax-ws.dev.java.net/spring/core http://jax-ws.dev.java.net/spring/core.xsd
+       http://jax-ws.dev.java.net/spring/servlet http://jax-ws.dev.java.net/spring/servlet.xsd">
+
+
+   <context:annotation-config/>
+   <context:component-scan base-package="pe.org.cnl.gestiondoc"/>
+   <context:property-placeholder location="classpath:jdbc.properties" />
+
+	 <bean id="messageSource"
+	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	  <property name="basename" value="classpath:org/springframework/security/messages" />
+	</bean>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
+	
+	<import resource="applicationContext-security.xml" /> 
+	
+   <aop:aspectj-autoproxy />
+   <tx:annotation-driven transaction-manager="txManager"/>
+
+   <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+   </bean>
+
+        <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+            <property name="dataSource" ref="dataSource"/>
+            <property name="configLocation">
+                <value>classpath:hibernate.cfg.xml</value>
+                </property>
+                <property  name="configurationClass">
+                        <value>org.hibernate.cfg.AnnotationConfiguration</value>
+                </property>
+            <property name="hibernateProperties">
+              <value>
+                hibernate.bytecode.provider=javassist
+                hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
+                hibernate.show_sql=true
+                hibernate.format_sql=false
+                hibernate.connection.autocommit=false
+                hibernate.connection.release_mode=after_transaction
+              </value>
+            </property>
+        </bean>
+
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+                <property name="driverClassName" value="${jdbc.driverClass}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+        </bean>
+<!-- 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:/jdbc/connplataforma</value>
+		</property>
+	</bean>
+ -->	
+</beans>

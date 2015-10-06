@@ -1,0 +1,98 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+
+	<jsp:include page="../includes/head.jsp"/>
+    	<script>
+			function nuevo(){
+			/*     
+			          if (document.forms[0].obs9.value.length > 500 )  {
+			            alert("La longitud de la observacion del remitente no debe ser mayor a 500");
+			            return false;
+			          }  */
+		        document.forms[0].action = "nuevoEnt.htm";
+		    	document.forms[0].submit();
+			}
+			function cancelar(){
+			    document.forms[0].action = "listaEnt.htm";
+			    document.forms[0].submit();
+			}
+		</script>
+		
+            <div id="contenedor">
+                <!--Capa que contiene toda la plantilla-->
+                <jsp:include page="../includes/cabecera.jsp" flush="true"/>
+                 
+                <div id="cuerpo" align="center">
+                    <table class="anchoTotal" align="center" width="90%" border="1">
+                        <tr>
+                            <td id="anchoMenu" >
+                                <jsp:include page="../includes/menu2.jsp" flush="true"/>
+                            </td>
+                            <td id="anchoCuerpo">
+                                <div id="contenido">
+                                    <!--Capa que contiene el cuerpo de la plantilla-->                                     
+                                    <h2>REGISTRO DE ENTIDADES</h2>
+                                    <h3> <span>DATOS DE ENTIDAD</span> </h3>
+                                    
+                                    <form:form action="." name="frm1" method="post" modelAttribute="entidad">
+                                    
+                                    <form:hidden path="idEntidad"/>
+                                    <input type="hidden" value="1" name="estado"/>
+                                                                     
+                                    <table class="bloqueTablaLineal" cellspacing="6">
+                                         <tr>
+                                            <th>Nombre:</th>
+                                            <td><form:input path="nomEntidad" size="40"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tipo:</th>
+                                            <td>
+                                            	<form:select path="tipo" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
+                                            		<form:option value="-1">-TODOS-</form:option>
+	                                            	<form:option value="2">Entidad</form:option>
+	                                            	<form:option value="1">Notar&iacute;a</form:option>	                                            	
+                                            	</form:select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Direccion:</th>
+                                            <td><form:input path="dirEntidad" size="40"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email:</th>
+                                            <td><form:input path="email" size="40"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telefono:</th>
+                                            <td><form:input path="telEntidad" size="40"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Web:</th>
+                                            <td><form:input path="webEntidad" size="40"/></td>
+                                        </tr>
+                                    </table>
+                                     
+                                    <center>
+                                        <table summary="Contenedor Botones" class="tablaAnchoAjustable">
+                                            <tr>
+                                                <td>
+                                                    <ul class="enlacesCentroAjustables">
+                                                        <li>
+                                                            <input type="button" onclick="javascript:nuevo();" class="boton" value="Aceptar">
+                                                            <input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </center>
+                                    </form:form>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <jsp:include page="../includes/pie.jsp" flush="true"/>

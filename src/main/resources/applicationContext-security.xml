@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+        xmlns:b="http://www.springframework.org/schema/beans"
+    	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<!-- Configure Spring Security -->
+	<http auto-config="true">
+	
+		<intercept-url pattern="/bower_components/*" filters="none"/>
+		<intercept-url pattern="/css/*" filters="none"/>
+		<intercept-url pattern="/dist/*" filters="none"/>
+		<intercept-url pattern="/images/*" filters="none"/>
+		<intercept-url pattern="/img/*" filters="none"/>
+		<intercept-url pattern="/js/*" filters="none"/>
+		<intercept-url pattern="/less/*" filters="none"/>
+	 	<intercept-url pattern="/login.htm" filters="none"/>
+	 	<intercept-url pattern="/ServiciosColegio" filters="none"/>
+	 	<intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN"/>
+	 	
+	 	<form-login login-page="/login.htm"  
+					default-target-url="/inicio.htm" 
+					authentication-failure-url="/login.htm?login_error=1"
+					always-use-default-target="true" />
+					
+		<http-basic/>
+		
+		<logout invalidate-session="true" logout-success-url="/login.jsp" />				
+		
+	</http>
+	
+	<authentication-manager>
+	
+		 <authentication-provider user-service-ref="userLoginService" >		 	
+		 	<password-encoder hash="md5" />		 	
+		</authentication-provider>		
+		
+	</authentication-manager>
+	
+
+
+    
+</b:beans>

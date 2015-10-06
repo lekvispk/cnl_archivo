@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+ "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+      
+     <mapping class="pe.org.cnl.gestiondoc.model.Archivo"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.Authority"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.DocumentoIdentidad"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.Escritura"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.Notaria"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.Permiso"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.Persona"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.PersonaEscritura"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.Solicitud"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.SolicitudTramite"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.TipoActo"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.TipoRelacion"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.TipoSolicitud"/> 
+     <mapping class="pe.org.cnl.gestiondoc.model.Tramite"/> 
+     <mapping class="pe.org.cnl.gestiondoc.model.TramiteAdjunto"/> 
+     <mapping class="pe.org.cnl.gestiondoc.model.Usuario"/>
+  
+  </session-factory>
+</hibernate-configuration>
