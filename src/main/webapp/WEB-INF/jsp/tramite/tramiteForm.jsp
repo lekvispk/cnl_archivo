@@ -1,106 +1,71 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-
+<!-- BEGIN tramiteForm.jsp-->
 	<jsp:include page="../includes/cabecera.jsp"/>
 
     <!-- Page Content -->
     <div id="page-wrapper">
-    <div class="container-fluid">
+    
+    <div class="row">
+	    <div class="col-lg-12">
+	    	<h1 class="page-header">Registro de Tramite</h1>
+	    </div>
+    </div>
+    
+	<jsp:include page="../includes/error.jsp"/>
+    
     <div class="row">
     <div class="col-lg-12">
-                               
-    <h2>REGISTRO DE TRAMITE</h2> 
-
-    <div align="center" style="color: red"> <c:out value="${msgError}"/> </div>
-	<div align="center" style="color: blue"> <c:out value="${mensaje}"/> </div>
-            
-  	<!--  <h2>Datos de Alerta</h2> -->
-    <h3> <span>Datos de Tramite</span> </h3>
     
-    <form:form name="frm2" action="nuevo.htm" method="post" modelAttribute="tramite">
-     
-     <input type="hidden" name="idTramite">
-     
-     
-      <table class="bloqueTablaLineal" cellspacing="6">
-         <tr>
-             <th>Fecha de Escritura:</th>
-             <td>
-             	
-				</td>
-               </tr>
-               <tr>
-                   <th>Tipo Solicitud:</th>
-                   <td></td>
-         </tr>
-          <tr>
-             <th>Acto:</th>
-             <td></td>
-         </tr>
-         <tr>
-             <th>Notario:</th>
-             <td></td>
-         </tr>
-         <tr>
-             <th>Comprador:</th>
-             <td></td>
-         </tr>
-           <tr>
-             <th>Vendedor:</th>
-             <td></td>
-         </tr>
-         <tr>
-             <th>Solicitante:</th>
-             <td> </td>
-         </tr>
-         <tr>
-             <th>Nro. Kardex:</th>
-             <td></td>
-         </tr>
-          <tr>
-             <th>Nro. Folio:</th>
-             <td></td>
-         </tr>
-         <tr>
-             <th>Nro. Escritura:</th>
-             <td></td>
-         </tr>
-          <tr>
-             <th></th>
-             <td> </td>
-         </tr>
-         <tr>
-             <th>Observaciones:</th>
-             <td></td>
-         </tr>
-     </table>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          Basic Form Elements
+      </div>
       
-     <center>
-     
-         <table summary="Contenedor Botones" class="tablaAnchoAjustable">
-             <tr>
-                 <td>
-                     <ul class="enlacesCentroAjustables">
-                         <li>
-                        	<input type="submit" class="boton" value="Aceptar">
-                         	<input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
-                        </li>
-                     </ul>
-                 </td>
-             </tr>
-         </table>
-     </center>
+      <div class="panel-body">
+      <div class="row">
+      
+      <div class="col-lg-6">
+      
+      <form:form name="frm2" action="nuevo.htm" method="post" modelAttribute="tramite">
+      <input type="hidden" name="idTramite">
+      
+		<!-- Text input-->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="cantHojas">Cantidad de Hojas</label>  
+		  <input id="cantHojas" name="cantHojas" type="text" placeholder="cant. hojas" class="form-control input-md">
+		</div>
+		
+		<!-- Textarea -->
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="detalleNotificacion">Detalle de Notificacion</label>
+		  <textarea class="form-control" id="detalleNotificacion" name="detalleNotificacion">Ingrese el detalle</textarea>
+		</div>
+		
+		<!-- File Button --> 
+		<div class="form-group">
+		  <label class="col-md-4 control-label" for="filebutton">Adjuntar</label>
+		  <input id="filebutton" name="filebutton" class="input-file" type="file">
+		</div>
+		
+	    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
+	    <button id="button2id" name="button2id" class="btn btn-danger">Cancelar</button>
+		  
      </form:form>
-     	
-	</div>
-    <!-- /.col-lg-12 -->
+     </div>
+     
+     <div class="col-lg-6">
+     </div>
+     
+     </div>
+     </div>
+     </div>
+          
+     </div>
+     </div>
+     
     </div>
-    <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
                             
 	<jsp:include page="../includes/pie.jsp" flush="true"/>
 	
@@ -157,4 +122,5 @@
     </script>
     
    </body>
+<!-- END tramiteForm.jsp-->
 </html>

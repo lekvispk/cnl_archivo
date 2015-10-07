@@ -251,7 +251,7 @@ CREATE TABLE solicitud (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizar· o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio
+-- Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizar√° o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio
 -- ------------------------------------------------------------
 
 CREATE TABLE tramite (
@@ -344,11 +344,11 @@ SET SQL_MODE='';
 
 insert into `gestiondoc`.`tipo_acto` (id_acto, nombre_acto, estado) values
 (1, 'Compra Venta de Inmueble', 1),
-(2, 'Compra Venta de VehÌculo', 1),
+(2, 'Compra Venta de Veh√≠culo', 1),
 (3, 'Sucesion Intestada', 1),
 (4, 'Testimonio', 1),
 (5, 'Poderes', 1),
-(6, 'RectificaciÛn de Partida', 1),
+(6, 'Rectificaci√≥n de Partida', 1),
 (7, 'Testamento', 1);
 
 insert into `gestiondoc`.`tipo_solicitud` (id_tipo_solicitud, nombre_tipo_solicitud,estado,fecha_creacion) values
@@ -381,7 +381,7 @@ insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, fec_creacion) va
 (4, 'Notaria Bazan Naveda', 1, now()),
 (5, 'Notaria Delgado', 1, now()),
 (6, 'Notaria Herrera Portuondo', 1, now()),
-(7, 'Notaria Jara BriceÒo', 1, now()),
+(7, 'Notaria Jara Brice√±o', 1, now()),
 (8, 'Notaria Paino', 1, now());
 
 insert into `gestiondoc`.`documento_identidad` (id_documento, nombre, abreviacion, estado) values 
@@ -394,7 +394,7 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (3, 'Juan', 'Culqui', 'P.', '', '', 'Juan Culqui P.', '44191000', 1, now(), null, 'ecampos', null, 1),
 (4, 'Jose Gabriel', 'Gomero', 'Valdez', '', '', 'Jose Gabriel Gomero Valdez', '44191001', 1, now(), null, 'ecampos', null, 1),
 (5, 'Juan Carlos', 'Vargas', 'Ponce', '', '', 'Juan Carlos Vargas Ponce', '44191002', 1, now(), null, 'ecampos', null, 1),
-(6, 'Gisela Patricia', 'Jara', 'BriceÒo', '', '', 'Gisela Patricia Jara BriceÒo', '07961488', 1, now(), null, 'ecampos', null, 1),
+(6, 'Gisela Patricia', 'Jara', 'Brice√±o', '', '', 'Gisela Patricia Jara Brice√±o', '07961488', 1, now(), null, 'ecampos', null, 1),
 (7, 'Juan', 'Perez', '', '', '', 'Juan Perez', '11111111', 1, now(), null, 'ecampos', null, 1);
 
 insert into `gestiondoc`.`sec_usuarios` (username, clave, estado, id_persona) values
@@ -421,13 +421,8 @@ insert into `gestiondoc`.`solicitud`
 	tram_solicitado, tram_apod_telefono, tram_apoderado, tram_apod_documento, 
 	tram_apod_direccion, tipo_comprobante, numero_ruc, estado, 
 	fecha_creacion, fecha_modificacion, usuario_creacion, usuario_modificacion
-	)
-	values
-	(1, 1, 7, 3, 
-	1, '0000001', now(), null, 
-	'Carlos Perez', 'Santiago Segura', '00002500', '2010-07-05', 
-	null, null, null, null, 
-	'tram_solicitado', '5583456', '', '', 
-	'', 1, null, 1, 
-	now(), null, 'ecampos', null
-	);
+	) values
+	(1, 1, 7, 3, 1, '0000001', now(), null, 'Carlos Perez', 'Santiago Segura', '00002500', '2010-07-05', null, null, null, null, 'tram_solicitado', '5583456', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
+
+insert into `gestiondoc`.`tramite` (id_tramite, idsolicitud, cant_hojas, costo_hoja, costo_total, informe_solicitud, observaciones_notario, fecha_conclusion, detalle_notificacion, fecha_creacion, estado) values
+	(1, 1, 5, 5, 25, '', '', '2015-10-25', '', now(), 1);
