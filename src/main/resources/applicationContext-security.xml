@@ -9,13 +9,13 @@
 	<!-- Configure Spring Security -->
 	<http auto-config="true">
 	
-		<intercept-url pattern="/bower_components/*" filters="none"/>
-		<intercept-url pattern="/css/*" filters="none"/>
-		<intercept-url pattern="/dist/*" filters="none"/>
-		<intercept-url pattern="/images/*" filters="none"/>
-		<intercept-url pattern="/img/*" filters="none"/>
-		<intercept-url pattern="/js/*" filters="none"/>
-		<intercept-url pattern="/less/*" filters="none"/>
+		<intercept-url pattern="/bower_components/**" filters="none"/>
+		<intercept-url pattern="/css/**" filters="none"/>
+		<intercept-url pattern="/dist/**" filters="none"/>
+		<intercept-url pattern="/images/**" filters="none"/>
+		<intercept-url pattern="/img/**" filters="none"/>
+		<intercept-url pattern="/js/**" filters="none"/>
+		<intercept-url pattern="/less/**" filters="none"/>
 	 	<intercept-url pattern="/login.htm" filters="none"/>
 	 	<intercept-url pattern="/ServiciosColegio" filters="none"/>
 	 	<intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN"/>

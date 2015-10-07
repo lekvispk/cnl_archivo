@@ -13,15 +13,14 @@
     <div class="row">
     <div class="col-lg-12">
                    
-	    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
+	    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="tramite">
 	       
 	    <input type="hidden" name="tipoTram1.idTipotram" value="1" />
 	    
 		<div align="center" style="color: red"> <c:out value="${msgError}"/> </div>
 		<div align="center" style="color: blue"> <c:out value="${mensaje}"/> </div>
 	       
-	       	<h2>Lista Solicitudes</h2>
-	        <h4>Busqueda</h4>                
+	       	<h4>Lista Solicitudes</h4>  
 	           
 	           <div class="capaEnlace">
 	               
@@ -33,55 +32,21 @@
 	                                       <th>Acto:</th>
 	                                       <td colspan="3">
 	                                       
-	                                       	<form:select path="tipoActo.idActo" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-	                                       		<form:option value="-1">-TODOS-</form:option>
-	                                        	<form:options items="${ltipoacto}" itemLabel="nombreActo" itemValue="idActo"/>
-	                                       	</form:select>
+	                                      
 	                                       	
 	                                       </td>
 	                                   </tr>
 	                                 <tr>
 	                                   <th>Persona:</th>
 	                                   <td colspan="3">
-	                                   		<input type="hidden" name="idPersona" id="idPersona"/>
-	                                       	<div class="demo">
-									<div class="ui-widget">
-										<input id="tags" type="text" size="40"/>
-									</div>
-								</div>
+	                                   		
 	                                   </td>        
 	                                 </tr>
 	                                    <tr>
 	                                   <th>Solicitudes Registradas Desde:</th>
-	                                   <td>
-	                                   	<fmt:formatDate value="${solicitud.fechaIngreso}" pattern="dd/MM/yyyy" var="f_fechaIngreso"/>
-	                                   	<input type="text" name="fechaIngreso" id="fechaIngreso" size="15" value="${f_fechaIngreso}"/>
-	                          		<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald" />
-							<script type="text/javascript">
-									Calendar.setup({
-										inputField     :    "fechaIngreso",  // id del campo de texto
-										ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-										showsTime      :    false,       // Flag para mostrar la Fecha
-										button         :    "triggerCald",// ID del elemento que llamara al calendario
-										singleClick    :    true         // Flag Modo doble-click 
-									});
-							</script>
-						</td>  
+	                                   <td></td>  
 	                                   <th>Hasta:</th>
-	                                   <td>
-	                                   	<fmt:formatDate value="${solicitud.fechaIngreso2}" pattern="dd/MM/yyyy" var="f_fechaIngreso2"/>
-	                                   	<input type="text" name="fechaIngreso2" id="fechaIngreso2" size="15" value="${f_fechaIngreso2}"/>
-	                                   	<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalh" />
-							<script type="text/javascript">
-									Calendar.setup({
-										inputField     :    "fechaIngreso2",  // id del campo de texto
-										ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-										showsTime      :    false,       // Flag para mostrar la Fecha
-										button         :    "triggerCalh",// ID del elemento que llamara al calendario
-										singleClick    :    true         // Flag Modo doble-click 
-									});
-							</script>
-						</td>          
+	                                   <td></td>          
 	                                 </tr>
 	                               </table>
 	                           </li>
@@ -102,23 +67,16 @@
 	                   </table>
 	             
 	           </div>
-	           <h4>LISTADO DE Solicitudes</h4>
 	           
 	          <div class="bloqueListadoDatos">
 	          
 	          <div id="displayTagDiv">
-	          <display:table name="requestScope.lSolicitudes" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
+	          <display:table name="requestScope.lTramites" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
 				defaultorder="ascending" export="false" id="row" excludedParams="ajax">
-					<display:column title="F. Ingreso" sortable="true" headerClass="sortable">
-						<fmt:formatDate value="${row.fechaIngreso}" pattern="dd/MM/yyyy"/>
-					</display:column>
-					<display:column title="Tipo" property="tipoSolicitud.nombreTipoSolicitud" sortable="true" headerClass="sortable" />
-					<display:column title="Acto" property="tipoActo.nombreActo" sortable="true" headerClass="sortable" />
-					<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
-		            	<a href="ver.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
-	                   	<a href="editar.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
-	                   	<a href="${pageContext.request.contextPath}/pendientes/preCargaEscritura.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Seleccionar Escrituras"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>                                    	
-	                   	<a href="javascript:eliminar(${row.idsolicitud});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>
+						<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
+		            	<a href="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+	                   	<a href="editar.htm?cod=${row.idTramite}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
+	                   	<a href="javascript:eliminar(${row.idTramite});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>
                    	</display:column>
 			 </display:table>
 			</div>
