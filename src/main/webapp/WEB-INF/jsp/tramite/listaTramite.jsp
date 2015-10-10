@@ -82,6 +82,8 @@
 	   			
 		          <display:table name="requestScope.lTramites" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
 					defaultorder="ascending" export="false" id="row" excludedParams="ajax">
+						<display:column title="Codigo de solicitud" property="solicitud.codSolicitud" sortable="true" headerClass="sortable" />
+						<display:column title="Tipo de solicitud" property="solicitud.tipoSolicitud.nombreTipoSolicitud" sortable="true" headerClass="sortable" />
 						<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
 			            	<a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
 		                   	<a href="editar.htm?cod=${row.idTramite}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>

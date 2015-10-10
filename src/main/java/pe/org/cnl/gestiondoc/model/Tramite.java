@@ -3,6 +3,7 @@ package pe.org.cnl.gestiondoc.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +61,10 @@ public class Tramite implements Serializable {
 	//bi-directional many-to-one association to TramiteAdjunto
 	@OneToMany(mappedBy="tramite")
 	private List<TramiteAdjunto> tramiteAdjuntos;
+
+	//bi-directional many-to-one association to TramiteUsuario
+	@OneToMany(mappedBy="tramite")
+	private List<TramiteUsuario> tramiteUsuarios;
 
 	public Tramite() {
 	}
@@ -174,4 +179,27 @@ public class Tramite implements Serializable {
 		return tramiteAdjunto;
 	}
 
+	public List<TramiteUsuario> getTramiteUsuarios() {
+		return this.tramiteUsuarios;
+	}
+
+	public void setTramiteUsuarios(List<TramiteUsuario> tramiteUsuarios) {
+		this.tramiteUsuarios = tramiteUsuarios;
+	}
+
+	public TramiteUsuario addTramiteUsuario(TramiteUsuario tramiteUsuario) {
+		if(getTramiteUsuarios()==null)tramiteUsuarios=new ArrayList<TramiteUsuario>();
+		getTramiteUsuarios().add(tramiteUsuario);
+		tramiteUsuario.setTramite(this);
+
+		return tramiteUsuario;
+	}
+
+	public TramiteUsuario removeTramiteUsuario(TramiteUsuario tramiteUsuario) {
+		if(getTramiteUsuarios()==null) return tramiteUsuario;
+		getTramiteUsuarios().remove(tramiteUsuario);
+		tramiteUsuario.setTramite(null);
+
+		return tramiteUsuario;
+	}
 }

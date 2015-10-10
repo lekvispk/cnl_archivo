@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import pe.org.cnl.gestiondoc.model.Tramite;
+import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 import pe.org.cnl.gestiondoc.service.TramiteService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
@@ -27,7 +28,13 @@ public class TramiteController {
 	@RequestMapping("/lista.htm")
 	public String lista(HttpServletRequest request,ModelMap model){
 		logger.debug(" login.html");
+		Tramite tr = new Tramite();
+		tr.setEstado( Integer.parseInt( request.getParameter("estado")) );
+		TramiteUsuario te = new TramiteUsuario();
+		te.setEstado(1);
+		tr.addTramiteUsuario( te );
 		model.put("tramite", new Tramite());
+		model.put("lTramites", tramiteService.buscar(tr));
 		return "tramite/listaTramite";
 	}
 	

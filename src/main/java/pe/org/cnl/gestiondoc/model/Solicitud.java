@@ -76,8 +76,12 @@ public class Solicitud implements Serializable {
 	private String tramEscritura;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tram_fecha_escritura")
-	private Date tramFechaEscritura;
+	@Column(name="tram_fecha_final")
+	private Date tramFechaFinal;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="tram_fecha_inicial")
+	private Date tramFechaInicial;
 
 	@Column(name="tram_fojas")
 	private String tramFojas;
@@ -257,12 +261,20 @@ public class Solicitud implements Serializable {
 		this.tramEscritura = tramEscritura;
 	}
 
-	public Date getTramFechaEscritura() {
-		return this.tramFechaEscritura;
+	public Date getTramFechaFinal() {
+		return this.tramFechaFinal;
 	}
 
-	public void setTramFechaEscritura(Date tramFechaEscritura) {
-		this.tramFechaEscritura = tramFechaEscritura;
+	public void setTramFechaFinal(Date tramFechaFinal) {
+		this.tramFechaFinal = tramFechaFinal;
+	}
+
+	public Date getTramFechaInicial() {
+		return this.tramFechaInicial;
+	}
+
+	public void setTramFechaInicial(Date tramFechaInicial) {
+		this.tramFechaInicial = tramFechaInicial;
 	}
 
 	public String getTramFojas() {

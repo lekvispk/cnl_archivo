@@ -34,7 +34,14 @@ public class TramiteDAOImpl extends HibernateDaoSupport implements TramiteDAO {
 				logger.debug( "fechaCreacion"+ tramite.getFechaCreacion() );
 			}
 			
-			criteria.add( Restrictions.eq("estado", 1 ) );
+			if( tramite.getTramiteUsuarios() != null && !tramite.getTramiteUsuarios().isEmpty() ) {
+				logger.debug("tramiteUsuarios.estado="+tramite.getTramiteUsuarios().get(0).getEstado());
+				criteria.createAlias("tramiteUsuarios", "tu")
+				//.add( Restrictions.eq("tu.estado", tramite.getTramiteUsuarios().get(0).getEstado() ) );
+				.add( Restrictions.eq("tu.estado", 1 ) );
+			}
+			logger.debug("estado="+  tramite.getEstado() );
+			criteria.add( Restrictions.eq("estado", tramite.getEstado() ) );
 			criteria.addOrder( Order.desc("fechaCreacion") );
 		}				
 		return getHibernateTemplate().findByCriteria(criteria);

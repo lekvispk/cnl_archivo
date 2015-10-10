@@ -19,7 +19,8 @@
      <mapping class="pe.org.cnl.gestiondoc.model.TipoRelacion"/>
      <mapping class="pe.org.cnl.gestiondoc.model.TipoSolicitud"/> 
      <mapping class="pe.org.cnl.gestiondoc.model.Tramite"/> 
-     <mapping class="pe.org.cnl.gestiondoc.model.TramiteAdjunto"/> 
+     <mapping class="pe.org.cnl.gestiondoc.model.TramiteAdjunto"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.TramiteUsuario"/> 
      <mapping class="pe.org.cnl.gestiondoc.model.Usuario"/>
   
   </session-factory>

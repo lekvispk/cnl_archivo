@@ -59,7 +59,15 @@ public class Usuario extends User implements Serializable {
 		
 	@Transient
 	private List<String> permisos;
-	 
+	
+	//bi-directional many-to-one association to TramiteUsuario
+	@OneToMany(mappedBy="secUsuario1")
+	private List<TramiteUsuario> tramiteUsuarios1;
+
+	//bi-directional many-to-one association to TramiteUsuario
+	@OneToMany(mappedBy="secUsuario2")
+	private List<TramiteUsuario> tramiteUsuarios2;
+	
 	public Usuario() {
 		  super("default", "default", true, true, true, true , uno() );           
 	}
@@ -163,5 +171,49 @@ public class Usuario extends User implements Serializable {
                  }
          }
          return false;
- }
+	 }
+
+	public List<TramiteUsuario> getTramiteUsuarios1() {
+		return this.tramiteUsuarios1;
+	}
+
+	public void setTramiteUsuarios1(List<TramiteUsuario> tramiteUsuarios1) {
+		this.tramiteUsuarios1 = tramiteUsuarios1;
+	}
+
+	public TramiteUsuario addTramiteUsuarios1(TramiteUsuario tramiteUsuarios1) {
+		getTramiteUsuarios1().add(tramiteUsuarios1);
+		tramiteUsuarios1.setSecUsuario1(this);
+
+		return tramiteUsuarios1;
+	}
+
+	public TramiteUsuario removeTramiteUsuarios1(TramiteUsuario tramiteUsuarios1) {
+		getTramiteUsuarios1().remove(tramiteUsuarios1);
+		tramiteUsuarios1.setSecUsuario1(null);
+
+		return tramiteUsuarios1;
+	}
+
+	public List<TramiteUsuario> getTramiteUsuarios2() {
+		return this.tramiteUsuarios2;
+	}
+
+	public void setTramiteUsuarios2(List<TramiteUsuario> tramiteUsuarios2) {
+		this.tramiteUsuarios2 = tramiteUsuarios2;
+	}
+
+	public TramiteUsuario addTramiteUsuarios2(TramiteUsuario tramiteUsuarios2) {
+		getTramiteUsuarios2().add(tramiteUsuarios2);
+		tramiteUsuarios2.setSecUsuario2(this);
+
+		return tramiteUsuarios2;
+	}
+
+	public TramiteUsuario removeTramiteUsuarios2(TramiteUsuario tramiteUsuarios2) {
+		getTramiteUsuarios2().remove(tramiteUsuarios2);
+		tramiteUsuarios2.setSecUsuario2(null);
+
+		return tramiteUsuarios2;
+	}
 }
