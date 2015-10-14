@@ -87,6 +87,7 @@ CREATE TABLE notaria (
   id_notaria INTEGER NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(250) NULL,
   estado INTEGER NULL,
+  email VARCHAR(250) NULL,
   fec_creacion DATETIME NULL,
   PRIMARY KEY(id_notaria)
 )
@@ -106,6 +107,7 @@ CREATE TABLE persona (
   grado VARCHAR(100) NULL,
   nombre_completo VARCHAR(200) NULL,
   num_documento VARCHAR(20) NULL,
+  email VARCHAR(250) NULL,
   fecha_creacion DATETIME NULL,
   fecha_modificacion DATETIME NULL,
   usuario_creacion VARCHAR(50) NULL,
@@ -235,7 +237,7 @@ CREATE TABLE solicitud (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizará o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio
+-- Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizarï¿½ o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio
 -- ------------------------------------------------------------
 
 CREATE TABLE tramite (
@@ -329,7 +331,7 @@ ENGINE=INNODB;
 -- existe un registro en donde usuario receptor es el de tramite. Emisor posiblemente el mismo o sino alguien de MP. tramite.estado actualizado
 -- Si envia el tramite a un notario ahora el tramite estara en la bandeja Derivados
 -- Se crea un registro donde el emisor es el de tramite y el eceptor un notario. los antiguos registros estan con estado 0. tramite.estado acutlaizado.
--- El Notario verá sus trámites en Derivados. Cuado lo conteste pasará a la bandeja de Respondidos. 
+-- El Notario verï¿½ sus trï¿½mites en Derivados. Cuado lo conteste pasarï¿½ a la bandeja de Respondidos. 
 -- Al contestar el tramite se crea un registro donde emisor es el Notario y receptor el usuario de Tramite. Tramite.estado actualizado
 -- El uario de tramite ahora tendra tramites en la bandeja Respondidos y cuando llegue la fecha de concluirlos, el mismo llo actualizara.
 -- Al concluirlo se crea un registro donde emisor y receptor es el mismo usuario de Tramite. Tramite.estado actualizado
@@ -413,38 +415,38 @@ insert into `gestiondoc`.`sec_permisos` (id_permiso, desc_permiso, estado) value
 (6, 'ROLE_NOTARIO', 1),
 (7, 'ROLE_USER', 1);
 
-insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, fec_creacion) values
-(1, 'Notaria Almeyda', 1, now()),
-(2, 'Notaria Aliaga', 1, now()),
-(3, 'Notaria Alberti', 1, now()),
-(4, 'Notaria Bazan Naveda', 1, now()),
-(5, 'Notaria Delgado', 1, now()),
-(6, 'Notaria Herrera Portuondo', 1, now()),
-(7, 'Notaria Jara Briceño', 1, now()),
-(8, 'Notaria Paino', 1, now()),
-(9, 'Notaria Sotomayor Bernos', 1, now()),
-(10, 'Notaria Sotomayor Vitela', 1, now()),
-(11, 'Notaria Canelo', 1, now());
+insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creacion) values
+(1, 'Notaria Almeyda', 1, 'notaria@notariaalmeyda.com',now()),
+(2, 'Notaria Aliaga', 1, 'notaria@notariaaliaga.com',now()),
+(3, 'Notaria Alberti', 1, 'notaria@notariaalberti.com', now()),
+(4, 'Notaria Bazan Naveda', 1,  'notaria@notariabazannaveda.com',now()),
+(5, 'Notaria Delgado', 1,  'notaria@notariadelgado.com',now()),
+(6, 'Notaria Herrera Portuondo', 1,  'notaria@notariaherrera.com',now()),
+(7, 'Notaria Jara BriceÃ±o', 1,  'notaria@notariajara.com',now()),
+(8, 'Notaria Paino', 1,  'notaria@notariapaino.com',now()),
+(9, 'Notaria Sotomayor Bernos', 1,  'notaria@notariasotomayorbernos.com',now()),
+(10, 'Notaria Sotomayor Vitela', 1,  'notaria@notariatotomayorvitela.com',now()),
+(11, 'Notaria Canelo', 1,'notaria@notariacanelo.com',now());
 
 insert into `gestiondoc`.`documento_identidad` (id_documento, nombre, abreviacion, estado) values 
 (1, 'Documento Nacional de Identidad', 'D.N.I.', 1),
 (2, 'Pasaporte', 'Pasaporte', 1),
 (3, 'Carnet de ExtranjerÃ­a', 'Pasaporte', 1);
 
-insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno, cargo, grado, nombre_completo, num_documento, id_documento, fecha_creacion, fecha_modificacion, usuario_creacion, usuario_modificacion, estado) values
-(1, 'Wilbert Pedro', 'Manrique', 'Quispe', '', '', 'Wilbert Pedro Manrique Quispe', '00000000', 1, now(), null, 'ecampos', null, 1),
-(2, 'Elvis Ruben', 'Campos', 'Mori', '', '', 'Elvis Ruben Campos Mori', '44194490', 1, now(), null, 'ecampos', null, 1),
-(3, 'Juan', 'Culqui', 'P.', '', '', 'Juan Culqui P.', '44191000', 1, now(), null, 'ecampos', null, 1),
-(4, 'Jose Gabriel', 'Gomero', 'Valdez', '', '', 'Jose Gabriel Gomero Valdez', '44191001', 1, now(), null, 'ecampos', null, 1),
-(5, 'Juan Carlos', 'Vargas', 'Ponce', '', '', 'Juan Carlos Vargas Ponce', '44191002', 1, now(), null, 'ecampos', null, 1),
-(6, 'Gisela Patricia', 'Jara', 'Briceño', '', '', 'Gisela Patricia Jara Briceño', '07961488', 1, now(), null, 'ecampos', null, 1),
-(7, 'Juana Alicia', 'Perez', 'De Chavarria', '', '', 'Juana Alicia Perez de Chavarria', '02113318', 1, now(), null, 'ecampos', null, 1),
-(8, 'Carlos', 'Tarazona', 'Perez', '', '', 'Carlos Tarazona Perez', '44111263', 1, now(), null, 'ecampos', null, 1),
-(9, 'Luis Angel', 'Ulloa', 'Peña', '', '', 'Luis Angel Ulloa Peña', '33132456', 1, now(), null, 'ecampos', null, 1),
-(10, 'Enrique', 'Cotrina', 'Tirado', '', '', 'Enrique Cotrina Tirado', '22111460', 1, now(), null, 'ecampos', null, 1),
-(11, 'Tadeo', 'Albornoz', 'Pascual', '', '', 'Tadeo Albornoz Campos', '03111284', 1, now(), null, 'ecampos', null, 1),
-(12, 'Bianka', 'Vazques', 'Portocarrero', '', '', 'Bianka Vazques Portocarrero', '44111893', 1, now(), null, 'ecampos', null, 1),
-(13, 'Alisson', 'Bernal', 'Salinas', '', '', 'Alisson Bernal Salinas', '45176511', 1, now(), null, 'ecampos', null, 1);
+insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno, cargo, grado, nombre_completo, num_documento, id_documento, fecha_creacion, fecha_modificacion, usuario_creacion, usuario_modificacion, estado,email) values
+(1, 'Wilbert Pedro', 'Manrique', 'Quispe', '', '', 'Wilbert Pedro Manrique Quispe', '00000000', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(2, 'Elvis Ruben', 'Campos', 'Mori', '', '', 'Elvis Ruben Campos Mori', '44194490', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(3, 'Juan', 'Culqui', 'P.', '', '', 'Juan Culqui P.', '44191000', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(4, 'Jose Gabriel', 'Gomero', 'Valdez', '', '', 'Jose Gabriel Gomero Valdez', '44191001', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(5, 'Juan Carlos', 'Vargas', 'Ponce', '', '', 'Juan Carlos Vargas Ponce', '44191002', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(6, 'Gisela Patricia', 'Jara', 'BriceÃ±o', '', '', 'Gisela Patricia Jara BriceÃ±o', '07961488', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(7, 'Juana Alicia', 'Perez', 'De Chavarria', '', '', 'Juana Alicia Perez de Chavarria', '02113318', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(8, 'Carlos', 'Tarazona', 'Perez', '', '', 'Carlos Tarazona Perez', '44111263', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(9, 'Luis Angel', 'Ulloa', 'PeÃ±a', '', '', 'Luis Angel Ulloa PeÃ±a', '33132456', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(10, 'Enrique', 'Cotrina', 'Tirado', '', '', 'Enrique Cotrina Tirado', '22111460', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(11, 'Tadeo', 'Albornoz', 'Pascual', '', '', 'Tadeo Albornoz Campos', '03111284', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(12, 'Bianka', 'Vazques', 'Portocarrero', '', '', 'Bianka Vazques Portocarrero', '44111893', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(13, 'Alisson', 'Bernal', 'Salinas', '', '', 'Alisson Bernal Salinas', '45176511', 1, now(), null, 'ecampos', null, 1,'a@a.com');
 
 insert into `gestiondoc`.`sec_usuarios` (username, clave, estado, id_persona) values
 ('wmanrique', 'e10adc3949ba59abbe56e057f20f883e', 1,  1),
@@ -469,8 +471,8 @@ insert into `gestiondoc`.`solicitud` (idsolicitud, id_notaria, id_persona, id_ti
 (4, null, 10, 1, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
 (5, null, 11, 2, 5, '0000005', now(), null, 'Aurelia Vazques', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
 (6, 1, 12, 3, null, '0000006', now(), null, 'Orlando Sevillano', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(7, 1, 7, 3, null, '0000007', now(), null, 'Paúl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(8, 1, 8, 3, null, '0000008', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
+(7, 1, 7, 3, null, '0000007', now(), null, 'PaÃºl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
+(8, 1, 8, 3, null, '0000008', now(), null, 'Miguel Arturo Tuesta SologorrÃ©', null, '15902500', '2010-07-01', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
 
 insert into `gestiondoc`.`tramite` (id_tramite, idsolicitud, cant_hojas, costo_hoja, costo_total, informe_solicitud, observaciones_notario, fecha_conclusion, detalle_notificacion, fecha_creacion, estado) values
 (1, 1, 5, 5, 25, 'Doctor, hay este tramite pendiente. favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', 'presetarse juntos a los otros paticipantes', now(), 5),

@@ -28,6 +28,8 @@ public class Notaria implements Serializable {
 
 	private String nombre;
 
+	private String email;
+	
 	//bi-directional many-to-one association to Escritura
 	@OneToMany(mappedBy="notaria")
 	private List<Escritura> escrituras;
@@ -69,6 +71,14 @@ public class Notaria implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public List<Escritura> getEscrituras() {

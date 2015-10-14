@@ -27,6 +27,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" />
+
     <title>Reclamos</title>
 
     <!-- Bootstrap Core CSS -->
@@ -78,7 +80,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-               <%-- <li class="dropdown">
+                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -208,6 +210,7 @@
                     <!-- /.dropdown-tasks -->
                 </li>
                 <!-- /.dropdown -->
+                 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -267,7 +270,7 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
-                --%> 
+               
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">

@@ -47,8 +47,8 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 			}
 			
 			if(  !Utiles.nullToBlank(escritura.getKardex() ).equals("")){
-				criteria.add( Restrictions.eq("tramKardex", escritura.getKardex() ) );
-				logger.debug( "tramKardex"+escritura.getKardex()  );
+				criteria.add( Restrictions.eq("kardex", escritura.getKardex() ) );
+				logger.debug( "kardex"+escritura.getKardex()  );
 			}
 			
 			if(  !Utiles.nullToBlank(escritura.getNumeroDoc() ).equals("")){
@@ -73,7 +73,7 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 			*/
 			///criteria.add(Restrictions.or( ));
 			 
-			criteria.add( Restrictions.eq("tramEstado", 1 ) );
+			criteria.add( Restrictions.eq("estado", 1 ) );
 			criteria.addOrder( Order.desc("tramFechaRegistro") );
 		}				
 		return getHibernateTemplate().findByCriteria(criteria);

@@ -3,8 +3,33 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri='http://www.springframework.org/security/tags' prefix='security'%>
+<!-- BEGIN busqueda.jsp-->
+	
+	<jsp:include page="../includes/cabecera.jsp"/>
 
-<jsp:include page="../includes/head.jsp"/>
+    <!-- Page Content -->
+    <div id="page-wrapper">
+    
+    <div class="row">
+	    <div class="col-lg-12">
+	    	&nbsp;
+	    </div>
+    </div>
+    
+    <jsp:include page="../includes/error.jsp"/>
+    
+    <div class="row">
+    <div class="col-lg-12">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+         Busqueda de Escrituras Publicas
+      </div>
+      
+    <div class="panel-body">
+    <div class="row">
+    
+
     <script type="text/javascript">
     
     	function buscar(){
@@ -79,35 +104,14 @@
 	    	
 	    	
     </script>
-       <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
-       
-	<div id="contenedor">
-		<jsp:include page="../includes/cabecera.jsp" flush="true"/>
-    <div id="cuerpo">
-        <table class="anchoTotal">
-        <tr>
-        <td id="anchoMenu">
-			<jsp:include page="../includes/menu2.jsp" flush="true"/>
-		</td>
-        <td id="anchoCuerpo">
-          
-          
-      <!--    <input type="hidden" name="solicitud.tipoTram1.idTipotram" value="1" />-->
-          
-            <div id="contenido">
-            
-            	<div align="center" style="color: red"> <c:out value="${msgError}"/> </div>
-				<div align="center" style="color: blue"> <c:out value="${mensaje}"/> </div>
-            
-            	<h2>Busqueda de Escrituras Publicas</h2>
-                <h4></h4>
-                
-                <div class="capaEnlace">
-                    <center>
+    
+    
+    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
+
+    <div class="capaEnlace">
+                    
                         <table summary="Contenedor Botones" class="tablaAnchoAjustable"><tr><td>
-                            <ul class="enlacesCentroAjustables">
-                                <li>
-                                
+                           
                                 <form:hidden path="solicitud.idsolicitud"/>
                                 
                                     <table class="bloqueTablaLineal" summary="Datos del Calendario">
@@ -147,12 +151,12 @@
                                    
                                       <tr>
                                         <th>Notar&iacute;a:</th>
-                                        <td colspan="3"> <form:input path="escritura.tramNotario" size="10"/>  </td>        
+                                        <td colspan="3"> <form:input path="escritura.notaria.nombre" size="10"/>  </td>        
                                       </tr>
                                       
                                        <tr>
                                         <th>Kardex:</th>
-                                        <td colspan="3"> <form:input path="escritura.tramKardex" size="10"/>  </td>        
+                                        <td colspan="3"> <form:input path="escritura.kardex" size="10"/>  </td>        
                                       </tr>
                                       
                                        <tr>
@@ -162,7 +166,7 @@
                                        
                                        <tr>
                                         <th>Folio Inicial:</th>
-                                        <td colspan="3"> <form:input path="escritura.tramFolios" size="10"/>  </td>        
+                                        <td colspan="3"> <form:input path="escritura.numeroFolios" size="10"/>  </td>        
                                       </tr>
                                       
                                       <tr>
@@ -198,61 +202,68 @@
 										</td>          
                                       </tr>
                                     </table>
-                                </li>
-                            </ul>
+                               
                         </td></tr></table>
-                    </center>
+                   
                 </div>
                 
                 <div class="capaEnlace">
-                    <center>
-                        <table summary="Contenedor Botones" class="tablaAnchoAjustable"><tr><td>
-                            <ul class="enlacesCentroAjustables">
-                              <li>
-                               <input type="button" onclick="javascript:buscar();" class="boton" value="Buscar">
-                            </ul>
-                        </td></tr>
-                        </table>
-                    </center>
+                	<input type="button" onclick="javascript:buscar();" class="boton" value="Buscar">
                 </div>
                 
-                <h4>RESULTADOS</h4>
-                
-               <div class="bloqueListadoDatos">
-               
-                      <div id="displayTagDiv">
-                             <display:table name="requestScope.lEscrituras" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
-								defaultorder="ascending" export="false" id="row" excludedParams="ajax">
-									<display:column title="F. Escritura" sortable="true" headerClass="sortable">
-										<fmt:formatDate value="${row.tramFechaRegistro}" pattern="dd/MM/yyyy"/>
-									</display:column>
-									<display:column title="Numero" property="numeroDoc" sortable="true" headerClass="sortable" />
-									<display:column title="Kardex" property="tramKardex" sortable="true" headerClass="sortable" />
-									<display:column title="Notario" property="tramNotario" sortable="true" headerClass="sortable" />
-									<display:column title="archivo" sortable="true" headerClass="sortable">
-										<c:forEach items="${row.archivos}" var="doc">
-											<a href="descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>
-										</c:forEach>
-									</display:column>
-						            <display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
-						            	<a href="seleccionar.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>                                    	
-                                    </display:column>
-							 </display:table>
-		 				</div>
-		 			</div>
-		 			
-         	   </div>
-         
-         
-        </td></tr></table>
-        
-        
-		 				
+                </form:form>
+ 				</div>
+ 
+ 
+                <div class="row">
+	    		<div class="col-lg-12">
+	    		<div id="tablaDinamica">
+		 		<div id="resultado">
+	   			<div id="displayTagDiv">
+	   			
+		             <display:table name="requestScope.lEscrituras" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
+						defaultorder="ascending" export="false" id="row" excludedParams="ajax">
+							<display:column title="F. Escritura" sortable="true" headerClass="sortable">
+								<fmt:formatDate value="${row.tramFechaRegistro}" pattern="dd/MM/yyyy"/>
+							</display:column>
+							<display:column title="Numero" property="numeroDoc" sortable="true" headerClass="sortable" />
+							<display:column title="Kardex" property="tramKardex" sortable="true" headerClass="sortable" />
+							<display:column title="Notario" property="tramNotario" sortable="true" headerClass="sortable" />
+							<display:column title="archivo" sortable="true" headerClass="sortable">
+								<c:forEach items="${row.archivos}" var="doc">
+									<a href="descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>
+								</c:forEach>
+							</display:column>
+				            <display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
+				            	<a href="seleccionar.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>                                    	
+		                    </display:column>
+					 </display:table>
+					 
+		 		</div>
+			  	</div>
+				</div>	
+			    </div>
+		    	</div>
+			     
+
+ 
     </div>
    
-</div>
-
-  
-                     
-</form:form>
- <jsp:include page="../includes/pie.jsp" flush="true"/>
+   </div>
+   </div>
+   </div>
+   
+    </div>
+    <!-- /#page-wrapper -->
+    
+    
+	<div id='somediv' style="display: none">
+		<div id="cuerpoDiv"></div>
+	</div>
+	
+	<jsp:include page="../includes/pie.jsp" flush="true"/>
+	
+	
+ </body>
+</html>
+<!-- END listaTramite.jsp-->

@@ -41,6 +41,8 @@ public class Persona implements Serializable {
 
 	private String cargo;
 
+	private String email;
+	
 	private int estado;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -173,6 +175,14 @@ public class Persona implements Serializable {
 
 	public void setNumDocumento(String numDocumento) {
 		this.numDocumento = numDocumento;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getUsuarioCreacion() {

@@ -45,7 +45,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
 <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
   <tr>
     <td class="fontX">archivo
-     <font class="fontS"><br></font></td>
+     <font class="fontS"><br>Tabla en donde se almacenan los archivos digitales</font></td>
   </tr>
   <tr>
     <td>
@@ -67,7 +67,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id de la escritura</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -87,7 +87,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre del documento en caso de ser descargado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -97,7 +97,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">binario del archivo</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
 
@@ -116,6 +116,89 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_archivo<br></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
+  <tr>
+    <td class="fontX">documento_identidad
+     <font class="fontS"><br>lista con los tipos de documentos que se pueden usar:<br>DNI <br>Pasaporte<br>Carnet de Extranjeria (CE)</font></td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d0dfff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">ColumnName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">DataType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">PrimaryKey&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">NotNull&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">Flags</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Default Value</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="20%">Comment</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">AutoInc</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>id_documento</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>INTEGER</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">PK</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(150)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre del tipo de documento</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">abreviacion</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(25)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">abreviatura </td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo oeliminado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="fontB">
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d8e6ff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Columns</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_documento<br></td>
         </tr>
 
       </table>
@@ -194,8 +277,8 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">folios</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero_folios</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(10)</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
@@ -204,17 +287,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero_doc</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(100)</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-        </tr>
-        <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">instrumento_numero</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero_instrumento</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(10)</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
@@ -224,13 +297,43 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">firmas_restantes</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero_minuta</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(5)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero de minuta</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero_doc</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(100)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">no recuerdo</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">cantidad_hojas</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">de er el caso, numero de personas que faltaron firmar</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">cantidad de hojas que tiene la escritura</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tipo_fojas</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tipo de fojas: simple, doble</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -241,6 +344,16 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">Indica, por ejepmlo, si es una escritura comcluida o incocnclusa</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">firmas_restantes</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">de er el caso, numero de personas que faltaron firmar</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -343,7 +456,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
         </tr>
         <tr>
@@ -353,7 +466,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre de la notaria</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -363,7 +476,17 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo/inactivo</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">email</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(250)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">email para  enviar las notificaciones</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -426,8 +549,18 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_documento</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tipo de documento de identidad</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre</td>
@@ -436,7 +569,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombres de la persona</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -446,7 +579,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">apellido paterno</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -456,7 +589,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">apellido materno</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -466,7 +599,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">en caso de militares</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -476,7 +609,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">en caso de militares</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -486,7 +619,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">campo concatenado de nombres y apellidos</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -496,17 +629,27 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero de documento de identidad</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tipo_documento</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">email</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(250)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">email de la persona solicitante</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo/inactivo</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -549,16 +692,6 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
-        <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-        </tr>
 
       </table>
     </td>
@@ -587,7 +720,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
 <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
   <tr>
     <td class="fontX">persona_escritura
-     <font class="fontS"><br></font></td>
+     <font class="fontS"><br>Se registra cada una de las personas y el tipo de participacion que tuvo en la escritura</font></td>
   </tr>
   <tr>
     <td>
@@ -609,7 +742,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -619,7 +752,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">codigo de la persona</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -629,7 +762,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">codigo del tipo de relacion</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -639,7 +772,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo, eliminado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
 
@@ -755,17 +888,17 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">desc_permiso</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(50)</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">descripcion</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -775,7 +908,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo o eliminado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
 
@@ -921,17 +1054,17 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">Codigo Autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_notaria</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">codigo de la notaria en la que se hizo el tramite a buscar</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -941,7 +1074,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">Persona que viene a realizar el tramite en el colegio</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -951,22 +1084,22 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">Tipo de solicitud</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_acto</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">codigo del acto al que debe hacer referencia el tramite</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">cod_solicitud</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(7)</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
@@ -1025,13 +1158,23 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tram_fecha_escritura</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tram_fecha_inicial</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DATETIME</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">datos de la solicitud</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">rango inicial de tiempo para limitar la busqueda por rango de tiempo</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tram_fecha_final</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DATETIME</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">rango final de tiempo para limitar la busqueda por periodo de tiempo</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1042,6 +1185,16 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">datos de la solicitud</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tram_folios</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(10)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">numero de folios</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1056,7 +1209,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tram_minuta_num</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(10)</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
@@ -1066,7 +1219,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
         </tr>
         <tr>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">tram_instrumento_num</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(10)</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
@@ -1091,7 +1244,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">datos del apoderado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1101,7 +1254,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">datos del apoderado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1111,7 +1264,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">datos del apoderado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1121,7 +1274,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">datos del apoderado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1151,7 +1304,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">reflejara cada uno de los pasos que vaya completando el tramite y permitirá mostrarlo en la bandeja correspondiente.</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1398,7 +1551,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
 <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
   <tr>
     <td class="fontX">tipo_relacion
-     <font class="fontS"><br></font></td>
+     <font class="fontS"><br>Tipos de relaciones: <br>Comprador<br>Vendedor<br>etc...</font></td>
   </tr>
   <tr>
     <td>
@@ -1420,7 +1573,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
         </tr>
         <tr>
@@ -1430,7 +1583,17 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre o descripcion de la realcion</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo, eliminado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
 
@@ -1461,7 +1624,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
 <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
   <tr>
     <td class="fontX">tipo_solicitud
-     <font class="fontS"><br>Tabla Maestra con lista de tipos de solicittudes que se pueden realizar</font></td>
+     <font class="fontS"><br>Tabla Maestra con lista de tipos de solicittudes que se pueden realizar<br>Testimonio, <br>parte notarial, <br>copia simple<br>conclusion de escritura</font></td>
   </tr>
   <tr>
     <td>
@@ -1483,7 +1646,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
         </tr>
         <tr>
@@ -1513,7 +1676,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo, eliminado</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
         <tr>
@@ -1523,7 +1686,7 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
-          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">fecha de creacion del registro</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
         </tr>
 
@@ -1542,6 +1705,345 @@ div, p, td {font-family: Tahoma, Verdana, Arial, MS Sans Serif; color: black; fo
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
           <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_tipo_solicitud<br></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
+  <tr>
+    <td class="fontX">tramite
+     <font class="fontS"><br>Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizará o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio</font></td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d0dfff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">ColumnName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">DataType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">PrimaryKey&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">NotNull&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">Flags</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Default Value</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="20%">Comment</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">AutoInc</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>id_tramite</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>INTEGER</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">PK</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">idsolicitud</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id de solicitud de referencia</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">cant_hojas</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">cantidad de hojas a procesar (copia simple, copia certificada, conclusion de firma)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">costo_hoja</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DECIMAL</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">costo en nuevos soles por cada hoja procesada o firmada</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">costo_total</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DECIMAL</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">costo final del tramite</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">informe_solicitud</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">TEXT</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">Informe enviado al notario</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">observaciones_notario</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">TEXT</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">notario: campo en donde anota las observaciones a seguir por el personal de archivo</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">fecha_conclusion</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DATETIME</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">notario: propone una fecha para la conclusion de la escritura</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">detalle_notificacion</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">TEXT</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">empleado: informacion que envia el personal de archivo al correo del solicitante</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">fecha_creacion</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DATETIME</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">creacion del registro</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado activo, finalizado o eliminado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="fontB">
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d8e6ff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Columns</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_tramite<br></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
+  <tr>
+    <td class="fontX">tramite_adjuntos
+     <font class="fontS"><br>Tabla que guarda cada uno de los archivos adjuntos que son requisitos para finalizar el tramite</font></td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d0dfff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">ColumnName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">DataType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">PrimaryKey&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">NotNull&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">Flags</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Default Value</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="20%">Comment</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">AutoInc</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>id_adjunto</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>INTEGER</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">PK</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id autogenerado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_tramite</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(250)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">nombre  en caso de visualizar/descargar</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo, eliminado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="fontB">
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d8e6ff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Columns</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_adjunto<br></td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+
+</table>
+<br>
+<br>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#e4efff">
+  <tr>
+    <td class="fontX">tramite_usuario
+     <font class="fontS"><br>registro de los movimientos que se van realizando sobre un tramite.<br>Cuando a un usuario deriva un tramite a otro usuario se debe crear un nuevo registro y actualizar el estado de todos los anteriores para que esten inactivos. <br>El usuario Tramite tendra los nuevos tramites en la bandeja Por Derivar.<br>existe un registro en donde usuario receptor es el de tramite. Emisor posiblemente el mismo o sino alguien de MP. tramite.estado actualizado<br>Si envia el tramite a un notario ahora el tramite estara en la bandeja Derivados<br>Se crea un registro donde el emisor es el de tramite y el eceptor un notario. los antiguos registros estan con estado 0. tramite.estado acutlaizado.<br>El Notario verá sus trámites en Derivados. Cuado lo conteste pasará a la bandeja de Respondidos. <br>Al contestar el tramite se crea un registro donde emisor es el Notario y receptor el usuario de Tramite. Tramite.estado actualizado<br>El uario de tramite ahora tendra tramites en la bandeja Respondidos y cuando llegue la fecha de concluirlos, el mismo llo actualizara.<br>Al concluirlo se crea un registro donde emisor y receptor es el mismo usuario de Tramite. Tramite.estado actualizado</font></td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d0dfff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">ColumnName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">DataType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">PrimaryKey&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">NotNull&nbsp;&nbsp;</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">Flags</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Default Value</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="20%">Comment</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="1%">AutoInc</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>id_registro</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0"><b>INTEGER</b></td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">PK</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">pk autogenerado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">AI</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">username_receptor</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(50)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">usuario que recibe el tramite</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">username_emisor</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">VARCHAR(50)</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id usuario que envia el tramite</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_tramite</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">NN</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id del tramite</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">fecha_registro</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">DATETIME</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">fecha de creacion</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">estado</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">INTEGER</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">activo/inactivo</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">&nbsp;</td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class="fontB">
+      <table cellpadding="2" cellspacing="0" border="0" width="100%" bgcolor="#d8e6ff">
+        <tr>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexName</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">IndexType</td>
+          <td class="fontSB" style="border-bottom: 1px solid #606060" width="15%">Columns</td>
+        </tr>
+        <tr>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0" valign="top">PRIMARY</td>
+          <td class="fontS" style="border-bottom: 1px solid #C0C0C0">id_registro<br></td>
         </tr>
 
       </table>

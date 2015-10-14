@@ -19,6 +19,7 @@ import pe.org.cnl.gestiondoc.service.TipoSolicitudService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
+@RequestMapping(value="/solicitud")
 public class SolicitudController {
 
 	private static final Logger logger = Logger.getLogger( SolicitudController.class );
@@ -34,7 +35,7 @@ public class SolicitudController {
 	@Autowired
 	private NotariaService notariaService;
 	
-	@RequestMapping("/solicitud/lista.htm")
+	@RequestMapping("/lista.htm")
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" lista ");
@@ -46,7 +47,7 @@ public class SolicitudController {
 		return "solicitud/lista";
 	}
 	
-	@RequestMapping("/solicitud/buscar.htm")
+	@RequestMapping("/buscar.htm")
 	public String buscar(@Valid Solicitud solicitud, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" buscar ");
@@ -62,7 +63,7 @@ public class SolicitudController {
 		return "solicitud/lista";
 	}
 	
-	@RequestMapping("/solicitud/prenuevo.htm")
+	@RequestMapping("/prenuevo.htm")
 	public String prenuevo(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" prenuevo ");
@@ -76,7 +77,7 @@ public class SolicitudController {
 		return "solicitud/registro";
 	}
 	
-	@RequestMapping("/solicitud/nuevo.htm")
+	@RequestMapping("/nuevo.htm")
 	public String nuevo(@Valid Solicitud solicitud, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" nuevo ");
@@ -102,7 +103,7 @@ public class SolicitudController {
 		
 	}
 	
-	@RequestMapping("/solicitud/preparticipantes.htm")
+	@RequestMapping("/preparticipantes.htm")
 	public String preparticipantes(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" preparticipantes ");
@@ -112,7 +113,7 @@ public class SolicitudController {
 		return "solicitud/participantes";
 	}
 	
-	@RequestMapping("/solicitud/participantes.htm")
+	@RequestMapping("/participantes.htm")
 	public String participantes(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" participantes ");
@@ -122,7 +123,7 @@ public class SolicitudController {
 		return "solicitud/participantes";
 	}
 	
-	@RequestMapping("/solicitud/ver.htm")
+	@RequestMapping("/ver.htm")
 	public String ver(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" ver ");
@@ -133,7 +134,7 @@ public class SolicitudController {
 		return "solicitud/vista";
 	}
 	
-	@RequestMapping("/solicitud/editar.htm")
+	@RequestMapping("/editar.htm")
 	public String editar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" editar ");
@@ -148,7 +149,7 @@ public class SolicitudController {
 	}
 	
 	
-	@RequestMapping(value="/solicitud/eliminar.htm")
+	@RequestMapping(value="/eliminar.htm")
 	public String eliminarALerta(HttpServletRequest request, ModelMap model){
 		try {
 			logger.debug("alerta/eliminar");
