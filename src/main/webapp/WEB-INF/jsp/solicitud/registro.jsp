@@ -109,52 +109,26 @@
              <th>Nro. Escritura:</th>
              <td><form:input path="tramEscritura" class="asunto" size="15"/></td>
          </tr>
-          <tr>
-             <th></th>
-             <td> <a href="javascript:muestraApoderado();">Entregar Poder</a> </td>
-         </tr>
-         <tr id="trpoder1" style="display: none;">
-             <th>Nombre Apoderado:</th>
-             <td><form:input path="tramApoderado" class="asunto" size="35"/></td>
-         </tr>
-         <tr id="trpoder2" style="display: none;">
-             <th>Doc. Apoderado:</th>
-             <td><form:input path="tramApodDocumento" class="asunto" size="15"/></td>
-         </tr>
-         <tr id="trpoder3" style="display: none;">
-             <th>Telefono:</th>
-             <td><form:input path="tramApodTelefono" class="asunto" size="20"/></td>
-         </tr>
-          <tr id="trpoder4" style="display: none;">
-             <th>Direccion:</th>
-             <td><form:input path="tramApodDireccion" class="asunto" size="40"/></td>
-         </tr>
-         <tr>
-             <th>Observaciones:</th>
-             <td><form:textarea path="tramSolicitado" class="asunto" cols="40" rows="5"/></td>
-         </tr>
+       
+         
      </table>
       
-     <center>
-     
          <table summary="Contenedor Botones"
                 class="tablaAnchoAjustable">
              <tr>
                  <td>
-                     <ul class="enlacesCentroAjustables">
-                         <li>
-                        	<input type="submit" class="boton" value="Aceptar">
-                         	<input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
-                         	<!--    <c:if test="${ documento.idDocumento != 0}">
-                             	<input type="button" onclick="javascript:implicados();" class="boton" value="Agregar Personas">
-                             </c:if>
-                             --> 
-                         </li>
-                     </ul>
+              
+                  	<input type="submit" class="boton" value="Aceptar">
+                   	<input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
+                   	<!--    <c:if test="${ documento.idDocumento != 0}">
+                       	<input type="button" onclick="javascript:implicados();" class="boton" value="Agregar Personas">
+                       </c:if>
+                       --> 
+                 
                  </td>
              </tr>
          </table>
-     </center>
+         
      </form:form>
      	
 	</div>
@@ -170,15 +144,7 @@
 	
 	<script>
 	
-	  function muestraApoderado(){
-	    	 var estado = document.getElementById("trpoder1").style.display;
-	    	 document.getElementById("trpoder1").style.display= (estado=='none') ? 'block' : 'none';
-	    	 document.getElementById("trpoder2").style.display= (estado=='none') ? 'block' : 'none';
-	    	 document.getElementById("trpoder3").style.display= (estado=='none') ? 'block' : 'none';
-	    	 document.getElementById("trpoder4").style.display= (estado=='none') ? 'block' : 'none';
-	     }
-	        
-	   	
+	
 		function nuevo(){
 	      /*
 	        if (document.forms[0].obs9.value.length > 500 )  {

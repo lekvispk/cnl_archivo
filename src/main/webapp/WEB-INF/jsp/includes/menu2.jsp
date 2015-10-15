@@ -18,8 +18,9 @@
                          --%>
                         <security:authorize ifAnyGranted="ROLE_CONSULTA,ROLE_ARCHIVO,ROLE_ADMIN">
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Solicitud<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Mesa de Partes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li><a href="${pageContext.request.contextPath}/solicitud/inicial.htm">Solicitud</a></li>
                                 <li><a href="${pageContext.request.contextPath}/solicitud/prenuevo.htm">Nuevo</a></li>
                                 <li><a href="${pageContext.request.contextPath}/solicitud/lista.htm">Consultar</a></li>
                                 <%-- 
@@ -41,8 +42,9 @@
                         </security:authorize>
                         <security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN,ROLE_NOTARIO">
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Tr&aacute;mites<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Archivo Ex-Notarios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=0">Tramite</a></li>
                                 <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=1">Por Derivar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=2">Derivados</a></li>
                                 <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=3">Respondidos</a></li>

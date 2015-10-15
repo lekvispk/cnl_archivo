@@ -35,6 +35,18 @@ public class SolicitudController {
 	@Autowired
 	private NotariaService notariaService;
 	
+	@RequestMapping("/inicial.htm")
+	public String listaInicial(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			logger.debug(" lista ");
+			model.put("lSolicitudes", solicitudService.buscarSolicitudes( new Solicitud() ) );
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "solicitud/listaInicialSolicitud";
+	}
+	
 	@RequestMapping("/lista.htm")
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {

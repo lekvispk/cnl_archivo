@@ -505,3 +505,6 @@ insert into `gestiondoc`.`tramite_usuario` (id_registro, username_emisor,usernam
 (17,'jculqui','gjara',4,now(),0),
 (18,'gjara','jculqui',4,now(),1),
 (19,'jculqui','gjara',5,now(),1);
+
+INSERT INTO `gestiondoc`.`escritura` (`id_escritura`, `id_notaria`,`id_acto`,`kardex`,`tram_fecha_registro`,`numero_folios`,`numero_instrumento`,`numero_minuta`,`numero_doc`,`cantidad_hojas`,`tipo_fojas`,`estado_escritura`,`firmas_restantes`,`estado`,`fecha_creacion`,`fecha_modificacion`,`usuario_creacion`,`usuario_modificacion`) VALUES 
+(1,1,1,'000008','2005-01-25','100','000100','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL);

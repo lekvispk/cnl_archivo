@@ -157,6 +157,12 @@ public class Solicitud implements Serializable {
 		this.codSolicitud = codSolicitud;
 	}
 
+	/**
+	 * 1=por buscar
+	 * 2=Atendido
+	 * 3=Derivado
+	 * @return
+	 */
 	public int getEstado() {
 		return this.estado;
 	}

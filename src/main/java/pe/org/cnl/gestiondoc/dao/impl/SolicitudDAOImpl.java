@@ -42,7 +42,11 @@ public class SolicitudDAOImpl extends HibernateDaoSupport implements SolicitudDA
 			if( !Utiles.nullToBlank(solicitud.getFechaIngreso2()).equals("")){
 				criteria.add( Restrictions.le("fechaIngreso", solicitud.getFechaIngreso2() ) );
 			}
-			criteria.add( Restrictions.eq("estado", 1 ) );
+			if(solicitud.getEstado()!=0){
+				criteria.add( Restrictions.eq("estado", solicitud.getEstado() ) );	
+			}
+			
+			
 			criteria.addOrder( Order.desc("fechaIngreso") );
 		}				
 		return getHibernateTemplate().findByCriteria(criteria);
