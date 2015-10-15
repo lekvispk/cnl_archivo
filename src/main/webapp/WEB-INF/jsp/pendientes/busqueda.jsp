@@ -109,110 +109,27 @@
     <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
 
     <div class="capaEnlace">
-                    
-                        <table summary="Contenedor Botones" class="tablaAnchoAjustable"><tr><td>
-                           
-                                <form:hidden path="solicitud.idsolicitud"/>
-                                
-                                    <table class="bloqueTablaLineal" summary="Datos del Calendario">
-                                         <tr>
-                                            <th>Acto:</th>
-                                            <td colspan="3">
-                                            	<form:select path="escritura.tipoActo.idActo" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-                                            		<form:option value="-1">-TODOS-</form:option>
-	                                            	<form:options items="${ltipoacto}" itemLabel="nombreActo" itemValue="idActo"/>
-                                            	</form:select>
-                                            </td>
-                                      </tr>
-                                      
-                                      <tr>
-                                        <th>Otorgado por:</th>
-                                        <td colspan="3">
-                                       		<form:hidden path="escritura.idPersona" id="idPersona"/>
-                                           	<div class="demo">
-												<div class="ui-widget">
-													<form:input path="escritura.comprador" id="tags" size="40"/>
-												</div>
-											</div>
-                                        </td>        
-                                      </tr>
-                            	           
-                                       <tr>
-                                        <th>A favor de:</th>
-                                        <td colspan="3">
-                                        	<form:hidden path="escritura.idPersona2" id="idPersona2"/>
-                                            	<div class="demo">
-													<div class="ui-widget">
-														<form:input path="escritura.vendedor" id="tags2" size="40"/>
-													</div>
-												</div>
-                                        </td>        
-                                      </tr>
-                                   
-                                      <tr>
-                                        <th>Notar&iacute;a:</th>
-                                        <td colspan="3"> <form:input path="escritura.notaria.nombre" size="10"/>  </td>        
-                                      </tr>
-                                      
-                                       <tr>
-                                        <th>Kardex:</th>
-                                        <td colspan="3"> <form:input path="escritura.kardex" size="10"/>  </td>        
-                                      </tr>
-                                      
-                                       <tr>
-                                        <th>Num. Escritura:</th>
-                                        <td colspan="3"> <form:input path="escritura.numeroDoc" size="10"/>  </td>        
-                                      </tr>
-                                       
-                                       <tr>
-                                        <th>Folio Inicial:</th>
-                                        <td colspan="3"> <form:input path="escritura.numeroFolios" size="10"/>  </td>        
-                                      </tr>
-                                      
-                                      <tr>
-                                        <th>Escrituras Registradas Desde:</th>
-                                        <td>
-                                        	<fmt:formatDate value="${solicitud.escritura.tramFechaRegistro}" pattern="dd/MM/yyyy" var="f_tramFechaRegistro"/>
-                                        	<input type="text" name="tramFechaRegistro" id="tramFechaRegistro" size="15" value="${f_tramFechaRegistro}"/>
-		                             		<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald" />
-											<script type="text/javascript">
-													Calendar.setup({
-														inputField     :    "tramFechaRegistro",  // id del campo de texto
-														ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-														showsTime      :    false,       // Flag para mostrar la Fecha
-														button         :    "triggerCald",// ID del elemento que llamara al calendario
-														singleClick    :    true         // Flag Modo doble-click 
-													});
-											</script>
-										</td>  
-                                        <th>Hasta:</th>
-                                        <td>
-                                        	<fmt:formatDate value="${solicitud.escritura.tramFechaRegistro2}" pattern="dd/MM/yyyy" var="f_tramFechaRegistro2"/>
-                                        	<input type="text" name="tramFechaRegistro2" id="tramFechaRegistro2" size="15" value="${f_tramFechaRegistro2}"/>
-                                        	<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalh" />
-											<script type="text/javascript">
-													Calendar.setup({
-														inputField     :    "tramFechaRegistro2",  // id del campo de texto
-														ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-														showsTime      :    false,       // Flag para mostrar la Fecha
-														button         :    "triggerCalh",// ID del elemento que llamara al calendario
-														singleClick    :    true         // Flag Modo doble-click 
-													});
-											</script>
-										</td>          
-                                      </tr>
-                                    </table>
-                               
-                        </td></tr></table>
-                   
-                </div>
-                
-                <div class="capaEnlace">
-                	<input type="button" onclick="javascript:buscar();" class="boton" value="Buscar">
-                </div>
-                
-                </form:form>
- 				</div>
+	    Criterios de busqueda: 
+	    
+	    <c:if test="${not empty solicitud.escritura.tipoActo.idActo }">Acto</c:if>
+	    <c:if test="${not empty solicitud.escritura.comprador }">Comprador</c:if>
+	    <c:if test="${not empty solicitud.escritura.vendedor }">Vendedor</c:if>
+	    <c:if test="${not empty solicitud.escritura.notaria.nombre }">Notario</c:if>
+	    <c:if test="${not empty solicitud.escritura.kardex }">Kardex</c:if>
+	    <c:if test="${not empty solicitud.escritura.numeroDoc }">Escritura</c:if>
+	    <c:if test="${not empty solicitud.escritura.numeroFolios }">Folio</c:if>
+	    <c:if test="${not empty solicitud.escritura.tramFechaRegistro }">Fecha de registro</c:if>
+	    <c:if test="${not empty solicitud.escritura.numeroDoc }">Escritura</c:if>
+	    <c:if test="${not empty solicitud.escritura.numeroDoc }">Escritura</c:if>
+      
+	</div>
+	
+	<div class="capaEnlace">
+		<input type="button" onclick="javascript:buscar();" class="boton" value="Buscar">
+	</div>
+	
+	</form:form>
+	</div>
  
  
                 <div class="row">

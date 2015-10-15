@@ -41,6 +41,7 @@ public class PendientesController {
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" lista ");
+
 			model.put("lPendientes", solicitudTramiteService.buscarSolicitudes(1) );
 			model.put("pendiente", new SolicitudTramite());
 		} catch (Exception e) {

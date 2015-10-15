@@ -28,6 +28,7 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Escritura> buscarEscitura(Escritura escritura) {
+		logger.debug( "buscarEscitura INI " );
 		DetachedCriteria criteria = DetachedCriteria.forClass(Escritura.class);
 		if(escritura !=null){
 			
@@ -75,7 +76,8 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 			 
 			criteria.add( Restrictions.eq("estado", 1 ) );
 			criteria.addOrder( Order.desc("tramFechaRegistro") );
-		}				
+		}
+		logger.debug( "buscarEscitura END " );
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
 

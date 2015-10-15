@@ -465,14 +465,14 @@ insert into `gestiondoc`.`sec_authorities` (username, authorithy) values
 ('gjara', 'ROLE_NOTARIO'),('gjara', 'ROLE_USER');
 
 insert into `gestiondoc`.`solicitud` (idsolicitud, id_notaria, id_persona, id_tipo_solicitud, id_acto, cod_solicitud, fecha_ingreso, fecha_solucion, tram_comprador, tram_vendedor, tram_escritura, tram_fecha_inicial, tram_fecha_final, tram_kardex, tram_fojas, tram_minuta_num, tram_instrumento_num, tram_solicitado, tram_apod_telefono, tram_apoderado, tram_apod_documento, tram_apod_direccion, tipo_comprobante, numero_ruc, estado, fecha_creacion, fecha_modificacion, usuario_creacion, usuario_modificacion) values
-(1, 1, 7, 1, 1, '0000001', now(), null, 'Carlos Perez', 'Santiago Segura', '00002500', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(2, null, 8, 3, 2, '0000002', now(), null, 'Victoria Almeyda', null, '00034560', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(3, null, 9, 3, 3, '0000003', now(), null, 'Karen Risco', null, '00789500', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(4, null, 10, 1, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(5, null, 11, 2, 5, '0000005', now(), null, 'Aurelia Vazques', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(6, 1, 12, 3, null, '0000006', now(), null, 'Orlando Sevillano', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(7, 1, 7, 3, null, '0000007', now(), null, 'Paúl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(8, 1, 8, 3, null, '0000008', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
+(1, 1, 7, 1, 1, '0000001', now(), null, 'Carlos Perez', 'Santiago Segura', '00002500', '2010-07-05','2010-08-05', '000100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
+(2, null, 8, 3, 2, '0000002', now(), null, 'Victoria Almeyda', null, '00034560', '2010-07-05','2010-08-05', '000008', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(3, null, 9, 3, 3, '0000003', now(), null, 'Karen Risco', null, '00789500', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(4, null, 10, 1, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 3, null, 1, now(), null, 'ecampos', null),
+(5, null, 11, 2, 5, '0000005', now(), null, 'Aurelia Vazques', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(6, 2, 12, 3, null, '0000006', now(), null, 'Orlando Sevillano', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(7, 3, 7, 3, null, '0000007', now(), null, 'Paúl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(8, 4, 8, 3, null, '0000008', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','000008', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
 
 insert into `gestiondoc`.`tramite` (id_tramite, idsolicitud, cant_hojas, costo_hoja, costo_total, informe_solicitud, observaciones_notario, fecha_conclusion, detalle_notificacion, fecha_creacion, estado) values
 (1, 1, 5, 5, 25, 'Doctor, hay este tramite pendiente. favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', 'presetarse juntos a los otros paticipantes', now(), 5),
@@ -507,4 +507,7 @@ insert into `gestiondoc`.`tramite_usuario` (id_registro, username_emisor,usernam
 (19,'jculqui','gjara',5,now(),1);
 
 INSERT INTO `gestiondoc`.`escritura` (`id_escritura`, `id_notaria`,`id_acto`,`kardex`,`tram_fecha_registro`,`numero_folios`,`numero_instrumento`,`numero_minuta`,`numero_doc`,`cantidad_hojas`,`tipo_fojas`,`estado_escritura`,`firmas_restantes`,`estado`,`fecha_creacion`,`fecha_modificacion`,`usuario_creacion`,`usuario_modificacion`) VALUES 
-(1,1,1,'000008','2005-01-25','100','000100','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL);
+(1,1,1,'000008','2005-01-25','100','000100','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL),
+(2,2,1,'000208','2003-01-15','100','000108','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL),
+(3,3,1,'000308','1995-12-25','100','000109','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL),
+(4,4,1,'000338','2010-01-25','100','000123','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL);
