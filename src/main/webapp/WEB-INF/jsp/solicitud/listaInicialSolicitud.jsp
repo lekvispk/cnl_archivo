@@ -38,10 +38,11 @@
 		   			
 		          <display:table name="requestScope.lSolicitudes" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
 					defaultorder="ascending" export="false" id="row" excludedParams="ajax">
+						<display:column title="Codigo" property="codSolicitud" sortable="true" headerClass="sortable" />
+						<display:column title="Solicitante" property="persona.nombreCompleto" sortable="true" headerClass="sortable" />
 						<display:column title="F. Ingreso" sortable="true" headerClass="sortable">
 							<fmt:formatDate value="${row.fechaIngreso}" pattern="dd/MM/yyyy"/>
 						</display:column>
-						<display:column title="Solicitante" property="persona.nombreCompleto" sortable="true" headerClass="sortable" />
 						<display:column title="Tipo" property="tipoSolicitud.nombreTipoSolicitud" sortable="true" headerClass="sortable" />
 						<display:column title="Acto" property="tipoActo.nombreActo" sortable="true" headerClass="sortable" />
 						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 100px;">
