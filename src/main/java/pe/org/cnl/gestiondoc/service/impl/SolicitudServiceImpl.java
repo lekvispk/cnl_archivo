@@ -47,12 +47,12 @@ public class SolicitudServiceImpl implements SolicitudService {
 		if(solicitud!= null){
 			Escritura  escritura = new Escritura();
 			
-			escritura.setTipoActo( solicitud.getTipoActo() );
+			//escritura.setTipoActo( solicitud.getTipoActo() );
 			escritura.setNotaria( solicitud.getNotaria() );
 			escritura.setKardex( solicitud.getTramKardex() );
 			escritura.setNumeroDoc( solicitud.getTramEscritura() );
 			escritura.setNumeroFolios( solicitud.getTramFolios() );
-			escritura.setTramFechaRegistro( solicitud.getFechaIngreso() );
+			escritura.setFechaEscritura( solicitud.getFechaIngreso() );
 			escritura.setComprador( solicitud.getTramComprador() );
 			escritura.setVendedor( solicitud.getTramVendedor() );
 			

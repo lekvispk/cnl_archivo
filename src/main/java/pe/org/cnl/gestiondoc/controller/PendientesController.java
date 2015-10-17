@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
 import pe.org.cnl.gestiondoc.model.SolicitudTramitePK;
@@ -111,11 +112,14 @@ public class PendientesController {
 	public String buscar(@Valid SolicitudTramite solicitud, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" buscar ");
-			solicitud.getEscritura().setTramFechaRegistro( Utiles.stringToDate( request.getParameter("tramFechaRegistro"), "dd/MM/yyyy"));
-			solicitud.getEscritura().setTramFechaRegistro2( Utiles.stringToDate( request.getParameter("tramFechaRegistro2"), "dd/MM/yyyy"));
+			
+			Escritura busqueda = new  Escritura();
+			busqueda.setFechaEscritura( Utiles.stringToDate( request.getParameter("tramFechaRegistro"), "dd/MM/yyyy"));
+			busqueda.setTramFechaRegistro2( Utiles.stringToDate( request.getParameter("tramFechaRegistro2"), "dd/MM/yyyy"));
+			
 			model.put("solicitud", solicitud);
 			
-			model.put("lEscrituras", escrituraService.buscarEscitura(solicitud.getEscritura()));
+			model.put("lEscrituras", escrituraService.buscarEscitura( busqueda ));
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 				
 			

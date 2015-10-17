@@ -1,7 +1,9 @@
 package pe.org.cnl.gestiondoc.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +22,11 @@ public class Escritura implements Serializable {
 	@Column(name="id_escritura")
 	private int idEscritura;
 
-	@Column(name="cantidad_hojas")
-	private int cantidadHojas;
+	@Column(name="anio_tomo")
+	private int anioTomo;
+
+	@Column(name="cantidad_fojas")
+	private int cantidadFojas;
 
 	private int estado;
 
@@ -31,6 +36,10 @@ public class Escritura implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_creacion")
 	private Date fechaCreacion;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="fecha_escritura")
+	private Date fechaEscritura;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_modificacion")
@@ -43,6 +52,9 @@ public class Escritura implements Serializable {
 
 	@Column(name="numero_doc")
 	private String numeroDoc;
+	
+	@Column(name="numero_fojas")
+	private int numeroFojas;
 
 	@Column(name="numero_folios")
 	private String numeroFolios;
@@ -52,13 +64,18 @@ public class Escritura implements Serializable {
 
 	@Column(name="numero_minuta")
 	private String numeroMinuta;
+	
+	@Column(name="numero_tomo")
+	private int numeroTomo;
 
 	@Column(name="tipo_fojas")
 	private int tipoFojas;
+	
+	@Column(name="ubicacion_digital")
+	private String ubicacionDigital;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="tram_fecha_registro")
-	private Date tramFechaRegistro;
+	@Column(name="ubicacion_fisica")
+	private String ubicacionFisica;
 	
 	@Column(name="usuario_creacion")
 	private String usuarioCreacion;
@@ -66,19 +83,31 @@ public class Escritura implements Serializable {
 	@Column(name="usuario_modificacion")
 	private String usuarioModificacion;
 
+	//bi-directional many-to-one association to ActosEscritura
+	@OneToMany(mappedBy="escritura")
+	private List<ActosEscritura> actosEscrituras;
+	
 	//bi-directional many-to-one association to Archivo
 	@OneToMany(mappedBy="escritura")
 	private List<Archivo> archivos;
-
-	//bi-directional many-to-one association to TipoActo
-	@ManyToOne
-	@JoinColumn(name="id_acto")
-	private TipoActo tipoActo;
 
 	//bi-directional many-to-one association to Notaria
 	@ManyToOne
 	@JoinColumn(name="id_notaria")
 	private Notaria notaria;
+	
+	//bi-directional many-to-many association to TipoActo
+	@ManyToMany
+	@JoinTable(
+		name="actos_escritura"
+		, joinColumns={
+			@JoinColumn(name="id_escritura")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id_acto")
+			}
+		)
+	private List<TipoActo> tipoActos;
 
 	//bi-directional many-to-one association to PersonaEscritura
 	@OneToMany(mappedBy="escritura")
@@ -88,6 +117,9 @@ public class Escritura implements Serializable {
 	@OneToMany(mappedBy="escritura")
 	private List<SolicitudTramite> solicitudTramites;
 
+	//bi-directional many-to-one association to Tramite
+	@OneToMany(mappedBy="escritura")
+	private List<Tramite> tramites;
 
 	@Transient
 	private Date tramFechaRegistro2;
@@ -109,14 +141,6 @@ public class Escritura implements Serializable {
 
 	public void setIdEscritura(int idEscritura) {
 		this.idEscritura = idEscritura;
-	}
-
-	public int getCantidadHojas() {
-		return this.cantidadHojas;
-	}
-
-	public void setCantidadHojas(int cantidadHojas) {
-		this.cantidadHojas = cantidadHojas;
 	}
 
 	public int getEstado() {
@@ -206,15 +230,7 @@ public class Escritura implements Serializable {
 	public void setTipoFojas(int tipoFojas) {
 		this.tipoFojas = tipoFojas;
 	}
-
-	public Date getTramFechaRegistro() {
-		return this.tramFechaRegistro;
-	}
-
-	public void setTramFechaRegistro(Date tramFechaRegistro) {
-		this.tramFechaRegistro = tramFechaRegistro;
-	}
-
+	
 	public String getUsuarioCreacion() {
 		return this.usuarioCreacion;
 	}
@@ -251,14 +267,6 @@ public class Escritura implements Serializable {
 		archivo.setEscritura(null);
 
 		return archivo;
-	}
-
-	public TipoActo getTipoActo() {
-		return this.tipoActo;
-	}
-
-	public void setTipoActo(TipoActo tipoActo) {
-		this.tipoActo = tipoActo;
 	}
 
 	public Notaria getNotaria() {
@@ -351,6 +359,86 @@ public class Escritura implements Serializable {
 
 	public void setVendedor(String vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public int getAnioTomo() {
+		return anioTomo;
+	}
+
+	public void setAnioTomo(int anioTomo) {
+		this.anioTomo = anioTomo;
+	}
+
+	public int getCantidadFojas() {
+		return cantidadFojas;
+	}
+
+	public void setCantidadFojas(int cantidadFojas) {
+		this.cantidadFojas = cantidadFojas;
+	}
+
+	public Date getFechaEscritura() {
+		return fechaEscritura;
+	}
+
+	public void setFechaEscritura(Date fechaEscritura) {
+		this.fechaEscritura = fechaEscritura;
+	}
+
+	public int getNumeroFojas() {
+		return numeroFojas;
+	}
+
+	public void setNumeroFojas(int numeroFojas) {
+		this.numeroFojas = numeroFojas;
+	}
+
+	public int getNumeroTomo() {
+		return numeroTomo;
+	}
+
+	public void setNumeroTomo(int numeroTomo) {
+		this.numeroTomo = numeroTomo;
+	}
+
+	public String getUbicacionDigital() {
+		return ubicacionDigital;
+	}
+
+	public void setUbicacionDigital(String ubicacionDigital) {
+		this.ubicacionDigital = ubicacionDigital;
+	}
+
+	public String getUbicacionFisica() {
+		return ubicacionFisica;
+	}
+
+	public void setUbicacionFisica(String ubicacionFisica) {
+		this.ubicacionFisica = ubicacionFisica;
+	}
+
+	public List<Tramite> getTramites() {
+		return tramites;
+	}
+
+	public void setTramites(List<Tramite> tramites) {
+		this.tramites = tramites;
+	}
+
+	public List<ActosEscritura> getActosEscrituras() {
+		return actosEscrituras;
+	}
+
+	public void setActosEscrituras(List<ActosEscritura> actosEscrituras) {
+		this.actosEscrituras = actosEscrituras;
+	}
+
+	public List<TipoActo> getTipoActos() {
+		return tipoActos;
+	}
+
+	public void setTipoActos(List<TipoActo> tipoActos) {
+		this.tipoActos = tipoActos;
 	}
 
 }

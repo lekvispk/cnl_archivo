@@ -44,11 +44,12 @@
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Archivo Ex-Notarios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=0">Tramite</a></li>
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=1">Por Derivar</a></li>
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=2">Derivados</a></li>
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=3">Respondidos</a></li>
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=4">Concluidos</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=1">Tramite</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=2">Por Derivar</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=3">Derivados</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=4">Respondidos</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=5">Por Concluir</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=6">Concluidos</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

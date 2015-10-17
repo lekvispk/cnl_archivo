@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,29 +33,35 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 		DetachedCriteria criteria = DetachedCriteria.forClass(Escritura.class);
 		if(escritura !=null){
 			
-			if( !Utiles.nullToBlank(escritura.getTramFechaRegistro()).equals("")){
-				criteria.add( Restrictions.ge("tramFechaRegistro", escritura.getTramFechaRegistro() ) );
-				logger.debug( "getTramFechaRegistro"+ escritura.getTramFechaRegistro() );
+			Disjunction dis = Restrictions.disjunction();
+			
+			if( !Utiles.nullToBlank(escritura.getFechaEscritura()).equals("")){
+				dis.add( Restrictions.ge("fechaEscritura", escritura.getFechaEscritura() ));
+				//criteria.add( Restrictions.ge("fechaEscritura", escritura.getFechaEscritura() ) );
+				logger.debug( "fechaEscritura="+ escritura.getFechaEscritura() );
 			}
 			
 			if( !Utiles.nullToBlank(escritura.getTramFechaRegistro2()).equals("")){
-				criteria.add( Restrictions.le("tramFechaRegistro", escritura.getTramFechaRegistro2() ) );
-				logger.debug( "getTramFechaRegistro2"+ escritura.getTramFechaRegistro2() );
+				dis.add( Restrictions.le("fechaEscritura", escritura.getTramFechaRegistro2() ));
+				//criteria.add( Restrictions.le("fechaEscritura", escritura.getTramFechaRegistro2() ) );
+				logger.debug( "fechaEscritura2="+ escritura.getTramFechaRegistro2() );
 			}
 			
-			if( escritura.getTipoActo() != null && !Utiles.nullToBlank(escritura.getTipoActo().getIdActo()).equals("-1")){
+		/*	if( escritura.getTipoActo() != null && !Utiles.nullToBlank(escritura.getTipoActo().getIdActo()).equals("-1")){
 				criteria.add( Restrictions.eq("tipoActo.idActo", escritura.getTipoActo().getIdActo() ) );
 				logger.debug( "tipoActo.idActo"+ escritura.getTipoActo().getIdActo() );
-			}
+			}*/
 			
 			if(  !Utiles.nullToBlank(escritura.getKardex() ).equals("")){
-				criteria.add( Restrictions.eq("kardex", escritura.getKardex() ) );
-				logger.debug( "kardex"+escritura.getKardex()  );
+				dis.add( Restrictions.eq("kardex", escritura.getKardex() ) );
+				//criteria.add( Restrictions.eq("kardex", escritura.getKardex() ) );
+				logger.debug( "kardex="+escritura.getKardex()  );
 			}
 			
 			if(  !Utiles.nullToBlank(escritura.getNumeroDoc() ).equals("")){
-				criteria.add( Restrictions.eq("numeroDoc", escritura.getNumeroDoc() ) );
-				logger.debug( "numeroDoc"+escritura.getNumeroDoc()  );
+				dis.add( Restrictions.eq("numeroDoc", escritura.getNumeroDoc() ) );
+				//criteria.add( Restrictions.eq("numeroDoc", escritura.getNumeroDoc() ) );
+				logger.debug( "numeroDoc="+escritura.getNumeroDoc()  );
 			}
 			/*
 			if(  !Utiles.nullToBlank(escritura.getNotaria() ).equals("")){
@@ -71,11 +78,11 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 					crPer.add(Restrictions.eq("idPersona", escritura.getIdPersona()  ));
 			//	}	
 			}
-			*/
-			///criteria.add(Restrictions.or( ));
-			 
+			*/ 
+			
+			criteria.add( dis );
 			criteria.add( Restrictions.eq("estado", 1 ) );
-			criteria.addOrder( Order.desc("tramFechaRegistro") );
+			criteria.addOrder( Order.desc("fechaEscritura") );
 		}
 		logger.debug( "buscarEscitura END " );
 		return getHibernateTemplate().findByCriteria(criteria);

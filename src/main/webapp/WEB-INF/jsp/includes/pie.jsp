@@ -17,3 +17,5 @@
    <script src="${pageContext.request.contextPath}/js/jquery.displaytag-ajax-1.2.js"></script> 
    
     <script src="${pageContext.request.contextPath}/js/jquery-ui-1.10.4.custom.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/js/archivo.js"></script>

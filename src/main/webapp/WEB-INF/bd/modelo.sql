@@ -5,18 +5,32 @@ DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci;
 
 use gestiondoc;
 
+SET NAMES latin1;
+
+SET SQL_MODE='';
+
 -- ------------------------------------------------------------
--- Tipos de relaciones: 
--- Comprador
--- Vendedor
--- etc...
+-- Tabla maestra con los tipos de actos  registrados y utilizados para los filtros
 -- ------------------------------------------------------------
 
-CREATE TABLE tipo_relacion (
-  idTipoRelacion INTEGER NOT NULL AUTO_INCREMENT,
-  relDescripcion VARCHAR(150) NULL,
+CREATE TABLE tipo_acto (
+  id_acto INTEGER NOT NULL AUTO_INCREMENT,
+  nombre_acto VARCHAR(100) NULL,
   estado INTEGER NULL,
-  PRIMARY KEY(idTipoRelacion)
+  fecha_creacion DATETIME NULL,
+  PRIMARY KEY(id_acto)
+)
+ENGINE=INNODB;
+
+-- ------------------------------------------------------------
+-- Tabla para registrar la lista de todos los permisos disponibles en el sistema
+-- ------------------------------------------------------------
+
+CREATE TABLE sec_permisos (
+  id_permiso INTEGER NOT NULL AUTO_INCREMENT,
+  desc_permiso VARCHAR(50) NULL,
+  estado INTEGER NULL,
+  PRIMARY KEY(id_permiso)
 )
 ENGINE=INNODB;
 
@@ -39,27 +53,31 @@ CREATE TABLE tipo_solicitud (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Tabla para registrar la lista de todos los permisos disponibles en el sistema
+-- Tipos de relaciones: 
+-- Comprador
+-- Vendedor
+-- etc...
 -- ------------------------------------------------------------
 
-CREATE TABLE sec_permisos (
-  id_permiso INTEGER NOT NULL AUTO_INCREMENT,
-  desc_permiso VARCHAR(50) NULL,
+CREATE TABLE tipo_relacion (
+  idTipoRelacion INTEGER NOT NULL AUTO_INCREMENT,
+  relDescripcion VARCHAR(150) NULL,
   estado INTEGER NULL,
-  PRIMARY KEY(id_permiso)
+  PRIMARY KEY(idTipoRelacion)
 )
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Tabla maestra con los tipos de actos  registrados y utilizados para los filtros
+-- Listado de notarias
 -- ------------------------------------------------------------
 
-CREATE TABLE tipo_acto (
-  id_acto INTEGER NOT NULL AUTO_INCREMENT,
-  nombre_acto VARCHAR(100) NULL,
+CREATE TABLE notaria (
+  id_notaria INTEGER NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(250) NULL,
   estado INTEGER NULL,
-  fecha_creacion DATETIME NULL,
-  PRIMARY KEY(id_acto)
+  email VARCHAR(250) NULL,
+  fec_creacion DATETIME NULL,
+  PRIMARY KEY(id_notaria)
 )
 ENGINE=INNODB;
 
@@ -80,16 +98,37 @@ CREATE TABLE documento_identidad (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Listado de notarias
+-- datos de cada una de las escrituras  en la base de datos
 -- ------------------------------------------------------------
 
-CREATE TABLE notaria (
-  id_notaria INTEGER NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(250) NULL,
+CREATE TABLE escritura (
+  id_escritura INTEGER NOT NULL AUTO_INCREMENT,
+  id_notaria INTEGER NOT NULL,
+  kardex VARCHAR(10) NULL,
+  fecha_escritura DATETIME NULL,
+  numero_instrumento VARCHAR(10) NULL,
+  numero_minuta VARCHAR(5) NULL,
+  numero_doc VARCHAR(100) NULL,
+  numero_folios VARCHAR(10) NULL,
+  cantidad_fojas INTEGER NULL,
+  tipo_fojas INTEGER NULL,
+  numero_fojas INTEGER NULL,
+  estado_escritura INTEGER NULL,
+  firmas_restantes INTEGER NULL,
+  anio_tomo INTEGER NULL,
+  numero_tomo INTEGER NULL,
+  ubicacion_fisica VARCHAR(2500) NULL,
+  ubicacion_digital VARCHAR(2500) NULL,
   estado INTEGER NULL,
-  email VARCHAR(250) NULL,
-  fec_creacion DATETIME NULL,
-  PRIMARY KEY(id_notaria)
+  fecha_creacion DATETIME NULL,
+  fecha_modificacion DATETIME NULL,
+  usuario_creacion VARCHAR(50) NULL,
+  usuario_modificacion VARCHAR(40) NULL,
+  PRIMARY KEY(id_escritura),
+  FOREIGN KEY(id_notaria)
+    REFERENCES notaria(id_notaria)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
 )
 ENGINE=INNODB;
 
@@ -108,11 +147,11 @@ CREATE TABLE persona (
   nombre_completo VARCHAR(200) NULL,
   num_documento VARCHAR(20) NULL,
   email VARCHAR(250) NULL,
+  estado INTEGER NULL,
   fecha_creacion DATETIME NULL,
   fecha_modificacion DATETIME NULL,
   usuario_creacion VARCHAR(50) NULL,
   usuario_modificacion VARCHAR(50) NULL,
-  estado INTEGER NULL,
   PRIMARY KEY(id_persona),
   FOREIGN KEY(id_documento)
     REFERENCES documento_identidad(id_documento)
@@ -122,42 +161,28 @@ CREATE TABLE persona (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- datos de cada una de las escrituras  en la base de datos
+-- tabla en donde se giuadan cada uno de los actos que estan registrados en la escritura publica
 -- ------------------------------------------------------------
 
-CREATE TABLE escritura (
-  id_escritura INTEGER NOT NULL AUTO_INCREMENT,
-  id_notaria INTEGER NOT NULL,
+CREATE TABLE actos_escritura (
   id_acto INTEGER NOT NULL,
-  kardex VARCHAR(10) NULL,
-  tram_fecha_registro DATETIME NULL,
-  numero_folios VARCHAR(10) NULL,
-  numero_instrumento VARCHAR(10) NULL,
-  numero_minuta VARCHAR(5) NULL,
-  numero_doc VARCHAR(100) NULL,
-  cantidad_hojas INTEGER NULL,
-  tipo_fojas INTEGER NULL,
-  estado_escritura INTEGER NULL,
-  firmas_restantes INTEGER NULL,
+  id_escritura INTEGER NOT NULL,
   estado INTEGER NULL,
-  fecha_creacion DATETIME NULL,
-  fecha_modificacion DATETIME NULL,
-  usuario_creacion VARCHAR(50) NULL,
-  usuario_modificacion VARCHAR(40) NULL,
-  PRIMARY KEY(id_escritura),
+  PRIMARY KEY(id_acto, id_escritura),
   FOREIGN KEY(id_acto)
     REFERENCES tipo_acto(id_acto)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION,
-  FOREIGN KEY(id_notaria)
-    REFERENCES notaria(id_notaria)
+  FOREIGN KEY(id_escritura)
+    REFERENCES escritura(id_escritura)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 )
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Se registra cada una de las personas y el tipo de participacion que tuvo en la escritura
+-- Tabla de Otorgantes. 
+-- Se registra cada una de las personas y el tipo de participacion que tuvo en la escritura.
 -- ------------------------------------------------------------
 
 CREATE TABLE persona_escritura (
@@ -237,30 +262,6 @@ CREATE TABLE solicitud (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizarï¿½ o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio
--- ------------------------------------------------------------
-
-CREATE TABLE tramite (
-  id_tramite INTEGER NOT NULL AUTO_INCREMENT,
-  idsolicitud INTEGER NOT NULL,
-  cant_hojas INTEGER NULL,
-  costo_hoja DECIMAL NULL,
-  costo_total DECIMAL NULL,
-  informe_solicitud TEXT NULL,
-  observaciones_notario TEXT NULL,
-  fecha_conclusion DATETIME NULL,
-  detalle_notificacion TEXT NULL,
-  fecha_creacion DATETIME NULL,
-  estado INTEGER NULL,
-  PRIMARY KEY(id_tramite),
-  FOREIGN KEY(idsolicitud)
-    REFERENCES solicitud(idsolicitud)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION
-)
-ENGINE=INNODB;
-
--- ------------------------------------------------------------
 -- Tabla para registrar informacion completa de usuarios. Los datos de la persona son obtenidos desde la tabla persona.
 -- ------------------------------------------------------------
 
@@ -306,6 +307,40 @@ CREATE TABLE sec_authorities (
 )
 ENGINE=INNODB;
 
+-- ------------------------------------------------------------
+-- Una vez que se obtiene la escritura deseada en la solicitud, el cliente decide si es que realizará o no el tramite correspondiente. De continuar con el proceso se inicia el tramite y se le indica el costo del servicio. 
+-- Cuando se deriva una solicitud, se hace a partir de una escritura del resultado de la busqueda.
+-- ------------------------------------------------------------
+
+CREATE TABLE tramite (
+  id_tramite INTEGER NOT NULL AUTO_INCREMENT,
+  id_escritura INTEGER NOT NULL,
+  idsolicitud INTEGER NOT NULL,
+  cant_hojas INTEGER NULL,
+  costo_hoja DECIMAL NULL,
+  costo_total DECIMAL NULL,
+  informe_solicitud TEXT NULL,
+  observaciones_notario TEXT NULL,
+  fecha_conclusion DATETIME NULL,
+  detalle_notificacion TEXT NULL,
+  fecha_creacion DATETIME NULL,
+  estado INTEGER NULL,
+  PRIMARY KEY(id_tramite),
+  FOREIGN KEY(idsolicitud)
+    REFERENCES solicitud(idsolicitud)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(id_escritura)
+    REFERENCES escritura(id_escritura)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+)
+ENGINE=INNODB;
+
+-- ------------------------------------------------------------
+-- TABLA A ELIMINAR, NO TIENE USO EN ESTA NUEVA VERSION, NO SE SI EN LA ANTIGUA SERVIA PARA ALGO
+-- ------------------------------------------------------------
+
 CREATE TABLE solicitud_tramite (
   idsolicitud INTEGER NOT NULL,
   id_escritura INTEGER NOT NULL,
@@ -331,7 +366,7 @@ ENGINE=INNODB;
 -- existe un registro en donde usuario receptor es el de tramite. Emisor posiblemente el mismo o sino alguien de MP. tramite.estado actualizado
 -- Si envia el tramite a un notario ahora el tramite estara en la bandeja Derivados
 -- Se crea un registro donde el emisor es el de tramite y el eceptor un notario. los antiguos registros estan con estado 0. tramite.estado acutlaizado.
--- El Notario verï¿½ sus trï¿½mites en Derivados. Cuado lo conteste pasarï¿½ a la bandeja de Respondidos. 
+-- El Notario verá sus trámites en Derivados. Cuado lo conteste pasará a la bandeja de Respondidos. 
 -- Al contestar el tramite se crea un registro donde emisor es el Notario y receptor el usuario de Tramite. Tramite.estado actualizado
 -- El uario de tramite ahora tendra tramites en la bandeja Respondidos y cuando llegue la fecha de concluirlos, el mismo llo actualizara.
 -- Al concluirlo se crea un registro donde emisor y receptor es el mismo usuario de Tramite. Tramite.estado actualizado
@@ -379,23 +414,21 @@ ENGINE=INNODB;
 
 
 
-SET NAMES latin1;
-
-SET SQL_MODE='';
 
 insert into `gestiondoc`.`tipo_acto` (id_acto, nombre_acto, estado) values
 (1, 'Compra Venta de Inmueble', 1),
-(2, 'Compra Venta de VehÃ­culo', 1),
+(2, 'Compra Venta de Vehículo', 1),
 (3, 'Sucesion Intestada', 1),
 (4, 'Testimonio', 1),
 (5, 'Poderes', 1),
-(6, 'RectificaciÃ³n de Partida', 1),
+(6, 'Rectificación de Partida', 1),
 (7, 'Testamento', 1);
 
-insert into `gestiondoc`.`tipo_solicitud` (id_tipo_solicitud, nombre_tipo_solicitud,estado,fecha_creacion) values
-(1, 'Testimonio',1,now()),
-(2, 'Pate Notarial',1,now()),
-(3, 'Copia Simple',1,now());
+insert into `gestiondoc`.`tipo_solicitud` (id_tipo_solicitud, nombre_tipo_solicitud,costo_servicio,estado,fecha_creacion) values
+(1, 'Testimonio',50,1,now()),
+(2, 'Pate Notarial',5,1,now()),
+(3, 'Copia Simple',5,1,now()),
+(4, 'Conclusion',100,1,now());
 
 insert into `gestiondoc`.`tipo_relacion` (idTipoRelacion, relDescripcion, estado) values
 (1, 'Comprador', 1),
@@ -422,7 +455,7 @@ insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creaci
 (4, 'Notaria Bazan Naveda', 1,  'notaria@notariabazannaveda.com',now()),
 (5, 'Notaria Delgado', 1,  'notaria@notariadelgado.com',now()),
 (6, 'Notaria Herrera Portuondo', 1,  'notaria@notariaherrera.com',now()),
-(7, 'Notaria Jara BriceÃ±o', 1,  'notaria@notariajara.com',now()),
+(7, 'Notaria Jara Briceño', 1,  'notaria@notariajara.com',now()),
 (8, 'Notaria Paino', 1,  'notaria@notariapaino.com',now()),
 (9, 'Notaria Sotomayor Bernos', 1,  'notaria@notariasotomayorbernos.com',now()),
 (10, 'Notaria Sotomayor Vitela', 1,  'notaria@notariatotomayorvitela.com',now()),
@@ -431,7 +464,7 @@ insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creaci
 insert into `gestiondoc`.`documento_identidad` (id_documento, nombre, abreviacion, estado) values 
 (1, 'Documento Nacional de Identidad', 'D.N.I.', 1),
 (2, 'Pasaporte', 'Pasaporte', 1),
-(3, 'Carnet de ExtranjerÃ­a', 'Pasaporte', 1);
+(3, 'Carnet de Extranjería', 'Pasaporte', 1);
 
 insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno, cargo, grado, nombre_completo, num_documento, id_documento, fecha_creacion, fecha_modificacion, usuario_creacion, usuario_modificacion, estado,email) values
 (1, 'Wilbert Pedro', 'Manrique', 'Quispe', '', '', 'Wilbert Pedro Manrique Quispe', '00000000', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
@@ -439,14 +472,29 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (3, 'Juan', 'Culqui', 'P.', '', '', 'Juan Culqui P.', '44191000', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (4, 'Jose Gabriel', 'Gomero', 'Valdez', '', '', 'Jose Gabriel Gomero Valdez', '44191001', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (5, 'Juan Carlos', 'Vargas', 'Ponce', '', '', 'Juan Carlos Vargas Ponce', '44191002', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
-(6, 'Gisela Patricia', 'Jara', 'BriceÃ±o', '', '', 'Gisela Patricia Jara BriceÃ±o', '07961488', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(6, 'Gisela Patricia', 'Jara', 'Briceño', '', '', 'Gisela Patricia Jara Briceño', '07961488', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (7, 'Juana Alicia', 'Perez', 'De Chavarria', '', '', 'Juana Alicia Perez de Chavarria', '02113318', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (8, 'Carlos', 'Tarazona', 'Perez', '', '', 'Carlos Tarazona Perez', '44111263', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
-(9, 'Luis Angel', 'Ulloa', 'PeÃ±a', '', '', 'Luis Angel Ulloa PeÃ±a', '33132456', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(9, 'Luis Angel', 'Ulloa', 'Peña', '', '', 'Luis Angel Ulloa Peña', '33132456', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (10, 'Enrique', 'Cotrina', 'Tirado', '', '', 'Enrique Cotrina Tirado', '22111460', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (11, 'Tadeo', 'Albornoz', 'Pascual', '', '', 'Tadeo Albornoz Campos', '03111284', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (12, 'Bianka', 'Vazques', 'Portocarrero', '', '', 'Bianka Vazques Portocarrero', '44111893', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
-(13, 'Alisson', 'Bernal', 'Salinas', '', '', 'Alisson Bernal Salinas', '45176511', 1, now(), null, 'ecampos', null, 1,'a@a.com');
+(13, 'Lucero', 'Santiesteban', 'Carrasco', '', '', 'Lucero Santiesteban Carrasco', '44111820', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(14, 'Alberto', 'Gamonal', 'Cabezas', '', '', 'Alberto Gamonal Cabezas', '44111821', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(15, 'Aurelia', 'Salazar', 'Escobar', '', '', 'Aurelia Salazar Escobar', '44111822', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(16, 'Karen', 'Shaw', 'Acuña', '', '', 'Karen Shaw Acuña', '44111823', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(17, 'Lucila', 'Tarazona', 'Alvarado', '', '', 'Lucila Tarazona Alvarado', '44111824', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(18, 'Carmen', 'Bernal', 'Prudencio', '', '', 'Carmen Bernal Prudencio', '44111825', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(19, 'Ernesto', 'Portocarrero', 'Guerra', '', '', 'Ernesto Portocarrero Guerra', '44111826', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(20, 'Ericka', 'Pérez', 'Huarcaya', '', '', 'Ericka Pérez Huarcaya', '44111827', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(21, 'Karina', 'Calderon', 'Colchon', '', '', 'Karina Calderon Colchon', '44111828', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(22, 'Robert', 'Santana', 'Espejo', '', '', 'Robert Santana Espejo', '44111829', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(23, 'Robin', 'Santa Cruz', 'Cama', '', '', 'Robin Santa Cruz Cama', '44111830', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(24, 'Carlos', 'Muñoz', 'Vera', '', '', 'Carlos Muñoz Vera', '44111831', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(25, 'Luis', 'Campos', 'Agurto', '', '', 'Luis Campos Agusto', '44111832', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(26, 'Henry', 'Salgado', 'Flores', '', '', 'Henry Salgado Flores', '44111833', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(27, 'Saul', 'Sotomayor', 'Ozco', '', '', 'Saul Sotomayor Flores', '44111834', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(28, 'Gerardo', 'Berrocal', 'Salinas', '', '', 'Gerardo Berrocal Salinas', '45176535', 1, now(), null, 'ecampos', null, 1,'a@a.com');
 
 insert into `gestiondoc`.`sec_usuarios` (username, clave, estado, id_persona) values
 ('wmanrique', 'e10adc3949ba59abbe56e057f20f883e', 1,  1),
@@ -464,50 +512,92 @@ insert into `gestiondoc`.`sec_authorities` (username, authorithy) values
 ('jvargas', 'ROLE_MP'),('jvargas', 'ROLE_USER'),
 ('gjara', 'ROLE_NOTARIO'),('gjara', 'ROLE_USER');
 
-insert into `gestiondoc`.`solicitud` (idsolicitud, id_notaria, id_persona, id_tipo_solicitud, id_acto, cod_solicitud, fecha_ingreso, fecha_solucion, tram_comprador, tram_vendedor, tram_escritura, tram_fecha_inicial, tram_fecha_final, tram_kardex, tram_fojas, tram_minuta_num, tram_instrumento_num, tram_solicitado, tram_apod_telefono, tram_apoderado, tram_apod_documento, tram_apod_direccion, tipo_comprobante, numero_ruc, estado, fecha_creacion, fecha_modificacion, usuario_creacion, usuario_modificacion) values
-(1, 1, 7, 1, 1, '0000001', now(), null, 'Carlos Perez', 'Santiago Segura', '00002500', '2010-07-05','2010-08-05', '000100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(2, null, 8, 3, 2, '0000002', now(), null, 'Victoria Almeyda', null, '00034560', '2010-07-05','2010-08-05', '000008', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+
+insert into `gestiondoc`.`escritura` (id_escritura, id_notaria, kardex, fecha_escritura, numero_instrumento, numero_minuta, numero_doc, numero_folios, cantidad_fojas, tipo_fojas, numero_fojas, estado_escritura, firmas_restantes, anio_tomo, numero_tomo, ubicacion_fisica, ubicacion_digital, estado, fecha_creacion, fecha_modificacion, usuario_creacion,  usuario_modificacion) 	values
+(1, 1, '002300', '2010-01-0', '002300', '002300', '002300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante uno', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(2, 2, '011100', '2010-01-0', '011100', '011100', '011100', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante dos', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(3, 3, '099900', '2010-01-0', '099900', '099900', '099900', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante grande', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(4, 4, '044400', '2010-01-0', '044400', '044400', '044400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante mediano', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(5, 5, '022200', '2010-01-0', '022200', '022200', '022200', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante final', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(6, 6, '033300', '2010-01-0', '033300', '077700', '033300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante ultimo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(7, 7, '066600', '2010-01-0', '066600', '066600', '066600', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante antiguo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(8, 1, '077700', '2010-01-0', '077700', '077700', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante lateral', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(9, 2, '088800', '2010-01-0', '088800', '088800', '088800', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante marron', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(10,3, '055500', '2010-01-0', '055500', '055500', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante externo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(11,4, '087400', '2010-01-0', '087400', '087400', '087400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante nuevo', 'disco externo uno', 1, now(), null, 'ecampos', null);
+
+insert into `gestiondoc`.`actos_escritura` (id_acto, id_escritura) values
+(1, 1),(2, 1),
+(3, 2),(4, 2),
+(4, 3),(5, 3),
+(6, 4),(7, 4),
+(1, 5),(3, 5),
+(4, 6),(5, 6),
+(6, 7),(2, 7);
+
+insert into `gestiondoc`.`persona_escritura` (id_escritura, id_persona, idTipoRelacion, estado) values
+(1, 10, 1, 1),(1, 11, 2, 1),
+(2, 12, 1, 1),(2, 13, 2, 1),(2, 14, 3, 1),
+(3, 15, 1, 1),(3, 16, 2, 1),
+(4, 17, 1, 1),(4, 18, 2, 1),
+(5, 19, 1, 1),(5, 20, 2, 1),
+(6, 21, 1, 1),(6, 22, 2, 1),
+(7, 23, 1, 1),(7, 24, 2, 1),
+(8, 25, 1, 1),(8, 26, 2, 1),(8, 14, 3, 1),
+(9, 27, 4, 1),(9, 28, 5, 1),(9, 10, 6, 1),(9, 12, 3, 1),
+(10, 12, 1, 1),(10, 15, 2, 1),
+(11, 16, 1, 1),(11, 17, 2, 1),(11, 19, 3, 1),(11, 25, 4, 1);
+
+insert into `gestiondoc`.`solicitud` (idsolicitud, id_notaria, id_persona, id_tipo_solicitud, id_acto, cod_solicitud, 
+fecha_ingreso, fecha_solucion, tram_comprador, tram_vendedor, tram_escritura, tram_fecha_inicial, tram_fecha_final,
+ tram_kardex, tram_fojas, tram_minuta_num, tram_instrumento_num, tram_solicitado, tram_apod_telefono, tram_apoderado, 
+tram_apod_documento, tram_apod_direccion, tipo_comprobante, numero_ruc, estado, fecha_creacion, fecha_modificacion, 
+usuario_creacion, usuario_modificacion) values
+(1, 1, 7, 1, 1, '0000001', now(), null, 'Carlos Perez', 'Santiago Segura', '077700', '2010-07-05','2010-08-05', '011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
+(2, null, 8, 3, 2, '0000002', now(), null, 'Victoria Almeyda', null, '00034560', '2010-07-05','2010-08-05', '011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
 (3, null, 9, 3, 3, '0000003', now(), null, 'Karen Risco', null, '00789500', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
-(4, null, 10, 1, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 3, null, 1, now(), null, 'ecampos', null),
+(4, null, 10, 1, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', '099900', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 3, null, 1, now(), null, 'ecampos', null),
 (5, null, 11, 2, 5, '0000005', now(), null, 'Aurelia Vazques', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
 (6, 2, 12, 3, null, '0000006', now(), null, 'Orlando Sevillano', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
-(7, 3, 7, 3, null, '0000007', now(), null, 'PaÃºl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(8, 4, 8, 3, null, '0000008', now(), null, 'Miguel Arturo Tuesta SologorrÃ©', null, '15902500', '2010-07-01', '2010-08-05','000008', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
+(7, 3, 7, 3, null, '0000007', now(), null, 'Paúl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(8, 4, 8, 3, null, '0000008', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null);
 
-insert into `gestiondoc`.`tramite` (id_tramite, idsolicitud, cant_hojas, costo_hoja, costo_total, informe_solicitud, observaciones_notario, fecha_conclusion, detalle_notificacion, fecha_creacion, estado) values
-(1, 1, 5, 5, 25, 'Doctor, hay este tramite pendiente. favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', 'presetarse juntos a los otros paticipantes', now(), 5),
-(2, 2, 2, 2, 4, '', '', null, null, now(), 0),
-(3, 3, 1, 5, 5, 'Doctor, hay un tramite pendiente. Favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', '', now(), 4),
-(4, 4, 3, 5, 15, 'Doctor hay un nuevo tramite', 'Juan ,favor de coordinar', '2015-10-25', '', now(), 3),
-(5, 5, 6, 5, 30, 'Doctor, hay un nuevo tramite. favor de revisar. adjunto los documentos DNI de dos personas.', '', '2015-10-25', '', now(), 2),
-(6, 6, 1, 2, 2, null, null, null, null, now(), 1),
-(7, 7, 2, 2, 4, null, null, null, null, now(), 1),
-(8, 8, 6, 2, 12, null, null, null, null, now(), 1);
+insert into `gestiondoc`.`tramite` (id_tramite, idsolicitud,id_escritura, cant_hojas, costo_hoja, costo_total, informe_solicitud, observaciones_notario, fecha_conclusion, detalle_notificacion, fecha_creacion, estado) values
+(1, 1, 1, 5, 5, 25, 'Doctor, hay este tramite pendiente. favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', 'presetarse juntos a los otros paticipantes', now(), 6),
+(2, 2, 3, 2, 2, 4, '', '', null, null, now(), 0),
+(3, 3, 5, 1, 5, 5, 'Doctor, hay un tramite pendiente. Favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', '', now(), 5),
+(4, 4, 7, 3, 5, 15, 'Doctor hay un nuevo tramite', 'Juan ,favor de coordinar', '2015-10-25', '', now(), 4),
+(5, 5, 9, 6, 5, 30, 'Doctor, hay un nuevo tramite. favor de revisar. adjunto los documentos DNI de dos personas.', '', '2015-10-25', '', now(), 3),
+(6, 6, 2, 1, 2, 2, null, null, null, null, now(), 2),
+(7, 7, 4, 2, 2, 4, null, null, null, null, now(), 1),
+(8, 8, 6, 6, 2, 12, null, null, null, null, now(), 1);
 
 --  tramite.estado{ 0='ELIMINADO',1='REGISTRADO',2='DERIVADO',3='RESPONDIDO',4='NOTIFICADO',5='CONCLUIDO'}
 
 insert into `gestiondoc`.`tramite_usuario` (id_registro, username_emisor,username_receptor, id_tramite, fecha_registro, estado) VALUES
 (1,'jculqui','jculqui',1,now(),0),
-(2,'jculqui','jculqui',2,now(),1),
+(2,'jculqui','jculqui',2,now(),0),
 (3,'jculqui','jculqui',3,now(),0),
 (4,'jculqui','jculqui',4,now(),0),
 (5,'jculqui','jculqui',5,now(),0),
-(6,'jculqui','jculqui',6,now(),1),
-(7,'jculqui','jculqui',7,now(),1),
-(8,'jculqui','jculqui',8,now(),1),
-(9,'jculqui','gjara',1,now(),0),
-(10,'gjara','jculqui',1,now(),0),
-(11,'jculqui','jculqui',1,now(),0),
-(12,'jculqui','jculqui',1,now(),1),
-(13,'jculqui','gjara',3,now(),0),
-(14,'gjara','jculqui',3,now(),0),
-(16,'jculqui','jculqui',3,now(),1),
-(17,'jculqui','gjara',4,now(),0),
-(18,'gjara','jculqui',4,now(),1),
-(19,'jculqui','gjara',5,now(),1);
-
-INSERT INTO `gestiondoc`.`escritura` (`id_escritura`, `id_notaria`,`id_acto`,`kardex`,`tram_fecha_registro`,`numero_folios`,`numero_instrumento`,`numero_minuta`,`numero_doc`,`cantidad_hojas`,`tipo_fojas`,`estado_escritura`,`firmas_restantes`,`estado`,`fecha_creacion`,`fecha_modificacion`,`usuario_creacion`,`usuario_modificacion`) VALUES 
-(1,1,1,'000008','2005-01-25','100','000100','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL),
-(2,2,1,'000208','2003-01-15','100','000108','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL),
-(3,3,1,'000308','1995-12-25','100','000109','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL),
-(4,4,1,'000338','2010-01-25','100','000123','500',NULL,5,1,1,0,1,NOW(), NULL,'ecampos',NULL);
+(6,'jculqui','jculqui',6,now(),0),
+(7,'jculqui','jculqui',7,now(),0),
+(8,'jculqui','jculqui',8,now(),0),
+(9,'jculqui','jculqui',1,now(),0),
+(10,'jculqui','jculqui',2,now(),1),
+(11,'jculqui','jculqui',3,now(),0),
+(12,'jculqui','jculqui',4,now(),0),
+(13,'jculqui','jculqui',5,now(),0),
+(14,'jculqui','jculqui',6,now(),1),
+(15,'jculqui','jculqui',7,now(),1),
+(16,'jculqui','jculqui',8,now(),1),
+(17,'jculqui','gjara',1,now(),0),
+(18,'gjara','jculqui',1,now(),0),
+(19,'jculqui','jculqui',1,now(),0),
+(20,'jculqui','jculqui',1,now(),1),
+(21,'jculqui','gjara',3,now(),0),
+(22,'gjara','jculqui',3,now(),0),
+(23,'jculqui','jculqui',3,now(),1),
+(24,'jculqui','gjara',4,now(),0),
+(25,'gjara','jculqui',4,now(),1),
+(26,'jculqui','gjara',5,now(),1);

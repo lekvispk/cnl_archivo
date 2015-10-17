@@ -1,7 +1,9 @@
 package pe.org.cnl.gestiondoc.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +32,12 @@ public class TipoActo implements Serializable {
 	@Column(name="nombre_acto")
 	private String nombreActo;
 
-	//bi-directional many-to-one association to Escritura
+	//bi-directional many-to-one association to ActosEscritura
 	@OneToMany(mappedBy="tipoActo")
+	private List<ActosEscritura> actosEscrituras;
+	
+	//bi-directional many-to-one association to Escritura
+	@OneToMany(mappedBy="tipoActos")
 	private List<Escritura> escrituras;
 
 	//bi-directional many-to-one association to Solicitud
@@ -81,20 +87,6 @@ public class TipoActo implements Serializable {
 		this.escrituras = escrituras;
 	}
 
-	public Escritura addEscritura(Escritura escritura) {
-		getEscrituras().add(escritura);
-		escritura.setTipoActo(this);
-
-		return escritura;
-	}
-
-	public Escritura removeEscritura(Escritura escritura) {
-		getEscrituras().remove(escritura);
-		escritura.setTipoActo(null);
-
-		return escritura;
-	}
-
 	public List<Solicitud> getSolicituds() {
 		return this.solicituds;
 	}
@@ -115,6 +107,14 @@ public class TipoActo implements Serializable {
 		solicitud.setTipoActo(null);
 
 		return solicitud;
+	}
+
+	public List<ActosEscritura> getActosEscrituras() {
+		return actosEscrituras;
+	}
+
+	public void setActosEscrituras(List<ActosEscritura> actosEscrituras) {
+		this.actosEscrituras = actosEscrituras;
 	}
 
 }

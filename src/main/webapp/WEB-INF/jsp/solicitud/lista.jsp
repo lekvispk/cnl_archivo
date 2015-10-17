@@ -107,9 +107,7 @@
 		   			
 		          <display:table name="requestScope.lSolicitudes" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
 					defaultorder="ascending" export="false" id="row" excludedParams="ajax">
-						<display:column title="F. Ingreso" sortable="true" headerClass="sortable">
-							<fmt:formatDate value="${row.fechaIngreso}" pattern="dd/MM/yyyy"/>
-						</display:column>
+						<display:column title="F. Ingreso" property="fechaIngreso" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable"/>
 						<display:column title="Solicitante" property="persona.nombreCompleto" sortable="true" headerClass="sortable" />
 						<display:column title="Tipo" property="tipoSolicitud.nombreTipoSolicitud" sortable="true" headerClass="sortable" />
 						<display:column title="Acto" property="tipoActo.nombreActo" sortable="true" headerClass="sortable" />

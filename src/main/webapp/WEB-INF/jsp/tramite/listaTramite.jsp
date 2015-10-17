@@ -26,54 +26,7 @@
       </div>
       
     <div class="panel-body">
-    <div class="row">
     
-    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="tramite">
-    	<div class="col-lg-6">
-	    	<input type="hidden" name="tipoTram1.idTipotram" value="1" />
-	    	
-			<div class="form-group">
-			  <label class="control-label" for="txtCodigo">C&oacute;digo</label>  
-			  <form:input path="idTramite" id="idTramite" size="10" cssClass="form-control input-md" />
-			</div>
-			
-			<div class="form-group">
-			  <label class="control-label" for="estado">Estado</label>
-			  <form:select path="estado" cssClass="form-control" >
-			    	<form:option value="">-Seleccionar-</form:option>
-			  		<form:option value="1">Alta</form:option>
-			  		<form:option value="2">Normal</form:option>
-			  		<form:option value="3">Baja</form:option>
-			  </form:select>
-			</div>
-			
-			<div class="form-group">
-			  <label class=" control-label" for="txtVencimiento">Creacion</label>  
-			  <fmt:formatDate value="${reclamo.fechaCreacion}" pattern="dd/MM/yyyy" var="f_fechaCreacion"/>
-              <input type="text" class="form-control input-md" name="fechaCreacion" id="fechaCreacion" placeholder="dd/MM/yyyy" size="10" value="${f_fechaCreacion}"/>
-			</div>
-			
-			<div class="form-group">
-			  <label class="control-label" for="btnBuscar"></label>
-			  <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
-			  <input type="button" onclick="javascript:buscar();" class="btn btn-success" value="Buscar">
-              <input type="button" onclick="javascript:nuevo();" class="btn btn-success" value="Nuevo">
-			</div>
-		</div>
-	    <div class="col-lg-6">
-	    	<div class="form-group">
-			  <label class="control-label" for="txtCodigo">C&oacute;digo</label>  
-			  <form:input path="idTramite" id="idTramite" size="10" cssClass="form-control input-md" />
-			</div>
-			
-			<div class="form-group">
-			  <label class="control-label" for="txtCodigo">C&oacute;digo</label>  
-			  <form:input path="idTramite" id="idTramite" size="10" cssClass="form-control input-md" />
-			</div>
-	    </div>
-    </form:form>
-    </div>
-
     <div class="row">
 	    <div class="col-lg-12">
 	    		<div id="tablaDinamica">
@@ -83,11 +36,67 @@
 		          <display:table name="requestScope.lTramites" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
 					defaultorder="ascending" export="false" id="row" excludedParams="ajax">
 						<display:column title="Codigo de solicitud" property="solicitud.codSolicitud" sortable="true" headerClass="sortable" />
+						<display:column title="Nombre (Solicitante)" property="solicitud.persona.nombreCompleto" sortable="true" headerClass="sortable" />
+						<display:column title="Fecha solicitud" property="solicitud.fechaIngreso" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
 						<display:column title="Tipo de solicitud" property="solicitud.tipoSolicitud.nombreTipoSolicitud" sortable="true" headerClass="sortable" />
+						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 80px;">
+						
+			            	<c:choose>
+			            		<c:when test="${row.estado==1}">
+					            	Por Atender
+				                 </c:when>
+			            		<c:when test="${row.estado==2}">
+			            			Por Derivar
+				                </c:when>
+			            		<c:when test="${row.estado==3}">
+			            			Por Responder
+			            		</c:when>
+			            		<c:when test="${row.estado==4}">
+			            			Por Notificar
+			            		</c:when>
+			            		<c:when test="${row.estado==5}">
+			            			Por Concluir
+			            		</c:when>
+			            		<c:otherwise>
+			            			Concluido
+			            		</c:otherwise>
+			            	</c:choose>
+			            	
+						</display:column>
 						<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
-			            	<a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
-		                   	<a href="editar.htm?cod=${row.idTramite}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
-		                   	<a href="javascript:eliminar(${row.idTramite});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>
+			            	<%--
+			            	1 = recien creado
+			            	2 = por derivar
+			            	3 = derivado a notario
+			            	4 = respondido notario
+			            	5 = notificado
+			            	6 = concluido
+			            	 --%>
+			            	 <a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+			            	<c:choose>
+			            		<c:when test="${row.estado==1}">
+			            			<a id="ver_es_${row.idTramite}" href="#" data-link="detalleEscritura.htm?cod=${row.escritura.idEscritura}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+					               	<a href="editar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
+				                 </c:when>
+			            		<c:when test="${row.estado==2}">
+			            			<a id="modificar_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Modificar</a>
+				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Derivar</a>
+				                </c:when>
+			            		<c:when test="${row.estado==3}">
+			            			<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Responder</a>
+			            		</c:when>
+			            		<c:when test="${row.estado==4}">
+			            			<a id="modificar_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Modificar</a>
+				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Notificar</a>
+			            		</c:when>
+			            		<c:when test="${row.estado==5}">
+			            			<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Concluir</a>
+			            		</c:when>
+			            		<c:otherwise>
+			            			Concluido
+			            		</c:otherwise>
+			            	</c:choose>
+			            	<%-- <a href="javascript:eliminar(${row.idTramite});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>--%>
 	                   	</display:column>
 				 </display:table>
 				 

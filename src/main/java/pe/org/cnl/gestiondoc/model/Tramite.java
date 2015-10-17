@@ -1,7 +1,9 @@
 package pe.org.cnl.gestiondoc.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,6 +60,11 @@ public class Tramite implements Serializable {
 	@JoinColumn(name="idsolicitud")
 	private Solicitud solicitud;
 
+	//bi-directional many-to-one association to Escritura
+	@ManyToOne
+	@JoinColumn(name="id_escritura")
+	private Escritura escritura;
+	
 	//bi-directional many-to-one association to TramiteAdjunto
 	@OneToMany(mappedBy="tramite")
 	private List<TramiteAdjunto> tramiteAdjuntos;
@@ -202,4 +209,13 @@ public class Tramite implements Serializable {
 
 		return tramiteUsuario;
 	}
+
+	public Escritura getEscritura() {
+		return escritura;
+	}
+
+	public void setEscritura(Escritura escritura) {
+		this.escritura = escritura;
+	}
+	
 }

@@ -67,7 +67,7 @@ public class EscrituraController {
 		try {
 			logger.debug(" buscar ");
 			
-			escritura.setTramFechaRegistro( Utiles.stringToDate( request.getParameter("tramFechaRegistro"), "dd/MM/yyyy"));
+			escritura.setFechaEscritura( Utiles.stringToDate( request.getParameter("tramFechaRegistro"), "dd/MM/yyyy"));
 			escritura.setTramFechaRegistro2( Utiles.stringToDate( request.getParameter("tramFechaRegistro2"), "dd/MM/yyyy"));
 			
 			model.put("lEscrituras", escrituraService.buscarEscitura(escritura));
@@ -97,7 +97,7 @@ public class EscrituraController {
 	public String nuevo(@Valid Escritura escritura, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" lista ");
-			escritura.setTramFechaRegistro( Utiles.stringToDate( request.getParameter("tramFechaRegistro"), "dd/MM/yyyy"));
+			escritura.setFechaModificacion( Utiles.stringToDate( request.getParameter("tramFechaRegistro"), "dd/MM/yyyy"));
 			escritura.setTramFechaRegistro2( Utiles.stringToDate( request.getParameter("tramFechaRegistro2"), "dd/MM/yyyy"));
 			escritura.setEstado( 1 );
 			escrituraService.registrarEscritura(escritura);
@@ -170,6 +170,20 @@ public class EscrituraController {
 		}
 		return "escritura/vista";
 	}
+	
+	
+	@RequestMapping(value="*/detalleEscritura.htm")
+	public String verDetalle(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			Integer idEscritura = Integer.parseInt(request.getParameter("cod"));
+			model.put("escritura", escrituraService.obtenerEscritura( idEscritura ));
+			model.put("limplicados", escrituraService.obtenerPersonasEscritura( idEscritura )) ;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "escritura/detalleEscritura";
+	}
+	
 
 	@RequestMapping("/escritura/editar.htm")
 	public String editar(HttpServletRequest request, HttpServletResponse response, ModelMap model){

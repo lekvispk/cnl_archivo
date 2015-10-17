@@ -30,6 +30,6 @@ Fecha de conclusion: <fmt:formatDate value="${tramite.fechaConclusion }" pattern
 </c:if>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary">Guardar</button>
+  <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
 </div>	      
 <!-- END tramiteView.jsp-->
