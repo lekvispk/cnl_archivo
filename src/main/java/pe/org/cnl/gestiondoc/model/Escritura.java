@@ -88,7 +88,7 @@ public class Escritura implements Serializable {
 	private List<ActosEscritura> actosEscrituras;
 	
 	//bi-directional many-to-one association to Archivo
-	@OneToMany(mappedBy="escritura")
+	@OneToMany(mappedBy="escritura" , fetch=FetchType.EAGER)
 	private List<Archivo> archivos;
 
 	//bi-directional many-to-one association to Notaria
@@ -133,6 +133,10 @@ public class Escritura implements Serializable {
 	private String vendedor;
 	
 	public Escritura() {
+	}
+
+	public Escritura( Integer idEscritura) {
+		this.idEscritura=idEscritura;
 	}
 
 	public int getIdEscritura() {

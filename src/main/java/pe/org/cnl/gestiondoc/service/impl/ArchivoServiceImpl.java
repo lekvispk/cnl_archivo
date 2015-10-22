@@ -2,11 +2,14 @@ package pe.org.cnl.gestiondoc.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import pe.org.cnl.gestiondoc.dao.ArchivoDAO;
 import pe.org.cnl.gestiondoc.model.Archivo;
+import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
 import pe.org.cnl.gestiondoc.service.ArchivoService;
+import pe.org.cnl.gestiondoc.util.ParametroUtil;
 
 @Service
 public class ArchivoServiceImpl implements ArchivoService {
@@ -47,6 +50,23 @@ public class ArchivoServiceImpl implements ArchivoService {
 	@Override
 	public byte[] obtenerArchivoEscritura(String idEscritura) {
 		return archivoDAO.obtenerArchivoEscritura( idEscritura );
+	}
+
+	@Override
+	public void registrarArchivo(MultipartFile file, Integer idEscritura) throws Exception {
+		
+		if(file.getSize() > ParametroUtil.FILE_MAX_SIZE ){
+        	throw new Exception("El archivo es muy grande y no se ha podido grabar en el sistema");
+        }
+		
+		Archivo archivo = new Archivo();
+		archivo.setNombre( file.getOriginalFilename() );
+        archivo.setArchivo( file.getBytes() );
+		Escritura doc = new Escritura();
+		doc.setIdEscritura( idEscritura );
+		archivo.setEscritura( doc );
+        archivoDAO.registrarArchivo(archivo);
+        
 	}
 
 }

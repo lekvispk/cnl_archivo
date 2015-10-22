@@ -70,11 +70,15 @@
        </tr> 
         <tr>
            <th>Nro. de firmas faltantes:</th>
-           <td><input type="text" /></td>
+           <td><input type="text" name="txtFirmas" id="txtFirmas" class="form-control" placeholder="Firmas faltantes" /></td>
        </tr> 
         <tr>
            <th>Costo del Servicio:</th>
-           <td><input type="text" /> <button>Calcular</button>  </td>
+           <td>
+           		<input type="hidden" name="hiddenCosto" id="hiddenCosto" value="${solicitud.tipoSolicitud.costoServicio }" />
+           		<input type="text" name="txtCosto" id="txtCosto" class="form-control" placeholder="Costo del Servicio" value="${solicitud.tipoSolicitud.costoServicio }" /> 
+           		<a id="detalleEscrituraCalcularBtn" class="btn btn-outline btn-info btn-xs">Calcular</a>  
+           	</td>
        </tr>                                    
    </table>
     
@@ -102,30 +106,31 @@
 	</tbody>
 </table>
 
-  <c:if test="${ not empty escritura.archivos }">
-    <h3> <span>ARCHIVOS</span> </h3>
-    
-    <table class="bloqueTablaLineal" >
-	<c:forEach items="${escritura.archivos}" var="doc">
-		<tr>
-	         <th>Descargar Archivo:</th>
-             <td><a href="descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>&nbsp;</td>
-        </tr>
-        <tr>
-             <th>Firmar Archivo:</th>
-             <td><a href="javascript:firmar(${doc.idArchivo});">${doc.nombre}</a>&nbsp;</td>
-         </tr>
-    </c:forEach>
-    </table>
-   </c:if>
-  
+ 
 </form:form>
     
 </div>
 
 </div>
 <div class="modal-footer">
+
   <button type="button" class="btn btn-primary" id="modal_detalleEscritura_guardar">Guardar</button>
+  
+   <c:if test="${ not empty escritura.archivos }">
+  	<c:forEach items="${escritura.archivos}" var="doc">
+	
+		<a type="button" class="btn btn-primary" href="descargar.htm?id=${doc.idArchivo}"  title="${doc.nombre}" >Descargar</a>
+  
+	         <td><a href="descargar.htm?id=${doc.idArchivo}"></a>&nbsp;</td>
+    <%---     <tr>
+             <th>Firmar Archivo:</th>
+             <td><a href="javascript:firmar(${doc.idArchivo});">${doc.nombre}</a>&nbsp;</td>
+         </tr> --%>
+    </c:forEach>
+   </c:if>
+  
+  
+  
 </div>	
 
 <!-- END detalleEscritura.jsp -->

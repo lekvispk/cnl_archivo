@@ -140,6 +140,10 @@ public class Solicitud implements Serializable {
 
 	public Solicitud() {
 	}
+	
+	public Solicitud(Integer idSolicitud) {
+		this.idsolicitud=idSolicitud;
+	}
 
 	public int getIdsolicitud() {
 		return this.idsolicitud;

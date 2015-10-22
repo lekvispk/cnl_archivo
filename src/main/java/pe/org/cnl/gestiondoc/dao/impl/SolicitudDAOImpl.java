@@ -74,4 +74,12 @@ public class SolicitudDAOImpl extends HibernateDaoSupport implements SolicitudDA
 		this.getHibernateTemplate().saveOrUpdate( sol );
 	}
 
+	@Override
+	public void actualizarEstado(int idsolicitud, int estado) {
+		Query query = getSession().createQuery(" update Solicitud set estado=:est where idsolicitud =:id ")
+		        .setInteger("id", idsolicitud)
+		        .setInteger("est", estado);
+		        query.executeUpdate();
+	}
+
 }

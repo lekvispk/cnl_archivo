@@ -1,10 +1,7 @@
 package pe.org.cnl.gestiondoc.controller;
 
-import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,14 +25,17 @@ import pe.org.cnl.gestiondoc.model.PersonaEscrituraPK;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
 import pe.org.cnl.gestiondoc.service.ArchivoService;
 import pe.org.cnl.gestiondoc.service.EscrituraService;
+import pe.org.cnl.gestiondoc.service.SolicitudService;
 import pe.org.cnl.gestiondoc.service.TipoActoService;
 import pe.org.cnl.gestiondoc.service.TipoRelacionService;
+import pe.org.cnl.gestiondoc.util.FileUpload;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
 public class EscrituraController {
 	
 	private static final Logger logger = Logger.getLogger( EscrituraController.class );
+	
 	@Autowired
 	private TipoActoService tipoActoService;
 	
@@ -50,6 +48,9 @@ public class EscrituraController {
 	@Autowired
 	private TipoRelacionService tipoRelacionService;
 	
+	@Autowired
+	private SolicitudService solicitudService;
+	
 	@RequestMapping("/escritura/lista.htm")
 	public String login(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
@@ -59,7 +60,7 @@ public class EscrituraController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "escritura/lista";
+		return "escritura/listaEscritura";
 	}
 	
 	@RequestMapping("/escritura/buscar.htm")
@@ -77,7 +78,7 @@ public class EscrituraController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "escritura/lista";
+		return "escritura/listaEscritura";
 	}
 	
 	@RequestMapping("/escritura/prenuevo.htm")
@@ -90,7 +91,7 @@ public class EscrituraController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "escritura/registro";
+		return "escritura/registroEscritura";
 	}
 	
 	@RequestMapping("/escritura/nuevo.htm")
@@ -110,7 +111,7 @@ public class EscrituraController {
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 			model.put("escritura", escritura );
 		}
-		return "escritura/registro";
+		return "escritura/registroEscritura";
 	}
 	
 	@RequestMapping("/escritura/preparticipantes.htm")
@@ -175,8 +176,12 @@ public class EscrituraController {
 	@RequestMapping(value="*/detalleEscritura.htm")
 	public String verDetalle(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
-			Integer idEscritura = Integer.parseInt(request.getParameter("cod"));
+			Integer idEscritura = Integer.parseInt(request.getParameter("idEscritura"));
+			Integer idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
+			
 			model.put("escritura", escrituraService.obtenerEscritura( idEscritura ));
+			model.put("solicitud", solicitudService.obtenerSolicitud( idSolicitud ));
+			
 			model.put("limplicados", escrituraService.obtenerPersonasEscritura( idEscritura )) ;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,59 +198,28 @@ public class EscrituraController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "escritura/registro";
+		return "escritura/registroEscritura";
 	}
 	
-	//
-	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="escritura/cargarEscritura.htm", method=RequestMethod.POST)
-	public String cargar(HttpServletRequest request, ModelMap model){
-		logger.debug("grabo archivo en BD");
-		Archivo archivo = new Archivo();
-		
-		Integer id_doc = null ; 
-		
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        factory.setSizeThreshold(4 * 1024 * 1024);
-        factory.setRepository(new File("F:\\"));
-        ServletFileUpload upload = new ServletFileUpload(factory);
-        upload.setSizeMax( 50 * 1024 * 1024);
-        try{
-               List fileItems = upload.parseRequest(request);                    
-               Iterator i = fileItems.iterator();               
-               while ( i.hasNext () ){
-            	  FileItem fi = (FileItem)i.next();
-                  if ( !fi.isFormField () ){
-                	 String fileName = fi.getName();                                           
-                     if( fileName.lastIndexOf("\\") >= 0 ){
-                    	 logger.debug("termina en slash slahh ");
-                         archivo.setNombre(fileName.substring( fileName.lastIndexOf("\\")+1 ) ); 
-                     }else{
-                    	 logger.debug("no termina con slash");
-                         archivo.setNombre(fileName.substring(fileName.lastIndexOf("\\")+1));
-                     }
-                     archivo.setArchivo( fi.get() );
-                   
-                  }else{
-                		logger.debug( "id documento = "+fi.getString());
-          				request.setAttribute("idDocumento", fi.getString() );
-          				id_doc = Integer.parseInt( fi.getString() );
-          				Escritura doc = new Escritura();
-          				doc.setIdEscritura( id_doc );
-          				archivo.setEscritura( doc );
-                  }
-               }            
-               archivoService.registrarArchivo(archivo);
-               model.put("mensaje", "archivo cargado");               
+	public String cargar(@ModelAttribute("uploadForm") FileUpload formArchivo, HttpServletRequest request, ModelMap model){
+		logger.debug("grabo adjunto en BD");
+		 try{
+            archivoService.registrarArchivo( formArchivo.getFile() , formArchivo.getIdDocumento() );
+            //request.setAttribute("idDocumento", formArchivo.getIdDocumento() );
+            model.put("mensaje", "archivo cargado");
+            
        	}catch(Exception ex) {
            logger.debug(ex.getMessage());
-           model.put("msgError","Error " + ex.getMessage());
+       	   model.put("msgError","Error " + ex.getMessage());
         }finally{
+        	model.put("uploadForm", new FileUpload() );
         	model.put("ltipoacto", tipoActoService.listarTiposActos() );
-           model.put("escritura",  escrituraService.obtenerEscritura( id_doc ));
+            model.put("escritura",  escrituraService.obtenerEscritura( formArchivo.getIdDocumento() ));
         }
-		return "escritura/registro";
+        return "escritura/registroEscritura";
 	}
+	
 
 	@RequestMapping(value="escritura/eliminar.htm")
 	public String eliminarEscritura(HttpServletRequest request, ModelMap model){
@@ -263,7 +237,7 @@ public class EscrituraController {
 			e.printStackTrace();
 			model.put("msgError", e.getMessage());
 		}
-		return "escritura/lista";
+		return "escritura/listaEscritura";
 	}
 
 	

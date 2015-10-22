@@ -17,7 +17,7 @@ public class ActosEscritura implements Serializable {
 	@EmbeddedId
 	private ActosEscrituraPK id;
 
-	private int estado;
+	private Integer estado;
 
 	//bi-directional many-to-one association to Escritura
 	@ManyToOne
@@ -40,11 +40,11 @@ public class ActosEscritura implements Serializable {
 		this.id = id;
 	}
 
-	public int getEstado() {
+	public Integer getEstado() {
 		return this.estado;
 	}
 
-	public void setEstado(int estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
 

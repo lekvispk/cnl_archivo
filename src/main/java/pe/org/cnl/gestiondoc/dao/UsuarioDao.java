@@ -7,6 +7,7 @@ import pe.org.cnl.gestiondoc.model.Usuario;
 public interface UsuarioDao {
 	 public List<Usuario> listaUsuarios();
      public List<Usuario> listaUsuarios(Usuario usuario);
+     public List<Usuario> listaUsuariosPorRole(String role);
      public Usuario obtenerUsuarioPorUsername(String username);
      public Usuario obtenerUsuario(String username);
      public void registrarusuario(Usuario usuario);

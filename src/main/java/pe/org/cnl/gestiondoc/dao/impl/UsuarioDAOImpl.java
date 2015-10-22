@@ -60,7 +60,7 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDao {
 
 	@Override
 	public Usuario obtenerUsuario(String username) {
-		 Query query = getSession().createQuery(" from Usuario u left join fetch  u.authoritiesList where u.username = :id ")
+		 Query query = getSession().createQuery(" from Usuario u left join fetch u.secAuthorities where u.username = :id ")
 		 .setString("id", username);
 		 return (Usuario) query.uniqueResult();
 	}
@@ -95,6 +95,18 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDao {
 		 Authority au = new Authority(  );
 		 au.setId( pk );
          this.getHibernateTemplate().saveOrUpdate(au);
+	}
+
+	@Override
+	public List<Usuario> listaUsuariosPorRole(String role) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Usuario.class);
+       
+    	 if(!Utiles.nullToBlank(role ).equals("")){
+    		 DetachedCriteria criteria2 = criteria.createAlias("secAuthorities", "p");
+             criteria2.add( Restrictions.like("p.id.authorithy", role ) );                 
+    	 }
+        
+         return getHibernateTemplate().findByCriteria(criteria);
 	}
 
 }

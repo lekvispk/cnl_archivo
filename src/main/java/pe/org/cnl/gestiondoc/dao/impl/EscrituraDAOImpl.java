@@ -2,16 +2,16 @@ package pe.org.cnl.gestiondoc.dao.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.cnl.gestiondoc.dao.EscrituraDAO;
 import pe.org.cnl.gestiondoc.model.Escritura;
@@ -19,18 +19,22 @@ import pe.org.cnl.gestiondoc.model.PersonaEscritura;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Repository
-public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDAO {
+@Transactional
+public class EscrituraDAOImpl implements EscrituraDAO {
 
+	private static final Logger logger = Logger.getLogger( EscrituraDAOImpl.class );
+	
 	@Autowired
-	public EscrituraDAOImpl(SessionFactory sessionFactory){
-		setHibernateTemplate( new HibernateTemplate(sessionFactory));
-	}
+	SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Escritura> buscarEscitura(Escritura escritura) {
 		logger.debug( "buscarEscitura INI " );
-		DetachedCriteria criteria = DetachedCriteria.forClass(Escritura.class);
+		
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Escritura.class);
+		
+		//DetachedCriteria criteria = DetachedCriteria.forClass(Escritura.class);
 		if(escritura !=null){
 			
 			Disjunction dis = Restrictions.disjunction();
@@ -85,38 +89,41 @@ public class EscrituraDAOImpl extends HibernateDaoSupport implements EscrituraDA
 			criteria.addOrder( Order.desc("fechaEscritura") );
 		}
 		logger.debug( "buscarEscitura END " );
-		return getHibernateTemplate().findByCriteria(criteria);
+		
+		return criteria.list();
 	}
 
 	@Override
 	public void registrarEscritura(Escritura escritura) {
-		this.getHibernateTemplate().saveOrUpdate(escritura);
+		this.sessionFactory.getCurrentSession().saveOrUpdate(escritura);
 	}
 
 	@Override
 	public void eliminarEscritura(Integer idescritura) {
-		Query query = getSession().createQuery(" update Escritura e set tramEstado=0 where e.idEscritura =:id ")
+		
+		Query query = this.sessionFactory.getCurrentSession().createQuery(" update Escritura e set tramEstado=0 where e.idEscritura =:id ")
         .setInteger("id", idescritura);
         query.executeUpdate();
 	}
 
 	@Override
 	public Escritura obtenerEscritura(Integer idescritura) {
-		Query query = getSession().createQuery(" from Escritura d where d.idEscritura = :id ")
-        .setInteger("id", idescritura);
+		Query query = this.sessionFactory.getCurrentSession()
+				.createQuery(" from Escritura d where d.idEscritura = :id ")
+				.setInteger("id", idescritura);
         return (Escritura) query.uniqueResult();
 	}
 
 	@Override
 	public void registraRelacionado(PersonaEscritura persona) {
-		this.getHibernateTemplate().persist(persona);	
+		this.sessionFactory.getCurrentSession().persist(persona);	
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PersonaEscritura> obtenerPersonasEscritura(int idEscritura) {
 		logger.debug( idEscritura );
-		Query query = getSession().createQuery(" from PersonaEscritura d where d.escritura.idEscritura = :id ")
+		Query query = this.sessionFactory.getCurrentSession().createQuery(" from PersonaEscritura d where d.escritura.idEscritura = :id ")
         .setInteger("id", idEscritura);
         return query.list();
 	}

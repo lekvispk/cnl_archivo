@@ -73,6 +73,7 @@
                                 <li><a href="${pageContext.request.contextPath}/admin/ltipodocumentos.htm">Tipo de Documentos</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/lnotarias.htm">Notar&iacute;as</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/ltipotramite.htm">Tipo de Tramite</a></li>
+                                <li><a href="${pageContext.request.contextPath}/escritura/lista.htm">Lista de Escrituras</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

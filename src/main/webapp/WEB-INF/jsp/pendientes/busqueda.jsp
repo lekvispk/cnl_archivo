@@ -65,16 +65,11 @@
 							<display:column title="Notario" property="notaria.nombre" sortable="true" headerClass="sortable" />
 							<display:column title="F. Escritura" property="fechaEscritura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable"/>
 							<display:column title="Numero" property="numeroDoc" sortable="true" headerClass="sortable" />
-							
-							<display:column title="archivo" sortable="true" headerClass="sortable">
-								<%--<c:forEach items="${row.archivos}" var="doc">
-									<a href="descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>
-								</c:forEach> --%>
-							</display:column>
-				            <display:column title="Detalles" sortable="true" headerClass="sortable" style=" width: 200px;">
-				            	<a id="ver_${row.idEscritura}" href="#" data-link="detalleEscritura.htm?cod=${row.idEscritura}" style="border: 0px;" title="Ver detalle de Escritura">Ver</a>&nbsp;                                    	
-		                   		<a href="crearTramite.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Derivar">Derivar</a>&nbsp;
-		                   		<a href="seleccionar.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Atender">Atender</a>                                    	
+							<display:column title="Detalles" sortable="true" headerClass="sortable" style=" width: 200px;">
+				            	<a id="ver_${row.idEscritura}" href="#" data-link="detalleEscritura.htm?idEscritura=${row.idEscritura}&idSolicitud=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Ver detalle de Escritura">Ver</a>&nbsp;                                    	
+		                   		<a id="derivar_${row.idEscritura}" href="#" data-link="preSeleccionar.htm?idEscritura=${row.idEscritura}&idSolicitud=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Derivar">Derivar</a>&nbsp;
+		                   		<%-- no se para que se usa --%>
+		                   		<a href="atender.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Atender">Atender</a>                                    	
 		                    </display:column>
 					 </display:table>
 					 
@@ -169,19 +164,10 @@
     			}
     		});
     		
-    		$(document).undelegate('[id^=ver_]', 'click').delegate('[id^=ver_]', 'click', function(){ 
-	   			 console.info('click en ver detalle de escritura');
-	   			 $("#modalView .modal-content").load( $(this).attr('data-link') , function() { 
-     	       		  $( "#modalView" ).modal("show"); 
-     	  		  });
-   			}); 
-      		 
-    		$("#displayTagDiv").displayTagAjax();
-    		
     	});
    		
     </script>
     
  </body>
 </html>
-<!-- END listaTramite.jsp-->
+<!-- END busqueda.jsp-->

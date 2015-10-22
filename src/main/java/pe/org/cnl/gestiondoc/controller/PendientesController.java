@@ -11,15 +11,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pe.org.cnl.gestiondoc.dao.UsuarioDao;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
 import pe.org.cnl.gestiondoc.model.SolicitudTramitePK;
+import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.service.ArchivoService;
 import pe.org.cnl.gestiondoc.service.EscrituraService;
 import pe.org.cnl.gestiondoc.service.SolicitudService;
 import pe.org.cnl.gestiondoc.service.SolicitudTramiteService;
 import pe.org.cnl.gestiondoc.service.TipoActoService;
+import pe.org.cnl.gestiondoc.service.TramiteService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
@@ -37,6 +40,10 @@ public class PendientesController {
 	private EscrituraService escrituraService;
 	@Autowired
 	private ArchivoService archivoService;
+	@Autowired
+	private UsuarioDao usuarioDao;
+	@Autowired
+	private TramiteService tramiteService;
 	
 	@RequestMapping("/pendientes/lista.htm")
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -129,15 +136,30 @@ public class PendientesController {
 		return "pendientes/busqueda";
 	}
 	
+	@RequestMapping("/pendientes/preSeleccionar.htm")
+	public String preSeleciconar( HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		logger.debug(" preSeleciconar ");
+		Integer idEscritura = Integer.parseInt( request.getParameter("idEscritura"));
+		Integer idSolicitud = Integer.parseInt( request.getParameter("idSolicitud"));
+		
+		model.put("idEscritura", idEscritura);
+		model.put("idSolicitud", idSolicitud);
+		model.put("lsUsuarios", usuarioDao.listaUsuariosPorRole("ROLE_ARCHIVO"));
+		
+		return "solicitud/listaUsuariosArchivo";
+	}
+	
 	@RequestMapping("/pendientes/seleccionar.htm")
 	public String seleciconar( HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
-			logger.debug(" buscar ");
+			logger.debug(" seleciconar ");
 			
-			String idEscritura = request.getParameter("id1");
-			String idSolicitud = request.getParameter("id2");
+			String idEscritura = request.getParameter("idEscritura");
+			String idSolicitud = request.getParameter("idSolicitud");
+			String username = request.getParameter("username");
 			logger.debug(" idEscritura " + idEscritura);
 			logger.debug(" idSolicitud " + idSolicitud);
+			logger.debug(" username " + username);
 			
 			SolicitudTramite sol = new SolicitudTramite();
 			SolicitudTramitePK pk = new SolicitudTramitePK();
@@ -146,15 +168,34 @@ public class PendientesController {
 			sol.setId(pk);
 			sol.setEstado(1);
 			sol.setFecSolicitud( solicitudService.obtenerSolicitud(Integer.parseInt(idSolicitud)).getFechaIngreso() );
-			sol.setArchivo( archivoService.obtenerArchivoEscritura( idEscritura) );
+			//sol.setArchivo( archivoService.obtenerArchivoEscritura( idEscritura) );
 			
-			solicitudService.registrarSolicitudTramite(sol);
+			solicitudService.registrarSolicitudTramite(sol, username );
+						
+			
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 			model.put("solicitud", new SolicitudTramite());
-			model.put("mensaje", " Se ha asociado la escritura seleccionada con la solicitud.");
+			model.put("mensaje", " Se ha derivado la solicitud.");
 			
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 			model.put("solicitud", new Solicitud());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "solicitud/lista";
+	}
+	
+	/**
+	 * no se para que se usaria este metodo ni su link
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/pendientes/atender.htm")
+	public String atender( HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
 			
 		} catch (Exception e) {
 			e.printStackTrace();

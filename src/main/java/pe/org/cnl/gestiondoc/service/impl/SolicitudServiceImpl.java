@@ -1,21 +1,28 @@
 package pe.org.cnl.gestiondoc.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.cnl.gestiondoc.dao.SolicitudDAO;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
+import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.service.SolicitudService;
+import pe.org.cnl.gestiondoc.service.TramiteService;
 
 @Service
 public class SolicitudServiceImpl implements SolicitudService {
 
 	@Autowired
 	private SolicitudDAO solicitudDAO;
+	@Autowired
+	private TramiteService tramiteService;
 	
 	@Override
 	public List<Solicitud> buscarSolicitudes(Solicitud solicitud) {
@@ -38,8 +45,26 @@ public class SolicitudServiceImpl implements SolicitudService {
 	}
 
 	@Override
-	public void registrarSolicitudTramite(SolicitudTramite sol) {
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public void registrarSolicitudTramite(SolicitudTramite sol, String username ) {
+		
+		//crear detalle
 		 solicitudDAO.registrarSolicitudTramite(sol);
+		 //cambiar estado solicitud, DERIVADO
+		// solicitudDAO.actualizarEstado( sol.getId().getIdsolicitud(), 3 );
+		 
+		Solicitud solic = solicitudDAO.obtenerSolicitud( sol.getId().getIdsolicitud() );
+		solic.setEstado(3);
+		solic.setFechaModificacion( new Date() );
+		solicitudDAO.registrarSolicitud( solic );
+		
+		 //crea el tramite 
+		 Tramite tram = new Tramite();
+			tram.setSolicitud( new Solicitud( sol.getId().getIdsolicitud() ) );
+			tram.setEscritura( new Escritura( sol.getId().getIdEscritura() ) );
+			
+			tramiteService.registrar( tram , username);
+			
 	}
 
 	@Override
