@@ -166,10 +166,11 @@ public class EscrituraController {
 			Integer idEscritura = Integer.parseInt(request.getParameter("cod"));
 			model.put("escritura", escrituraService.obtenerEscritura( idEscritura ));
 			model.put("limplicados", escrituraService.obtenerPersonasEscritura( idEscritura )) ;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "escritura/vista";
+		return "escritura/detalleEscritura";
 	}
 	
 	
@@ -181,8 +182,8 @@ public class EscrituraController {
 			
 			model.put("escritura", escrituraService.obtenerEscritura( idEscritura ));
 			model.put("solicitud", solicitudService.obtenerSolicitud( idSolicitud ));
-			
 			model.put("limplicados", escrituraService.obtenerPersonasEscritura( idEscritura )) ;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

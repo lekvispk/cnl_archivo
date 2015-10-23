@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri='http://www.springframework.org/security/tags' prefix='security'%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!-- BEGIN listaTramite.jsp-->
 <jsp:include page="../includes/cabecera.jsp"/>
 
@@ -39,7 +41,7 @@
 						<display:column title="Nombre (Solicitante)" property="solicitud.persona.nombreCompleto" sortable="true" headerClass="sortable" />
 						<display:column title="Fecha solicitud" property="solicitud.fechaIngreso" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
 						<display:column title="Tipo de solicitud" property="solicitud.tipoSolicitud.nombreTipoSolicitud" sortable="true" headerClass="sortable" />
-						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 80px;">
+						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 120px;">
 						
 			            	<c:choose>
 			            		<c:when test="${row.estado==1}">
@@ -72,10 +74,12 @@
 			            	5 = notificado
 			            	6 = concluido
 			            	 --%>
-			            	 <a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+			            	
 			            	<c:choose>
 			            		<c:when test="${row.estado==1}">
-			            			<a id="ver_es_${row.idTramite}" href="#" data-link="detalleEscritura.htm?cod=${row.escritura.idEscritura}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+			            		<spring:url value="/" var="rooot" />
+			            			<%-- <a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>--%>
+			            			<a id="ver_es_${row.idTramite}" href="#" data-link="${rooot }escritura/ver.htm?cod=${row.escritura.idEscritura}" style="border: 0px;" title="Ver Escritura"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
 					               	<a href="editar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
 				                 </c:when>
 			            		<c:when test="${row.estado==2}">

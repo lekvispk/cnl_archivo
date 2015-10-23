@@ -60,6 +60,7 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar-es.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar-setup.js"></script> 
     
+    	<spring:url value="/" var="rooot" />
 </head>
 
 <body>

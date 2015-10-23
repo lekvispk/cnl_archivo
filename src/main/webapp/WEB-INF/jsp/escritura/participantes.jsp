@@ -1,6 +1,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="../includes/head.jsp"/> 
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<!-- BEGIN participantes.jsp -->
+<jsp:include page="../includes/cabecera.jsp"/>
+
 <script>
 
 	function cancelar(){
@@ -47,117 +50,125 @@
 			}
 		});
 	});
-	</script>
+</script>
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+    
+    <div class="row">
+	    <div class="col-lg-12">
+	    	&nbsp;
+	    </div>
+    </div>
+    
+    <jsp:include page="../includes/error.jsp"/>
+    
+    <div class="row">
+    <div class="col-lg-12">
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+         REGISTRO DE OFICIO
+      </div>
+      
+    <div class="panel-body">
+    
+    <form:form name="frm3" action="#" method="post" modelAttribute="perescritura">
+    
+    <div class="row">
+		<div class="col-lg-12">                        
 	
+		<!-- <h2>Implicados</h2> -->
+  		<h3> <span>MENCIONADOS EN OFICIO</span> </h3>
+  
+	  	<table class="bloqueTablaLineal" >
+	       <tr>
+	           <th>Persona:</th>
+	           <td>
+	           	
+	           	<form:hidden path="escritura.idEscritura" id="idEscritura"/>
+	           	<form:hidden path="persona.idPersona" id="idPersona"/>
+	
+			    <div class="demo">
+					<div class="ui-widget">
+						<input id="tags" type="text" size="40"/>
+					</div>
+				</div>
+	         </td>
+	         <td>	
+	         	 <ul class="enlacesCentroAjustables">
+	                   <li>
+	                       <input type="button" onclick="javascript:nuevo();" class="boton" value="Nueva Persona">
+	                      </li>
+	                 </ul>
+	           </td>
+	       </tr>
+	       <tr>
+	           <th valign="middle">Tipo:</th>
+	           <td valign="middle">
+	           	
+	           	<form:select path="tipoRelacion.idTipoRelacion" style="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
+	           		<form:options items="${lTipoRelacion}" itemLabel="relDescripcion" itemValue="idTipoRelacion"/>
+	              	</form:select>                                               	
+	
+	           </td>
+	            <td valign="middle">
+					<input type="button" onclick="javascript:agregar();" class="boton" value="Agregar">
+	           </td>
+	       </tr>
+	    </table>
+    
+    	</div>
+    </div>
+   
+    </form:form>
 
-            <div id="contenedor">
-                <!--Capa que contiene toda la plantilla-->
-                <jsp:include page="../includes/cabecera.jsp" flush="true"/>
-                 
-                <div id="cuerpo" align="center">
-                    <table class="anchoTotal" align="center" width="90%" border="1">
-                        <tr>
-                            <td id="anchoMenu" >
-                                <jsp:include page="../includes/menu2.jsp" flush="true"/>
-                            </td>
-                            <td id="anchoCuerpo">
-                            
-                                <div id="contenido">
-                                    <!--Capa que contiene el cuerpo de la plantilla-->                                     
-                                    <h2>REGISTRO DE OFICIO</h2>                                     
-                                    
-                                   <!-- <h2>Implicados</h2> -->
-                                   <h3> <span>MENCIONADOS EN OFICIO</span> </h3>
-                                   
-                                   <form:form name="frm3" action="#" method="post" modelAttribute="perescritura">
-                                 
-                                   <table class="bloqueTablaLineal" cellspacing="6">
-                                        <tr>
-                                            <th>Persona:</th>
-                                            <td>
-                                            	
-                                            	<form:hidden path="escritura.idEscritura" id="idEscritura"/>
-                                            	<form:hidden path="persona.idPersona" id="idPersona"/>
-                                       
-                                            	<div class="demo">
-													<div class="ui-widget">
-														<input id="tags" type="text" size="40"/>
-													</div>
-												</div>
-                                            </td>
-                                            <td>	
-                                            	 <ul class="enlacesCentroAjustables">
-                                                      <li>
-                                                          <input type="button" onclick="javascript:nuevo();" class="boton" value="Nueva Persona">
-                                                       </li>
-                                                  </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th valign="middle">Tipo:</th>
-                                            <td valign="middle">
-                                            	
-                                            	<form:select path="tipoRelacion.idTipoRelacion" style="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-                                            		<form:options items="${lTipoRelacion}" itemLabel="relDescripcion" itemValue="idTipoRelacion"/>
-                                               	</form:select>                                               	
-                                            </td>
-                                             <td valign="middle">
-	                                            <ul class="enlacesCentroAjustables">
-	                                            	<li><input type="button" onclick="javascript:agregar();" class="boton" value="Agregar"></li>
-	                                            </ul>
-                                            </td>
-                                        </tr>
-                                     </table>
-                                     
-                                     
-                                      <table id="myTable" width="90%" align="center">
-						                            <thead>
-						                            	<tr>
-						                            		<th class="tituloTabla" axis="string">Tipo</th>
-						                            		<th class="tituloTabla" axis="string">Persona</th>
-						                            		<th class="tituloTabla" axis="string">Documento</th>
-						                                    <th class="tituloTabla" axis="string" width="60px">Acciones</th>
-						                                 </tr>
-						                            </thead>
-						                            <tbody>
-						                            
-						                             <c:if test="${not empty limplicados}">
-						                            	<c:forEach items="${limplicados}" var="row">
-						                            	<tr>                                    
-						                                    <td>&nbsp;<c:out value="${row.tipoRelacion.relDescripcion}"/></td>
-						                                    <td>&nbsp;<c:out value="${row.persona.nombreCompleto}"/></td>
-						                                    <td>&nbsp;<c:out value="${row.persona.numDocumento}"/></td>
-						                                     <td>
-						                                <!--    	<a href="ver.htm?codd=${row.escritura.idEscritura}&codp=${row.persona.idPersona}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
-						                                    	<a href="javascript:eliminar(${row.escritura.idEscritura},${row.persona.idPersona});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>
-				                                    	 --> 
-						                                    </td>
-						                                </tr>
-						                               </c:forEach>
-						                           </c:if>
-						                           </tbody>
-						                       </table>
-                                   </form:form>
+    <div class="row">
+	   	<div class="col-lg-12">
+	    		<div id="tablaDinamica">
+		 		<div id="resultado">
+	   			<div id="displayTagDiv">
+	   			
+	                 <display:table name="requestScope.limplicados" requestURI="buscar.htm" class="displaytag" pagesize="25" defaultsort="1"
+						defaultorder="ascending" export="false" id="row" excludedParams="ajax">
+							<display:column title="Tipo" property="tipoRelacion.relDescripcion" sortable="true" headerClass="sortable"/>
+							<display:column title="Persona" property="persona.nombreCompleto" sortable="true" headerClass="sortable" />
+							<display:column title="Documento" property="persona.numDocumento" sortable="true" headerClass="sortable" />
+							<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
+				            	<!--    	<a href="ver.htm?codd=${row.escritura.idEscritura}&codp=${row.persona.idPersona}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+							         	<a href="javascript:eliminar(${row.escritura.idEscritura},${row.persona.idPersona});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>
+							     --> 
+	                        </display:column>
+					 </display:table>
+					 
+		 		</div>
+			  	</div>
+				</div>	
+	   	</div>
+    </div>
+    		
+ 	<div class="row">
+	    <div class="col-lg-12">
+			<input type="button" onclick="javascript:cancelar();" class="boton" value="Finalizar">	    
+	    </div>
+    </div>
+    
+   </div>
+   
+	</div>
+   
+   </div>
+   </div>
+   
+    </div>
+    <!-- /#page-wrapper -->
 
+	<div id='somediv' style="display: none">
+		<div id="cuerpoDiv"></div>
+	</div>
+	
+	<jsp:include page="../includes/pie.jsp" flush="true"/>
 
-                                <center>
-                                        <table summary="Contenedor Botones"
-                                               class="tablaAnchoAjustable">
-                                            <tr>
-                                                <td>
-                                                    <ul class="enlacesCentroAjustables">
-                                                        <li><input type="button" onclick="javascript:cancelar();" class="boton" value="Finalizar"></li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </center>                 
-                                                  
-                                </div>
-                               
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <jsp:include page="../includes/pie.jsp" flush="true"/>
+    </body>
+</html>
+<!-- END participantes.jsp -->

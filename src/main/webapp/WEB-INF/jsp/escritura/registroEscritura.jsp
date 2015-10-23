@@ -116,7 +116,6 @@
        </div>
        </form:form>
        
-        
         <div class="row">
 	    	<div class="col-lg-12">
             <c:if test="${ escritura.idEscritura != 0}">

@@ -68,6 +68,7 @@
            <th>Ubicacion Digital:</th>
            <td>${escritura.ubicacionDigital}</td>
        </tr> 
+       <c:if test="${ not empty solicitud }">
         <tr>
            <th>Nro. de firmas faltantes:</th>
            <td><input type="text" name="txtFirmas" id="txtFirmas" class="form-control" placeholder="Firmas faltantes" /></td>
@@ -79,7 +80,8 @@
            		<input type="text" name="txtCosto" id="txtCosto" class="form-control" placeholder="Costo del Servicio" value="${solicitud.tipoSolicitud.costoServicio }" /> 
            		<a id="detalleEscrituraCalcularBtn" class="btn btn-outline btn-info btn-xs">Calcular</a>  
            	</td>
-       </tr>                                    
+       </tr>
+       </c:if>   
    </table>
     
    <h3> <span>PARTICIPANTES</span> </h3>
