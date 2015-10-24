@@ -25,6 +25,7 @@
 		}
     	
     	$(function() {
+    		
     		$( "#tags" ).autocomplete({
     			width: 300,
     	        max: 10,
@@ -53,6 +54,7 @@
     				  $( "#idPersona" ).val( ui.item.id );
     			}
     		});
+    		
     	});
     		
     </script>

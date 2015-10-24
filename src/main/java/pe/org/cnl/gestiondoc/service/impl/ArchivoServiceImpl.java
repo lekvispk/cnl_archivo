@@ -1,5 +1,11 @@
 package pe.org.cnl.gestiondoc.service.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,6 +73,76 @@ public class ArchivoServiceImpl implements ArchivoService {
 		archivo.setEscritura( doc );
         archivoDAO.registrarArchivo(archivo);
         
+	}
+
+	@Override
+	public void registrarArchivoEnDisco(MultipartFile file, Integer idEscritura) throws Exception {
+		
+		if(file.getSize() > ParametroUtil.FILE_MAX_SIZE ){
+        	throw new Exception("El archivo es muy grande y no se ha podido grabar en el sistema");
+        }
+		
+		Archivo archivo = new Archivo();
+		archivo.setNombre( file.getOriginalFilename() );
+        //archivo.setArchivo( file.getBytes() );
+		Escritura doc = new Escritura();
+		doc.setIdEscritura( idEscritura );
+		archivo.setEscritura( doc );
+        archivoDAO.registrarArchivo(archivo);
+        
+        try {
+
+        	String diskFolder = ArchivoService.FOLDER_FILE ; 
+			
+        	OutputStream out = new FileOutputStream(new File( diskFolder +  archivo.getIdArchivo()  ));
+			out.write( file.getBytes() );
+			out.close();
+			
+			System.out.println("Done");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+	}
+
+	@Override
+	public Archivo obtenerArchivoEnDisco(Integer idArchivo) {
+		Archivo file = archivoDAO.obtenerArchivo( idArchivo );
+		
+		/*FileInputStream fstream = null ;
+		Object obj;
+		
+		try {
+			fstream = new FileInputStream(ArchivoService.FOLDER_FILE + idArchivo);
+			ByteArrayInputStream ostream = new ByteArrayInputStream(fstream);
+			while (true) {
+			
+				try {
+					obj = ostream.readObject();
+				} catch (EOFException e) {
+					break;
+				}
+		    // do something with obj
+			}
+		}catch(Exception e ){
+			e.printStackTrace();
+		}finally {
+			try {
+				fstream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		  */
+		File tmp = new File( ArchivoService.FOLDER_FILE + idArchivo );
+		try {
+			file.setArchivo( FileUtils.readFileToByteArray( tmp) );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return file;
 	}
 
 }

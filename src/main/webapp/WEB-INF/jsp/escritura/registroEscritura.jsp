@@ -1,19 +1,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <!-- BEGIN registroEscritura.jsp-->
 <jsp:include page="../includes/cabecera.jsp"/>
-
+<spring:url value="/" var="root_url" />
  <script>
 
    	function cargar(){
-   	    document.forms[1].action = "cargarEscritura.htm";
+   	    document.forms[1].action = "${root_url}archivo/cargarEscritura.htm";
    	    document.forms[1].submit();
    	}
    	
-   	function eliminar(cod,docum){
-   	    if(confirm('Está segur de eliminar la escritura')){
-   	    	window.location='eliminarDoc.htm?id='+cod+"&cod="+docum;
+   	function eliminarArchivo( idArchivo ,isEscritura){
+   	    if(confirm('Está segur de eliminar el archivo')){
+   	    	var url = '${root_url}archivo/eliminarArchivo.htm?id='+idArchivo+'&isEscritura='+isEscritura ;
+   	    	console.info( 'ir a ' + url) ;
+   	    	window.location= url ;
    	    }
    	}
    	
@@ -149,10 +153,10 @@
 				<tr>
                       <th>Descargar Archivo:</th>
                       <td>
-                      <a href="descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>&nbsp;&nbsp;&nbsp;&nbsp;			                                          
-                      <a href="javascript:eliminar('${doc.idArchivo}','${documento.idDocumento}');" class="btnEnlaceCentro"> 
-                     		<img title="Eliminar archivo" src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0">
-                     	</a>
+	                      <a href="${root_url}archivo/descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>&nbsp;&nbsp;&nbsp;&nbsp;			                                          
+	                      <a href="javascript:eliminarArchivo('${doc.idArchivo}','${escritura.idEscritura}');" class="btnEnlaceCentro"> 
+	                     		<img title="Eliminar archivo" src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0">
+	                       </a>
                       </td>
                   </tr>
                   </c:forEach>

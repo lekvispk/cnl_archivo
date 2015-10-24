@@ -1,24 +1,4 @@
-<%-- <div id="cabecera"><!--Capa que contiene la cabecera-->
-    <table class="anchoMaximo">
-    	<tr>
-    		<td id="anchoLogo"></td>
-    		<td id="anchoTextos">
-        	<div id="bloqueTextos">
-            	<span id="nombreUsuario">Bienvenido: <b>${pageContext.request.userPrincipal.name} </b></span>
-            </div>
-        	<a href="${pageContext.request.contextPath}/inicio.htm"><h1> SISTEMA DE B&Uacute;SQUEDA DE ESCRITURAS P&Uacute;BLICAS DE EX NOTARIOS</h1></a>
-    		</td>
-    		<td id="anchoExtremo">
-        		<div id="extremoDerecho"></div>
-    		</td>
-    	</tr>
-    </table>
-</div>
-<div id="bloqueSombra"><!--Sombra del Encabezado-->
-    <a id="btnCerrarSession" href="${pageContext.request.contextPath}/login.htm">Cerrar sesi&oacute;n</a><!-- ${pageContext.request.contextPath}/j_spring_security_logout -->
-</div>
--------------------------------------------
---%><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">

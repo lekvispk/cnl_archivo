@@ -1,3 +1,8 @@
+$(function() {
+	//para darle funcion ajax al displaytag
+	$("#displayTagDiv").displayTagAjax();
+});
+
 //clic en ver detalle de cualquier lista
 $(document).undelegate('[id^=ver_], [id^=derivar_]', 'click').delegate('[id^=ver_], [id^=derivar_]', 'click', function(){ 
 	 console.info('click en ver detalle de escritura');
@@ -6,9 +11,6 @@ $(document).undelegate('[id^=ver_], [id^=derivar_]', 'click').delegate('[id^=ver
 	  });
 }); 
 
-
-//para darle funcion ajax al displaytag
-$("#displayTagDiv").displayTagAjax();
 
 //boton guardar en la ventana de busqueda realizada, boton grabar
 $(document).undelegate('#modal_detalleEscritura_guardar', 'click').delegate('#modal_detalleEscritura_guardar', 'click', function(){
