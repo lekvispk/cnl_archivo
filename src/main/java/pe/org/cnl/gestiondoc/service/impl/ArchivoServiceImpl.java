@@ -110,31 +110,6 @@ public class ArchivoServiceImpl implements ArchivoService {
 	public Archivo obtenerArchivoEnDisco(Integer idArchivo) {
 		Archivo file = archivoDAO.obtenerArchivo( idArchivo );
 		
-		/*FileInputStream fstream = null ;
-		Object obj;
-		
-		try {
-			fstream = new FileInputStream(ArchivoService.FOLDER_FILE + idArchivo);
-			ByteArrayInputStream ostream = new ByteArrayInputStream(fstream);
-			while (true) {
-			
-				try {
-					obj = ostream.readObject();
-				} catch (EOFException e) {
-					break;
-				}
-		    // do something with obj
-			}
-		}catch(Exception e ){
-			e.printStackTrace();
-		}finally {
-			try {
-				fstream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		  */
 		File tmp = new File( ArchivoService.FOLDER_FILE + idArchivo );
 		try {
 			file.setArchivo( FileUtils.readFileToByteArray( tmp) );

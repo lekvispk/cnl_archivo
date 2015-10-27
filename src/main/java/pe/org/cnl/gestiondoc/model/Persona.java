@@ -43,6 +43,8 @@ public class Persona implements Serializable {
 
 	private String email;
 	
+	private String telefono;
+	
 	private int estado;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -280,4 +282,14 @@ public class Persona implements Serializable {
 		Utiles.nullToBlank( this.nombreCompleto) + " " +
 		Utiles.nullToBlank( this.cargo );
 	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
+	
 }

@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- BEGIN detalleEscritura.jsp -->
 	
 <script>
@@ -119,11 +120,12 @@
   <button type="button" class="btn btn-primary" id="modal_detalleEscritura_guardar">Guardar</button>
   
    <c:if test="${ not empty escritura.archivos }">
+   	<spring:url value="/" var="rooot" />
   	<c:forEach items="${escritura.archivos}" var="doc">
 	
-		<a type="button" class="btn btn-primary" href="descargar.htm?id=${doc.idArchivo}"  title="${doc.nombre}" >Descargar</a>
+		<a type="button" class="btn btn-primary" href="${rooot}archivo/descargar.htm?id=${doc.idArchivo}"  title="${doc.nombre}" >Descargar</a>
   
-	         <td><a href="descargar.htm?id=${doc.idArchivo}"></a>&nbsp;</td>
+	         <td><a href="${rooot}archivo/descargar.htm?id=${doc.idArchivo}"></a>&nbsp;</td>
     <%---     <tr>
              <th>Firmar Archivo:</th>
              <td><a href="javascript:firmar(${doc.idArchivo});">${doc.nombre}</a>&nbsp;</td>

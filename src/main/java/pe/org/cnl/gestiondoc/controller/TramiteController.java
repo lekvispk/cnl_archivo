@@ -86,6 +86,20 @@ public class TramiteController {
 		}
 	}
 	
+	@RequestMapping("/atender.htm")
+	public String atender(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			logger.debug(" atender ");
+			//model.put("ltipoacto", tipoActoService.listarTiposActos() );
+			//model.put("lTipoSol",  tipoSolicitudService.listarTipoSolicitud() );
+			//model.put("lnotarias",  notariaService.buscar( null ) );
+			model.put("tramite", tramiteService.obtener( Integer.parseInt( request.getParameter("cod"))));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "tramite/tramiteForm";
+	}
+	
 	@RequestMapping("/ver.htm")
 	public String ver(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {

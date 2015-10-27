@@ -52,6 +52,9 @@ public class Escritura implements Serializable {
 
 	@Column(name="numero_doc")
 	private String numeroDoc;
+
+	@Column(name="numero_factura")
+	private String numeroFactura;
 	
 	@Column(name="numero_fojas")
 	private int numeroFojas;
@@ -443,6 +446,14 @@ public class Escritura implements Serializable {
 
 	public void setTipoActos(List<TipoActo> tipoActos) {
 		this.tipoActos = tipoActos;
+	}
+
+	public String getNumeroFactura() {
+		return numeroFactura;
+	}
+
+	public void setNumeroFactura(String numeroFactura) {
+		this.numeroFactura = numeroFactura;
 	}
 
 }

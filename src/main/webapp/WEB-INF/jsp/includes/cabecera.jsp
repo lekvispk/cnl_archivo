@@ -9,7 +9,7 @@
 
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" />
 
-    <title>Reclamos</title>
+    <title>ArchivoNot</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,7 +40,6 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar-es.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar-setup.js"></script> 
     
-    	<spring:url value="/" var="rooot" />
 </head>
 
 <body>
@@ -56,7 +55,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/inicio.htm">SISTEMA DE B&Uacute;SQUEDA DE ESCRITURAS P&Uacute;BLICAS DE EX NOTARIOS</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/inicio.htm">SERVICIO ARCHIVO EX NOTARIOS</a>
             </div>
             <!-- /.navbar-header -->
 

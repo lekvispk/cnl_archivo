@@ -16,7 +16,6 @@ import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
 import pe.org.cnl.gestiondoc.model.SolicitudTramitePK;
-import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.service.ArchivoService;
 import pe.org.cnl.gestiondoc.service.EscrituraService;
 import pe.org.cnl.gestiondoc.service.SolicitudService;
