@@ -52,31 +52,39 @@ public class TramiteController {
 		return  "tramite/listaTramite";
 	}
 	
-	@RequestMapping("/prenuevo.htm")
-	public String prenuevo(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	@RequestMapping("/preatender.htm")
+	public String preAtender(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
-			logger.debug(" prenuevo ");
-			//model.put("ltipoacto", tipoActoService.listarTiposActos() );
-			//model.put("lTipoSol",  tipoSolicitudService.listarTipoSolicitud() );
-			//model.put("lnotarias",  notariaService.buscar( null ) );
-			model.put("tramite", new Tramite());
+			logger.debug(" preAtender ");
+			model.put("tramite", tramiteService.obtener( Integer.parseInt( request.getParameter("cod"))));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "tramite/tramiteForm";
 	}
 	
-	@RequestMapping("/nuevo.htm")
-	public String nuevo(@Valid Tramite tramite, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	@RequestMapping("/atender.htm")
+	public String atender(@Valid Tramite tramite, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
-			logger.debug(" nuevo ");
+			logger.debug(" atender ");
 			
-			//solicitud.setEstado( 1 );
-			//solicitud.setFechaIngreso( Utiles.stringToDate( request.getParameter("fechaIngreso"), "dd/MM/yyyy"));
-			//solicitudService.registrarSolicitud(solicitud);
+			Tramite tr = tramiteService.obtener( tramite.getIdTramite() ) ;
+			tr.setInformeSolicitud( tramite.getInformeSolicitud() );
+			
+			TramiteUsuario tu = new TramiteUsuario();
+			tu.setTramite( tr );
+			
+			tramiteService.registrarAtencion( tu );
 			model.put("mensaje", "El tramite ha sido creado exitosamente");
 			
-			return lista(request, model);
+			tr = new Tramite();
+			tr.setEstado( 2 );
+			TramiteUsuario te = new TramiteUsuario();
+			te.setEstado(1);
+			tr.addTramiteUsuario( te );
+			model.put("tramite", new Tramite());
+			model.put("lTramites", tramiteService.buscar(tr));
+			return "tramite/listaTramite";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,20 +92,6 @@ public class TramiteController {
 			model.put("msgError", e.getMessage());
 			return "tramite/tramiteForm";
 		}
-	}
-	
-	@RequestMapping("/atender.htm")
-	public String atender(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		try {
-			logger.debug(" atender ");
-			//model.put("ltipoacto", tipoActoService.listarTiposActos() );
-			//model.put("lTipoSol",  tipoSolicitudService.listarTipoSolicitud() );
-			//model.put("lnotarias",  notariaService.buscar( null ) );
-			model.put("tramite", tramiteService.obtener( Integer.parseInt( request.getParameter("cod"))));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "tramite/tramiteForm";
 	}
 	
 	@RequestMapping("/ver.htm")

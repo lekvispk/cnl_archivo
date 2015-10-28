@@ -136,14 +136,14 @@
            </c:forEach>
         </c:if>
        --%>    
-	 <form:form name="frm2" action="nuevo.htm" method="post" modelAttribute="tramite">	
+	 <form:form name="frm2" action="atender.htm" method="post" modelAttribute="tramite">	
 	
-      	<input type="hidden" name="idTramite">
+      	<form:hidden path="idTramite"/>
      
 		<!-- Textarea -->
 		<div class="form-group">
 		  <label class="col-md-4 control-label" for="detalleNotificacion">Detalle de Notificacion</label>
-		  <textarea class="form-control" id="detalleNotificacion" name="detalleNotificacion">Ingrese el detalle</textarea>
+		  <form:textarea class="form-control" path="informeSolicitud"/>
 		</div>
 		
 	    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>

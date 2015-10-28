@@ -80,7 +80,7 @@
 			            		<c:when test="${row.estado==1}">
 			            			<%-- <a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>--%>
 			            			<a id="ver_es_${row.idTramite}" href="#" data-link="${rooot}pendientes/detalleEscritura.htm?idEscritura=${row.escritura.idEscritura}&idSolicitud=${row.solicitud.idsolicitud}" style="border: 0px;" title="Ver Escritura"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
-					               	<a href="atender.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
+					               	<a href="preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
 				                 </c:when>
 			            		<c:when test="${row.estado==2}">
 			            			<a id="modificar_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Modificar</a>

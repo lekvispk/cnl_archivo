@@ -55,4 +55,19 @@ public class TramiteServiceImpl implements TramiteService {
 		return tramiteDAO.obtener(idTramite);
 	}
 
+	@Override
+	public void registrarAtencion(TramiteUsuario tramite) {
+		
+		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
+		tramite.setSecUsuario2( usuarioDao.obtenerUsuario( "gjara" ) );
+		tramite.setEstado(1);
+		tramite.setFechaRegistro( new Date() );
+		
+		tramite.getTramite().setEstado( 2 );
+		
+		tramiteDAO.registrar( tramite.getTramite() );
+		tramiteDAO.registrarMovimiento( tramite );
+		
+	}
+
 }
