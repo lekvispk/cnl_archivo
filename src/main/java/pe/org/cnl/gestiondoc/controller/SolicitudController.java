@@ -179,4 +179,20 @@ public class SolicitudController {
 		return "solicitud/lista";
 	}
 	
+
+	@RequestMapping("/listaPorCotizar.htm")
+	public String listaPorCotizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			logger.debug(" listaPorCotizar ");
+			Solicitud solicitud = new Solicitud();
+			solicitud.setEstado(1);
+			model.put("lSolicitudes", solicitudService.buscarSolicitudes( solicitud ) );
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "solicitud/listaSolicitudPorCotizar";
+	}
+	
+	
 }

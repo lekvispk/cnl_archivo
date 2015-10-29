@@ -37,7 +37,14 @@
                    
             	<table class="bloqueTablaLineal" summary="Datos del Calendario">
                 	<tr>
-                    	<th>Acto:</th>
+                    	<th>Tipo Solicitud:</th>
+                        <td colspan="3">
+                        	<select name="nombre" style="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
+                            	<option value="-1">-TODOS-</option>
+                           </select>
+                        </td>
+                   
+                    	<th>Tipo Acto:</th>
                         <td colspan="3">
                         	<form:select path="tipoActo.idActo" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
                             	<form:option value="-1">-TODOS-</form:option>

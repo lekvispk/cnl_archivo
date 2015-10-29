@@ -22,6 +22,7 @@
                             <ul class="nav nav-second-level">
                                 <li><a href="${pageContext.request.contextPath}/solicitud/inicial.htm">Solicitud</a></li>
                                 <li><a href="${pageContext.request.contextPath}/solicitud/prenuevo.htm">Nuevo</a></li>
+                                <li><a href="${pageContext.request.contextPath}/solicitud/listaPorCotizar.htm">Cotizar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/solicitud/lista.htm">Consultar</a></li>
                                 <%-- 
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lEvaluar.htm">Evaluar</a></li>

@@ -1,85 +1,43 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-
+<!-- BEGIN registro.jsp -->
 	<jsp:include page="../includes/cabecera.jsp"/>
 
 	
     <!-- Page Content -->
     <div id="page-wrapper">
-    <div class="container-fluid">
+    
+    <div class="row">
+	    <div class="col-lg-12">
+	    	&nbsp;
+	    </div>
+    </div>
+    
+    <jsp:include page="../includes/error.jsp"/>
+     
     <div class="row">
     <div class="col-lg-12">
-                               
-    <h2>REGISTRO DE SOLICITUDES</h2> 
-
-    <div align="center" style="color: red"> <c:out value="${msgError}"/> </div>
-	<div align="center" style="color: blue"> <c:out value="${mensaje}"/> </div>
-            
-  	<!--  <h2>Datos de Alerta</h2> -->
-    <h3> <span>Datos de Solicitud</span> </h3>
     
+    <div class="panel panel-default">
+                   
+	<div class="panel-heading">
+          REGISTRO DE SOLICITUDES
+    </div>            
+    
+    <div class="panel-body">
+    
+	    <div class="row">
+		</div>
+		
     <form:form name="frm2" action="nuevo.htm" method="post" modelAttribute="solicitud">
-     
+	<div class="row">
+		<div class="col-lg-12">
+		     
      <form:hidden path="idsolicitud"/>
      
-      <table class="bloqueTablaLineal" cellspacing="6">
-         <tr>
-             <th>Fecha de Escritura:</th>
-             <td>
-             	<fmt:formatDate value="${solicitud.fechaIngreso}" pattern="dd/MM/yyyy" var="f_fechaIngreso"/>
-	          	<input type="text" name="fechaIngreso" id="fechaIngreso" size="15" value="${f_fechaIngreso}"/>
-		 		<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald" />
-				<script type="text/javascript">
-				var fechita = new Date();
-				fechota =  fechita.getDate()  + "/" + (fechita.getMonth()+1) + "/" +  fechita.getFullYear();
-				document.forms[0].fechaIngreso.value = fechota;
-				Calendar.setup({
-					inputField     :    "fechaIngreso",  // id del campo de texto
-					ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-					showsTime      :    false,       // Flag para mostrar la Fecha
-					button         :    "triggerCald",// ID del elemento que llamara al calendario
-					singleClick    :    true         // Flag Modo doble-click 
-				});
-				</script>
-				</td>
-               </tr>
-               <tr>
-                   <th>Tipo Solicitud:</th>
-                   <td>
-                   	<form:select path="tipoSolicitud.idTipoSolicitud" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-             		<form:option value="-1">-TODOS-</form:option>
-              	<form:options items="${lTipoSol}" itemLabel="nombreTipoSolicitud" itemValue="idTipoSolicitud"/>
-             	</form:select>
-             </td>
-         </tr>
-          <tr>
-             <th>Acto:</th>
-             <td>
-             	<form:select path="tipoActo.idActo" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-             		<form:option value="-1">-TODOS-</form:option>
-              		<form:options items="${ltipoacto}" itemLabel="nombreActo" itemValue="idActo"/>
-             	</form:select>
-             </td>
-         </tr>
-         <tr>
-             <th>Notario:</th>
-             <td>
-             	<form:select path="notaria.idNotaria" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-             		<form:option value="-1">-TODOS-</form:option>
-              		<form:options items="${lnotarias}" itemLabel="nombre" itemValue="idNotaria"/>
-             	</form:select>
-             </td>
-         </tr>
-         <tr>
-             <th>Comprador:</th>
-             <td><form:input path="tramComprador" class="asunto" size="50"/></td>
-         </tr>
-           <tr>
-             <th>Vendedor:</th>
-             <td><form:input path="tramVendedor" class="asunto" size="50"/></td>
-         </tr>
-         <tr>
+      <table class="bloqueTablaLineal">
+        <tr>
              <th>Solicitante:</th>
              <td>
              
@@ -92,51 +50,151 @@
                  	
                  <div class="demo" style="float: left;">
 					<div class="ui-widget">
-						<form:input path="persona.nombreCompleto" id="tagsPersona" size="40" cssClass="form-control input-md" />
+						<form:input path="persona.nombreCompleto" id="tagsPersona" size="20" cssClass="form-control input-md" />
 					</div>
 				</div>
+				
+             </td>
+             <th>Fecha de Solicitud:</th>
+             <td>
+              <div class="form-group input-group">
+             	<fmt:formatDate value="${solicitud.fechaIngreso}" pattern="dd/MM/yyyy" var="f_fechaIngreso"/>
+	          	<input type="text" name="fechaIngreso" id="fechaIngreso" size="15" value="${f_fechaIngreso}" class="form-control"/>
+	          	<span class="input-group-addon"><img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald" /></span>
+		 		<script type="text/javascript">
+				var fechita = new Date();
+				fechota =  fechita.getDate()  + "/" + (fechita.getMonth()+1) + "/" +  fechita.getFullYear();
+				document.forms[0].fechaIngreso.value = fechota;
+				Calendar.setup({
+					inputField     :    "fechaIngreso",  // id del campo de texto
+					ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
+					showsTime      :    false,       // Flag para mostrar la Fecha
+					button         :    "triggerCald",// ID del elemento que llamara al calendario
+					singleClick    :    true         // Flag Modo doble-click 
+				});
+				</script>
+				</div>
+				</td>
+         </tr>
+         
+               <tr>
+                   <th>Tipo Solicitud:</th>
+                   <td colspan="3">
+                   	<form:select path="tipoSolicitud.idTipoSolicitud" class="form-control">
+	             		<form:option value="-1">-TODOS-</form:option>
+	              		<form:options items="${lTipoSol}" itemLabel="nombreTipoSolicitud" itemValue="idTipoSolicitud"/>
+	             	</form:select>
+             </td>
+         </tr>
+        
+        <tr>
+             <th>Comprador:</th>
+             <td colspan="3">
+             	<div class="row">
+  				<div class="col-lg-4"><input name="tramCompradorNombre" placeholder="Nombres"  size="10" class="form-control input-md"/></div>
+             	<div class="col-lg-4"><input name="tramCompradorPaterno" placeholder="Ap. Paterno"  size="10" class="form-control input-md"/></div>
+             	<div class="col-lg-4"><input name="tramCompradorMaterno" placeholder="Ap. Materno" size="10" class="form-control input-md"/></div>
+             	</div>
+             </td>
+         </tr>
+           <tr>
+             <th>Vendedor:</th>
+             <td colspan="3">
+             	<div class="row">
+  				<div class="col-lg-4"><input name="tramCompradorNombre" placeholder="Nombres"  size="10" class="form-control input-md"/></div>
+             	<div class="col-lg-4"><input name="tramCompradorPaterno" placeholder="Ap. Paterno"  size="10" class="form-control input-md"/></div>
+             	<div class="col-lg-4"><input name="tramCompradorMaterno" placeholder="Ap. Materno" size="10" class="form-control input-md"/></div>
+             	</div>
+             </td>
+         </tr>
+         
+         <tr>
+             <th>Tramitado en el Oficio Notarial:</th>
+             <td colspan="3">
+             	<form:select path="notaria.idNotaria" class="form-control" >
+             		<form:option value="-1">-TODOS-</form:option>
+              		<form:options items="${lnotarias}" itemLabel="nombre" itemValue="idNotaria"/>
+             	</form:select>
+             </td>
+         </tr>
+         
+         <tr>
+             <th>Nro. Kardex:</th>
+             <td><form:input path="tramKardex" class="form-control" size="10"/></td>
+             <th>Fecha de Escritura:</th>
+             <td>
+	             <div class="form-group input-group">
+	             	<fmt:formatDate value="${solicitud.tramFechaInicial}" pattern="dd/MM/yyyy" var="f_tramFechaInicial"/>
+		          	<input type="text" name="tramFechaInicial" id="tramFechaInicial" size="15" value="${f_tramFechaInicial}" class="form-control"/>
+		          	<span class="input-group-addon"><img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald2" /></span>
+					<script type="text/javascript">
+						var fechita = new Date();
+						fechota =  fechita.getDate()  + "/" + (fechita.getMonth()+1) + "/" +  fechita.getFullYear();
+						document.forms[0].fechaIngreso.value = fechota;
+						Calendar.setup({
+							inputField     :    "tramFechaInicial",  // id del campo de texto
+							ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
+							showsTime      :    false,       // Flag para mostrar la Fecha
+							button         :    "triggerCald2",// ID del elemento que llamara al calendario
+							singleClick    :    true         // Flag Modo doble-click 
+						});
+					</script>
+				</div>
+			</td>
+         </tr>
+          <tr>
+             <th>Nro. Folio o Foja:</th>
+             <td><form:input path="tramFolios" class="form-control  input-md" size="10"/></td>
+             <th>Nro. Instrumento:</th>
+             <td><form:input path="tramInstrumentoNum" class="form-control" size="15"/></td>
+         </tr>
+         <tr>
+             <th>Nro. Minuta:</th>
+             <td><form:input path="tramFojas" class="form-control  input-md" size="10"/></td>
+             <th>Nro. Escritura:</th>
+             <td><form:input path="tramEscritura" class="form-control" size="15"/></td>
+         </tr>
+         <tr>
+             <th>Comprobante de Pago:</th>
+             <td colspan="3">
+             	<div class="form-group input-group">
+	             	<label><input type="radio" name="tipoComprobante" id="tipoComprobante1" value="1"/>Boleta</label>
+	             	<label><input type="radio" name="tipoComprobante" id="tipoComprobante2" value="2"/>Factura</label>
+             	</div>
              </td>
          </tr>
          <tr>
-             <th>Nro. Kardex:</th>
-             <td><form:input path="tramKardex" class="asunto" size="15"/></td>
+             <th>RUC:</th>
+             <td>
+                	<input type="text" name="factura" id="factura" class="form-control"/>
+             </td>
+             <th>Razon Social:</th>
+             <td>
+                 	<input type="text" name="razonSocial" id="razonSocial" class="form-control"/>
+             </td>
          </tr>
-          <tr>
-             <th>Nro. Folio:</th>
-             <td><form:input path="tramFolios" class="folio" size="15"/></td>
-         </tr>
-         <tr>
-             <th>Nro. Escritura:</th>
-             <td><form:input path="tramEscritura" class="asunto" size="15"/></td>
-         </tr>
-       
-         
      </table>
       
-         <table summary="Contenedor Botones"
-                class="tablaAnchoAjustable">
-             <tr>
-                 <td>
-              
-                  	<input type="submit" class="boton" value="Aceptar">
-                   	<input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
-                   	<!--    <c:if test="${ documento.idDocumento != 0}">
-                       	<input type="button" onclick="javascript:implicados();" class="boton" value="Agregar Personas">
-                       </c:if>
-                       --> 
-                 
-                 </td>
-             </tr>
-         </table>
-         
-     </form:form>
+    	</div>
+    </div>
+    	
+    <div class="row">
+		<div class="col-lg-12">
+			<input type="submit" class="btn btn-success" value="Aceptar">
+       		<input type="button" onclick="javascript:cancelar();" class="btn btn-success" value="Cancelar">
+        </div>
+    </div>   
+    </form:form>
+    
+    </div>
+    
+    </div>
      	
 	</div>
     <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
+   
     </div>
     <!-- /#page-wrapper -->
                             
@@ -199,6 +257,6 @@
     });	
     
     </script>
-    
+    <!-- END registro.jsp -->
    </body>
 </html>
