@@ -91,7 +91,7 @@
              <th>Comprador:</th>
              <td colspan="3">
              	<div class="row">
-  				<div class="col-lg-4"><input name="tramCompradorNombre" placeholder="Nombres"  size="10" class="form-control input-md"/></div>
+  				<div class="col-lg-4"><input name="tramComprador" placeholder="Nombres"  size="10" class="form-control input-md"/></div>
              	<div class="col-lg-4"><input name="tramCompradorPaterno" placeholder="Ap. Paterno"  size="10" class="form-control input-md"/></div>
              	<div class="col-lg-4"><input name="tramCompradorMaterno" placeholder="Ap. Materno" size="10" class="form-control input-md"/></div>
              	</div>
@@ -101,9 +101,9 @@
              <th>Vendedor:</th>
              <td colspan="3">
              	<div class="row">
-  				<div class="col-lg-4"><input name="tramCompradorNombre" placeholder="Nombres"  size="10" class="form-control input-md"/></div>
-             	<div class="col-lg-4"><input name="tramCompradorPaterno" placeholder="Ap. Paterno"  size="10" class="form-control input-md"/></div>
-             	<div class="col-lg-4"><input name="tramCompradorMaterno" placeholder="Ap. Materno" size="10" class="form-control input-md"/></div>
+  				<div class="col-lg-4"><input name="tramVendedor" placeholder="Nombres"  size="10" class="form-control input-md"/></div>
+             	<div class="col-lg-4"><input name="tramVendedorPaterno" placeholder="Ap. Paterno"  size="10" class="form-control input-md"/></div>
+             	<div class="col-lg-4"><input name="tramVendedorMaterno" placeholder="Ap. Materno" size="10" class="form-control input-md"/></div>
              	</div>
              </td>
          </tr>
@@ -166,7 +166,7 @@
          <tr>
              <th>RUC:</th>
              <td>
-                	<input type="text" name="factura" id="factura" class="form-control"/>
+                	<input type="text" name="numeroRuc" id="numeroRuc" class="form-control"/>
              </td>
              <th>Razon Social:</th>
              <td>

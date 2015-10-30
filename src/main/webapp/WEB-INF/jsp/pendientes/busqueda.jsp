@@ -28,14 +28,9 @@
       
     <div class="panel-body">
     <div class="row">
-    
-    
-    
-    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
-
-   
-	    Criterios de busqueda: 
-	    
+    	<div class="col-lg-12">
+    	<form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
+		<label class="control-label">Criterios de busqueda:</label>
 	    <%-- <c:if test="${not empty solicitud.escritura.tipoActo.idActo }">Acto</c:if>--%>
 	    <c:if test="${not empty solicitud.escritura.comprador }">Comprador | </c:if>
 	    <c:if test="${not empty solicitud.escritura.vendedor }">Vendedor | </c:if>
@@ -47,8 +42,8 @@
 	    <c:if test="${not empty solicitud.escritura.numeroDoc }">Escritura | </c:if>
 	    <c:if test="${not empty solicitud.escritura.numeroDoc }">Escritura | </c:if>
       
-	
-	</form:form>
+		</form:form>
+		</div>
 	</div>
  
  

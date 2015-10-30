@@ -47,6 +47,13 @@ public class SolicitudController {
 		return "solicitud/listaInicialSolicitud";
 	}
 	
+	/**
+	 * pantalla inicial en donde se realizaran las busquedas de las solicitudes
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/lista.htm")
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
@@ -68,6 +75,7 @@ public class SolicitudController {
 			model.put("solicitud", solicitud);
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 			model.put("lSolicitudes", solicitudService.buscarSolicitudes(solicitud) );
+			model.put("ltiposolicitid", tipoSolicitudService.listarTipoSolicitud() );
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,7 +102,7 @@ public class SolicitudController {
 		try {
 			logger.debug(" nuevo ");
 			
-			solicitud.setEstado( 1 );
+			
 			solicitud.setFechaIngreso( Utiles.stringToDate( request.getParameter("fechaIngreso"), "dd/MM/yyyy"));
 			solicitudService.registrarSolicitud(solicitud);
 			model.put("mensaje", "La solicitud ha sido creada exitosamente");

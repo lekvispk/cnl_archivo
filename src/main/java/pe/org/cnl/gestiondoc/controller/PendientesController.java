@@ -15,7 +15,6 @@ import pe.org.cnl.gestiondoc.dao.UsuarioDao;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
-import pe.org.cnl.gestiondoc.model.SolicitudTramitePK;
 import pe.org.cnl.gestiondoc.service.ArchivoService;
 import pe.org.cnl.gestiondoc.service.EscrituraService;
 import pe.org.cnl.gestiondoc.service.SolicitudService;
@@ -135,6 +134,13 @@ public class PendientesController {
 		return "pendientes/busqueda";
 	}
 	
+	/**
+	 * muestra la modal con la lista de empleados de la oficina de archivo
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/pendientes/preSeleccionar.htm")
 	public String preSeleciconar( HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		logger.debug(" preSeleciconar ");
@@ -153,24 +159,11 @@ public class PendientesController {
 		try {
 			logger.debug(" seleciconar ");
 			
-			String idEscritura = request.getParameter("idEscritura");
-			String idSolicitud = request.getParameter("idSolicitud");
+			Integer idEscritura = Integer.parseInt(request.getParameter("idEscritura"));
+			Integer idSolicitud = Integer.parseInt(request.getParameter("idSolicitud"));
 			String username = request.getParameter("username");
-			logger.debug(" idEscritura " + idEscritura);
-			logger.debug(" idSolicitud " + idSolicitud);
-			logger.debug(" username " + username);
-			
-			SolicitudTramite sol = new SolicitudTramite();
-			SolicitudTramitePK pk = new SolicitudTramitePK();
-			pk.setIdEscritura(Integer.parseInt(idEscritura));
-			pk.setIdsolicitud(Integer.parseInt(idSolicitud));
-			sol.setId(pk);
-			sol.setEstado(1);
-			sol.setFecSolicitud( solicitudService.obtenerSolicitud(Integer.parseInt(idSolicitud)).getFechaIngreso() );
-			//sol.setArchivo( archivoService.obtenerArchivoEscritura( idEscritura) );
-			
-			solicitudService.registrarSolicitudTramite(sol, username );
-						
+
+			solicitudService.registrarSolicitudTramite(idEscritura, idSolicitud , username );
 			
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 			model.put("solicitud", new SolicitudTramite());

@@ -1,7 +1,9 @@
 package pe.org.cnl.gestiondoc.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +55,9 @@ public class Solicitud implements Serializable {
 
 	@Column(name="numero_ruc")
 	private String numeroRuc;
+	
+	@Column(name="razon_social")
+	private String razonSocial;
 
 	@Column(name="tipo_comprobante")
 	private int tipoComprobante;
@@ -71,6 +76,12 @@ public class Solicitud implements Serializable {
 
 	@Column(name="tram_comprador")
 	private String tramComprador;
+	
+	@Column(name="tram_comprador_materno")
+	private String tramCompradorMaterno;
+
+	@Column(name="tram_comprador_paterno")
+	private String tramCompradorPaterno;
 
 	@Column(name="tram_escritura")
 	private String tramEscritura;
@@ -103,6 +114,12 @@ public class Solicitud implements Serializable {
 
 	@Column(name="tram_vendedor")
 	private String tramVendedor;
+	
+	@Column(name="tram_vendedor_materno")
+	private String tramVendedorMaterno;
+
+	@Column(name="tram_vendedor_paterno")
+	private String tramVendedorPaterno;
 
 	@Column(name="usuario_creacion")
 	private String usuarioCreacion;
@@ -433,6 +450,46 @@ public class Solicitud implements Serializable {
 
 	public void setTramFolios(String tramFolios) {
 		this.tramFolios = tramFolios;
+	}
+
+	public String getRazonSocial() {
+		return razonSocial;
+	}
+
+	public void setRazonSocial(String razonSocial) {
+		this.razonSocial = razonSocial;
+	}
+
+	public String getTramCompradorMaterno() {
+		return tramCompradorMaterno;
+	}
+
+	public void setTramCompradorMaterno(String tramCompradorMaterno) {
+		this.tramCompradorMaterno = tramCompradorMaterno;
+	}
+
+	public String getTramCompradorPaterno() {
+		return tramCompradorPaterno;
+	}
+
+	public void setTramCompradorPaterno(String tramCompradorPaterno) {
+		this.tramCompradorPaterno = tramCompradorPaterno;
+	}
+
+	public String getTramVendedorMaterno() {
+		return tramVendedorMaterno;
+	}
+
+	public void setTramVendedorMaterno(String tramVendedorMaterno) {
+		this.tramVendedorMaterno = tramVendedorMaterno;
+	}
+
+	public String getTramVendedorPaterno() {
+		return tramVendedorPaterno;
+	}
+
+	public void setTramVendedorPaterno(String tramVendedorPaterno) {
+		this.tramVendedorPaterno = tramVendedorPaterno;
 	}
 
 }

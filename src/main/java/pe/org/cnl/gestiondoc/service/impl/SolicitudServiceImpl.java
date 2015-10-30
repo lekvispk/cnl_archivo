@@ -12,7 +12,9 @@ import pe.org.cnl.gestiondoc.dao.SolicitudDAO;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
+import pe.org.cnl.gestiondoc.model.SolicitudTramitePK;
 import pe.org.cnl.gestiondoc.model.Tramite;
+import pe.org.cnl.gestiondoc.model.Usuario;
 import pe.org.cnl.gestiondoc.service.SolicitudService;
 import pe.org.cnl.gestiondoc.service.TramiteService;
 
@@ -31,6 +33,9 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	@Override
 	public void registrarSolicitud(Solicitud solicitud) {
+		solicitud.setFechaCreacion( new Date() );
+		solicitud.setUsuarioCreacion( Usuario.getUsuarioBean().getUsername() );
+		solicitud.setEstado( 1 );
 		solicitudDAO.registrarSolicitud(solicitud);
 	}
 
@@ -46,11 +51,18 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public void registrarSolicitudTramite(SolicitudTramite sol, String username ) {
+	public void registrarSolicitudTramite(Integer idEscritura, Integer idSolicitud, String username ) {
 		
-		//crear detalle
-		 solicitudDAO.registrarSolicitudTramite(sol);
-		 //cambiar estado solicitud, DERIVADO
+		SolicitudTramite sol = new SolicitudTramite();
+		SolicitudTramitePK pk = new SolicitudTramitePK();
+		pk.setIdEscritura(idEscritura);
+		pk.setIdsolicitud(idSolicitud);
+		sol.setId(pk);
+		sol.setEstado(1);
+		sol.setFecSolicitud( obtenerSolicitud(idSolicitud).getFechaIngreso() );
+		solicitudDAO.registrarSolicitudTramite(sol);
+		
+		//cambiar estado solicitud, DERIVADO
 		// solicitudDAO.actualizarEstado( sol.getId().getIdsolicitud(), 3 );
 		 
 		Solicitud solic = solicitudDAO.obtenerSolicitud( sol.getId().getIdsolicitud() );
@@ -58,12 +70,11 @@ public class SolicitudServiceImpl implements SolicitudService {
 		solic.setFechaModificacion( new Date() );
 		solicitudDAO.registrarSolicitud( solic );
 		
-		 //crea el tramite 
-		 Tramite tram = new Tramite();
-			tram.setSolicitud( new Solicitud( sol.getId().getIdsolicitud() ) );
-			tram.setEscritura( new Escritura( sol.getId().getIdEscritura() ) );
-			
-			tramiteService.registrar( tram , username);
+		//crea el tramite 
+		Tramite tram = new Tramite();
+		tram.setSolicitud( new Solicitud( sol.getId().getIdsolicitud() ) );
+		tram.setEscritura( new Escritura( sol.getId().getIdEscritura() ) );
+		tramiteService.registrar( tram , username);
 			
 	}
 
@@ -84,6 +95,13 @@ public class SolicitudServiceImpl implements SolicitudService {
 			return escritura;
 		}
 		return null;
+	}
+
+	@Override
+	public void modificarSolicitud(Solicitud solicitud) {
+		solicitud.setFechaModificacion( new Date() );
+		solicitud.setUsuarioModificacion( Usuario.getUsuarioBean().getUsername() );
+		solicitudDAO.registrarSolicitud(solicitud);
 	}
 
 }

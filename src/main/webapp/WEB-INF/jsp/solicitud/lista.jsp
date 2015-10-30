@@ -27,85 +27,103 @@
       </div>
       
     <div class="panel-body">
-    <div class="row">
-          
-	    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
-	       
-	    <input type="hidden" name="tipoTram1.idTipotram" value="1" />
-	    	   
-	        <div class="capaEnlace">
-                   
-            	<table class="bloqueTablaLineal" summary="Datos del Calendario">
-                	<tr>
-                    	<th>Tipo Solicitud:</th>
-                        <td colspan="3">
-                        	<select name="nombre" style="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-                            	<option value="-1">-TODOS-</option>
-                           </select>
-                        </td>
-                   
-                    	<th>Tipo Acto:</th>
-                        <td colspan="3">
-                        	<form:select path="tipoActo.idActo" cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-                            	<form:option value="-1">-TODOS-</form:option>
-                                <form:options items="${ltipoacto}" itemLabel="nombreActo" itemValue="idActo"/>
-                            </form:select>
-                        </td>
-                    </tr>
-                    <tr>
-                    	<th>Persona:</th>
-                        <td colspan="3">
-                        	<input type="hidden" name="idPersona" id="idPersona"/>
-                            <div class="demo">
-							<div class="ui-widget">
-								<input id="tags" type="text" size="40"/>
-							</div>
-							</div>
-                        </td>        
-                    </tr>
-                    <tr>
-                    	<th>Solicitudes Registradas Desde:</th>
-                        <td>
-                        	<fmt:formatDate value="${solicitud.fechaIngreso}" pattern="dd/MM/yyyy" var="f_fechaIngreso"/>
-                            <input type="text" name="fechaIngreso" id="fechaIngreso" size="15" value="${f_fechaIngreso}"/>
-                         	<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald" />
-							<script type="text/javascript">
-							Calendar.setup({
-								inputField     :    "fechaIngreso",  // id del campo de texto
-								ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-								showsTime      :    false,       // Flag para mostrar la Fecha
-								button         :    "triggerCald",// ID del elemento que llamara al calendario
-								singleClick    :    true         // Flag Modo doble-click 
-							});
-							</script>
-						</td>
-                        <th>Hasta:</th>
-                        <td>
-                            <fmt:formatDate value="${solicitud.fechaIngreso2}" pattern="dd/MM/yyyy" var="f_fechaIngreso2"/>
-                            <input type="text" name="fechaIngreso2" id="fechaIngreso2" size="15" value="${f_fechaIngreso2}"/>
-                            <img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalh" />
-							<script type="text/javascript">
-							Calendar.setup({
-								inputField     :    "fechaIngreso2",  // id del campo de texto
-								ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
-								showsTime      :    false,       // Flag para mostrar la Fecha
-								button         :    "triggerCalh",// ID del elemento que llamara al calendario
-								singleClick    :    true         // Flag Modo doble-click 
-							});
-							</script>
-						</td>
-             	        </tr>
-                    </table>
-                      
-	           </div>
-	           
-	           <div class="capaEnlace">
-	               <input type="button" onclick="javascript:buscar();" class="boton" value="Buscar">
-	               <input type="button" onclick="javascript:nuevo();" class="boton" value="Nuevo">
-	           </div>
-	         
-	         </form:form>
-	</div>	        
+    <form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="solicitud">
+    <input type="hidden" name="tipoTram1.idTipotram" value="1" />
+  
+  	<div class="row">
+  		<div class="col-lg-3"><label class="control-label">Tipo Solicitud:</label></div>
+  		<div class="col-lg-3">
+  			<form:select path="tipoSolicitud.idTipoSolicitud" class="form-control">
+           		<form:option value="-1">-TODOS-</form:option>
+               <form:options items="${ltiposolicitid}" itemLabel="nombreTipoSolicitud" itemValue="idTipoSolicitud"/>
+           </form:select>
+  		</div>
+  		<div class="col-lg-3"><label class="control-label">Tipo Acto:</label></div>
+  		<div class="col-lg-3">
+  			<form:select path="tipoActo.idActo" class="form-control">
+            	<form:option value="-1">-TODOS-</form:option>
+                <form:options items="${ltipoacto}" itemLabel="nombreActo" itemValue="idActo"/>
+            </form:select>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col-lg-3"><label class="control-label">Tipo Doc:</label></div>
+  		<div class="col-lg-3"><input type="text" name="idPersona" id="idPersona" class="form-control" size="15"/></div>
+  		<div class="col-lg-3"><label class="control-label">Nro. Doc:</label></div>
+  		<div class="col-lg-3"><input type="text" name="idPersona" id="idPersona" class="form-control" size="15"/></div>
+  	</div>
+  	<div class="row">
+  		<div class="col-lg-3"><label class="control-label">Nombre:</label></div>
+  		<div class="col-lg-9"><input type="text" name="idPersona" id="idPersona" class="form-control" size="15"/></div>
+  	</div>
+  	<div class="row">
+  		<div class="col-lg-3"><label class="control-label">Ap. Paterno:</label></div>
+  		<div class="col-lg-3"><input type="text" name="idPersona" id="idPersona" class="form-control" size="15"/></div>
+  		<div class="col-lg-3"><label class="control-label">Ap. Materno:</label></div>
+  		<div class="col-lg-3"><input type="text" name="idPersona" id="idPersona" class="form-control" size="15"/></div>
+  	</div>
+  	<div class="row">
+  		<div class="col-lg-3"><label class="control-label">Solicitudes Registradas Desde:</label></div>
+  		<div class="col-lg-3">
+  			<div class="form-group input-group">
+  			<fmt:formatDate value="${solicitud.fechaIngreso}" pattern="dd/MM/yyyy" var="f_fechaIngreso"/>
+                <input type="text" name="fechaIngreso" id="fechaIngreso" size="15" value="${f_fechaIngreso}" class="form-control  input-md"/>
+              	<span class="input-group-addon"><img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCald" /></span>
+				<script type="text/javascript">
+				Calendar.setup({
+					inputField     :    "fechaIngreso",  // id del campo de texto
+					ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
+					showsTime      :    false,       // Flag para mostrar la Fecha
+					button         :    "triggerCald",// ID del elemento que llamara al calendario
+					singleClick    :    true         // Flag Modo doble-click 
+				});
+				</script>
+  			</div>
+  		</div>
+  		<div class="col-lg-3"><label class="control-label">Hasta:</label></div>
+  		<div class="col-lg-3">
+  			<div class="form-group input-group">
+  			<fmt:formatDate value="${solicitud.fechaIngreso2}" pattern="dd/MM/yyyy" var="f_fechaIngreso2"/>
+                <input type="text" name="fechaIngreso2" id="fechaIngreso2" size="15" value="${f_fechaIngreso2}" class="form-control  input-md"/>
+                <span class="input-group-addon"><img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalh" /></span>
+				<script type="text/javascript">
+				Calendar.setup({
+					inputField     :    "fechaIngreso2",  // id del campo de texto
+					ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
+					showsTime      :    false,       // Flag para mostrar la Fecha
+					button         :    "triggerCalh",// ID del elemento que llamara al calendario
+					singleClick    :    true         // Flag Modo doble-click 
+				});
+				</script>
+  			</div>
+  		</div>
+  	</div>
+	<%--
+	<div class="row">
+      	<div class="col-lg-12">
+			<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label"></label>
+			  <p class="form-control-static">
+			  	
+			  </p>
+			</div>
+			<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label"></label>  
+			  <p class="form-control-static">
+			  	
+			  </p>
+			</div>
+		</div>
+	</div>
+	 --%>
+	</form:form>
+	<div class="row">
+		<div class="col-lg-12">
+			<input type="button" onclick="javascript:buscar();" class="btn btn-success" value="Buscar">
+	        <input type="button" onclick="javascript:nuevo();" class="btn btn-success" value="Nuevo">
+		</div>
+	</div>
+	
 	<div class="row">
 		<div class="col-lg-12">
 		    	<div id="tablaDinamica">

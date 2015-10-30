@@ -118,12 +118,13 @@
 <div class="modal-footer">
 
   <button type="button" class="btn btn-primary" id="modal_detalleEscritura_guardar">Guardar</button>
+  <a id="derivar_${escritura.idEscritura}" href="#" data-link="preSeleccionar.htm?idEscritura=${escritura.idEscritura}&idSolicitud=${solicitud.idsolicitud}" class="btn btn-primary" ">Derivar</a>
   
    <c:if test="${ not empty escritura.archivos }">
    	<spring:url value="/" var="rooot" />
   	<c:forEach items="${escritura.archivos}" var="doc">
 	
-		<a type="button" class="btn btn-primary" href="${rooot}archivo/descargar.htm?id=${doc.idArchivo}"  title="${doc.nombre}" >Descargar</a>
+		<a type="button" class="btn btn-primary" href="${rooot}archivo/descargar.htm?id=${doc.idArchivo}"  title="${doc.nombre}" ><i class="fa fa-download"/>&nbsp;Descargar</a>
   
 	         <td><a href="${rooot}archivo/descargar.htm?id=${doc.idArchivo}"></a>&nbsp;</td>
     <%---     <tr>
@@ -132,7 +133,7 @@
          </tr> --%>
     </c:forEach>
    </c:if>
-  
+  <button type="button" class="btn btn-primary" id="modal_detalleEscritura_guardar">Cancelar</button>
   
   
 </div>	

@@ -33,6 +33,7 @@ public class TramiteServiceImpl implements TramiteService {
 	public void registrar(Tramite tramite , String username) {
 		
 		tramite.setEstado(1);
+		tramite.setFechaCreacion( new Date() );
 		tramiteDAO.registrar(tramite);
 		
 		TramiteUsuario mov = new TramiteUsuario();
