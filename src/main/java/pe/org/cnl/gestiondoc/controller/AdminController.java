@@ -13,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.org.cnl.gestiondoc.model.Persona;
+import pe.org.cnl.gestiondoc.model.Usuario;
 import pe.org.cnl.gestiondoc.service.PersonaService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
@@ -107,6 +109,37 @@ public class AdminController {
             out.close();
         }
 		return null;
+	}
+
+	@RequestMapping(value="/cambioDeClave.htm",method=RequestMethod.GET)
+	public String preCambioDeClave( ModelMap model ){
+		logger.debug("preCambioDeClave.htm");
+		model.put("usuario", Usuario.getUsuarioBean() );
+		return "mantenimiento/usuario_clave";
+	}
+	
+	@RequestMapping(value="/cambioDeClave.htm",method=RequestMethod.POST)
+	public String cambioDeClave( HttpServletRequest request,ModelMap model ){
+		logger.debug("cambioDeClave.htm");
+		try {
+			String clave = request.getParameter("clave");
+			String nueva = request.getParameter("nueva");
+			String confirmar = request.getParameter("confirmar");
+			
+			if ( !Usuario.getUsuarioBean().getClave().equals( Utiles.hashMd5( clave ) ) ){
+				throw new Exception("Su clave no es correcta");
+			}
+			if ( !nueva.equals( confirmar ) ){
+				throw new Exception("Su nueva calve es incorrecta");
+			}
+			
+			model.put("mensaje", "La clave ha sido actualizada");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError","Error " + e.getMessage());
+			return "mantenimiento/usuario_clave";
+		}
+		return "inicio";
 	}
 	
 }

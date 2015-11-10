@@ -79,7 +79,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         </security:authorize>
-                        <li><a href="${pageContext.request.contextPath}/admin/precpass.htm"><i class="fa fa-users fa-fw"></i> Cambiar Clave<span class="fa arrow"></span></a></li>
+                        <li><a href="${pageContext.request.contextPath}/cambioDeClave.htm"><i class="fa fa-users fa-fw"></i> Cambiar Clave<span class="fa arrow"></span></a></li>
                         <%-- <li><a href="${pageContext.request.contextPath}/login.htm"><i class="fa fa-users fa-fw"></i> Salir<span class="fa arrow"></span></a></li>--%>
                     </ul>
                 </div>

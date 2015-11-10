@@ -109,7 +109,7 @@
 	           	
 	           	<form:select path="tipoRelacion.idTipoRelacion" style="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
 	           		<form:options items="${lTipoRelacion}" itemLabel="relDescripcion" itemValue="idTipoRelacion"/>
-	              	</form:select>                                               	
+	             </form:select>                                               	
 	
 	           </td>
 	            <td valign="middle">
