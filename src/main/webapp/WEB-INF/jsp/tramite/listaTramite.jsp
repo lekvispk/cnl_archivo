@@ -91,10 +91,10 @@
 			            		</c:when>
 			            		<c:when test="${row.estado==4}">
 			            			<a href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Ver</a>
-				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Notificar</a>
+				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Notificar">Notificar</a>
 			            		</c:when>
 			            		<c:when test="${row.estado==5}">
-			            			<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Concluir</a>
+			            			<a id="concluir_${row.idTramite}" href="#" data-link="${rooot}tramites/concluir.htm?cod=${row.idTramite}" style="border: 0px;" title="Concluir">Concluir</a>
 			            		</c:when>
 			            		<c:otherwise>
 			            			Concluido
@@ -178,6 +178,13 @@
     		 
     		 $(document).undelegate('[id^=ver_]', 'click').delegate('[id^=ver_]', 'click', function(){ 
     			 console.info('click en ver detalle de tramite');
+    			 $("#modalView .modal-content").load( $(this).attr('data-link') , function() { 
+      	       		  $( "#modalView" ).modal("show"); 
+      	  		  });
+    		 }); 
+    		 
+    		 $(document).undelegate('[id^=concluir_]', 'click').delegate('[id^=concluir_]', 'click', function(){ 
+    			 console.info('click en concluir tramite');
     			 $("#modalView .modal-content").load( $(this).attr('data-link') , function() { 
       	       		  $( "#modalView" ).modal("show"); 
       	  		  });
