@@ -33,10 +33,16 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	@Override
 	public void registrarSolicitud(Solicitud solicitud) {
+		
 		solicitud.setFechaCreacion( new Date() );
 		solicitud.setUsuarioCreacion( Usuario.getUsuarioBean().getUsername() );
 		solicitud.setEstado( 1 );
-		solicitudDAO.registrarSolicitud(solicitud);
+		Solicitud nueva = solicitudDAO.registrarSolicitud(solicitud);
+		
+		String RightPaddedString = org.apache.commons.lang.StringUtils.leftPad(nueva.getIdsolicitud()+"" ,7 ,'0');
+		nueva.setCodSolicitud( RightPaddedString );
+		solicitudDAO.registrarSolicitud(nueva );
+		
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.service.NotariaService;
@@ -97,11 +98,10 @@ public class SolicitudController {
 		return "solicitud/registro";
 	}
 	
-	@RequestMapping("/nuevo.htm")
+	@RequestMapping(value="/nuevo.htm",method=RequestMethod.POST)
 	public String nuevo(@Valid Solicitud solicitud, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug(" nuevo ");
-			
 			
 			solicitud.setFechaIngreso( Utiles.stringToDate( request.getParameter("fechaIngreso"), "dd/MM/yyyy"));
 			solicitudService.registrarSolicitud(solicitud);

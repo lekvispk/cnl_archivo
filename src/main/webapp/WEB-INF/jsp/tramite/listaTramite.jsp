@@ -83,14 +83,14 @@
 					               	<a href="preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
 				                 </c:when>
 			            		<c:when test="${row.estado==2}">
-			            			<a id="modificar_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Modificar</a>
-				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Derivar</a>
+			            			<a id="modificar_${row.idTramite}" href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Modificar</a>
+				                   	<a id="derivar_${row.idTramite}"   href="${rooot}tramites/derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Derivar</a>
 				                </c:when>
 			            		<c:when test="${row.estado==3}">
-			            			<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Responder</a>
+			            			<a href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Responder">Responder</a>
 			            		</c:when>
 			            		<c:when test="${row.estado==4}">
-			            			<a id="modificar_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Modificar</a>
+			            			<a href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Ver</a>
 				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Notificar</a>
 			            		</c:when>
 			            		<c:when test="${row.estado==5}">

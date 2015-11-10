@@ -28,6 +28,9 @@ public class TramiteAdjunto implements Serializable {
 	@JoinColumn(name="id_tramite")
 	private Tramite tramite;
 
+	@Transient
+	private byte[] archivo;
+	
 	public TramiteAdjunto() {
 	}
 
@@ -61,6 +64,14 @@ public class TramiteAdjunto implements Serializable {
 
 	public void setTramite(Tramite tramite) {
 		this.tramite = tramite;
+	}
+
+	public byte[] getArchivo() {
+		return archivo;
+	}
+
+	public void setArchivo(byte[] archivo) {
+		this.archivo = archivo;
 	}
 
 }

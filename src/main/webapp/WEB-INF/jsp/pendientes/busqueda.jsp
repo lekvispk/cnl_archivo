@@ -3,7 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri='http://www.springframework.org/security/tags' prefix='security'%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- BEGIN busqueda.jsp-->
+	<spring:url value="/" var="root_url" />
 	
 	<jsp:include page="../includes/cabecera.jsp"/>
 
@@ -64,7 +66,7 @@
 				            	<a id="ver_${row.idEscritura}" href="#" data-link="detalleEscritura.htm?idEscritura=${row.idEscritura}&idSolicitud=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Ver detalle de Escritura">Ver</a>&nbsp;                                    	
 		                   		<a id="derivar_${row.idEscritura}" href="#" data-link="preSeleccionar.htm?idEscritura=${row.idEscritura}&idSolicitud=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Derivar">Derivar</a>&nbsp;
 		                   		<%-- no se para que se usa --%>
-		                   		<a href="atender.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Atender">Atender</a>                                    	
+		                   		<a href="${root_url}pendientes/atender.htm?id1=${row.idEscritura}&id2=${solicitud.solicitud.idsolicitud}" style="border: 0px;" title="Atender">Atender</a>                                    	
 		                    </display:column>
 					 </display:table>
 					 

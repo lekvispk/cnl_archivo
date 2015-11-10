@@ -126,7 +126,7 @@
            
             <c:if test="${ empty escritura.archivos }">
             
-           <h3><span>Cargar Archivo</span> </h3>
+            <h3><span>Cargar Archivo</span> </h3>
 			
 			<form:form id="frmAdjuntar" name="frmAdjuntar" action="#" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
 			<input type="hidden" name="idDocumento" value="${escritura.idEscritura}"/>

@@ -188,6 +188,8 @@ public class PendientesController {
 	@RequestMapping("/pendientes/atender.htm")
 	public String atender( HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
+			logger.debug("atender ");
+			model.put("solicitud", solicitudService.obtenerSolicitud( Integer.parseInt( request.getParameter("id1"))));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.cnl.gestiondoc.dao.TramiteDAO;
 import pe.org.cnl.gestiondoc.model.Tramite;
+import pe.org.cnl.gestiondoc.model.TramiteAdjunto;
 import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
@@ -29,7 +30,7 @@ public class TramiteDAOImpl implements TramiteDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Tramite> buscar(Tramite tramite) {
-		//DetachedCriteria criteria = DetachedCriteria.forClass(Tramite.class);
+		
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Tramite.class);
 		if(tramite !=null){
 			
@@ -41,13 +42,13 @@ public class TramiteDAOImpl implements TramiteDAO {
 			if( tramite.getTramiteUsuarios() != null && !tramite.getTramiteUsuarios().isEmpty() ) {
 				logger.debug("tramiteUsuarios.estado="+tramite.getTramiteUsuarios().get(0).getEstado());
 				criteria.createAlias("tramiteUsuarios", "tu")
-				//.add( Restrictions.eq("tu.estado", tramite.getTramiteUsuarios().get(0).getEstado() ) );
 				.add( Restrictions.eq("tu.estado", 1 ) );
 			}
 			logger.debug("estado="+  tramite.getEstado() );
 			criteria.add( Restrictions.eq("estado", tramite.getEstado() ) );
 			criteria.addOrder( Order.desc("fechaCreacion") );
 		}				
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return  criteria.list();
 	}
 
@@ -70,8 +71,9 @@ public class TramiteDAOImpl implements TramiteDAO {
 
 	@Override
 	public Tramite obtener(Integer idTramite) {
-		Query query = this.sessionFactory.getCurrentSession().createQuery(" from Tramite d where d.idTramite = :id ")
-        .setInteger("id", idTramite);
+		Query query = this.sessionFactory.getCurrentSession()
+				.createQuery(" from Tramite d LEFT JOIN FETCH d.tramiteAdjuntos where d.idTramite = :id ")
+				.setInteger("id", idTramite);
         return (Tramite) query.uniqueResult();
 	}
 
@@ -80,6 +82,24 @@ public class TramiteDAOImpl implements TramiteDAO {
 		Query query = this.sessionFactory.getCurrentSession().createQuery(" update TramiteUsuario e set estado=0 where e.tramite.idTramite =:id ")
 		        .setInteger("id", idTramite);
 		        query.executeUpdate();
+	}
+
+	@Override
+	public TramiteAdjunto obtenerAdjunto(Integer idAdjunto) {
+		Query query = this.sessionFactory.getCurrentSession()
+				.createQuery(" from TramiteAdjunto d where d.idAdjunto = :id ")
+		        .setInteger("id", idAdjunto);
+		        return (TramiteAdjunto) query.uniqueResult();
+	}
+
+	@Override
+	public void registrarAdjunto(TramiteAdjunto archivo) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate( archivo );
+	}
+
+	@Override
+	public void derivar(Tramite tr) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate( tr );
 	}
 
 }

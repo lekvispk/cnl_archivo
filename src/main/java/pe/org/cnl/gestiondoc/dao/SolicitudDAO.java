@@ -8,7 +8,7 @@ import pe.org.cnl.gestiondoc.model.SolicitudTramite;
 public interface SolicitudDAO {
 
 	public List<Solicitud> buscarSolicitudes(Solicitud solicitud);
-	public void registrarSolicitud(Solicitud solicitud);
+	public Solicitud registrarSolicitud(Solicitud solicitud);
 	public void eliminarSolicitud(Integer idSolicitud);
 	public Solicitud obtenerSolicitud(Integer idSolicitud);
 	public void registrarSolicitudTramite(SolicitudTramite sol);

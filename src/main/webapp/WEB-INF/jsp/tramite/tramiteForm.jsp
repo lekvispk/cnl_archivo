@@ -1,9 +1,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!-- BEGIN tramiteForm.jsp-->
+	<spring:url value="/" var="root_url" />
+	
 	<jsp:include page="../includes/cabecera.jsp"/>
-
+	
     <!-- Page Content -->
     <div id="page-wrapper">
     
@@ -34,6 +37,8 @@
 		
 		</div>
 	</div>
+	
+	<c:if test="${ tramite.estado le 2 }">
 	<div class="row">
       	<div class="col-lg-12">
       	
@@ -163,30 +168,44 @@
 	 	
 	 	</div>
      </div>
+     </c:if>
      
+     
+     <c:if test="${ tramite.idTramite != 0 && tramite.estado le 2}">
 	 <div class="row">
-      	<div class="col-lg-6">
+      	<div class="col-lg-12">
       	
 		<div class="form-group">
 		  <label class="control-label">Adjuntos</label>
 		</div>
-		
-		<!-- File Button --> 
-		<div class="form-group">
-		  <label class="col-md-4 control-label" for="filebutton">Adjuntar</label>
-		  <input id="filebutton" name="filebutton" class="input-file" type="file">
+	
 		</div>
-	 <%--
-	 	<c:if test="${ not empty  escritura.archivos }">
-           <c:forEach items="${escritura.archivos}" var="doc">
-			<a href="${root_url}archivo/descargar.htm?id=${doc.idArchivo}">${doc.nombre}</a>&nbsp;
+   	</div>
+   	
+   	<div class="row">
+      <div class="col-lg-12">
+		<form:form id="frmAdjuntar" name="frmAdjuntar" action="${root_url}tramites/cargarAdjunto.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
+		<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
+		
+		<div class="col-lg-4"><label class="control-label" for="filebutton">Adjuntar</label></div>
+	 	<div class="col-lg-4"><input id="file" name="file" class="input-file" type="file"></div>
+		<div class="col-lg-4"><input type="submit" class="btn btn-success" value="Cargar"></div>
+	
+	 	</form:form>
+	 
+	  </div>
+     </div>
+    
+	 	<c:if test="${ not empty tramite.tramiteAdjuntos }">
+           <c:forEach items="${tramite.tramiteAdjuntos}" var="doc">
+			<div class="row">
+      			<div class="col-lg-12">
+      				<a href="${root_url}tramites/descargar.htm?id=${doc.idAdjunto}">&nbsp;${doc.nombre}</a>
+				</div>
+     		</div>
            </c:forEach>
         </c:if>
-       --%>    
-       
-      </div>
-     </div>
-     
+
       <div class="row">
       	<div class="col-lg-6">
 		 <form:form name="frm2" action="atender.htm" method="post" modelAttribute="tramite">	
@@ -197,11 +216,125 @@
 			  <form:textarea class="form-control" path="informeSolicitud"/>
 			</div>
 			
+			 <input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
 		    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
-		    <button id="button2id" name="button2id" class="btn btn-success">Cancelar</button>
+		   
 		 </form:form>
      	</div>
      </div>
+         
+     </c:if>
+     
+     <c:if test="${ tramite.estado ge 3 }">
+     
+     <div class="row">
+      	<div class="col-lg-12">
+      		<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label">Nombre del Solicitante</label>  
+			  <p class="form-control-static">${tramite.solicitud.persona.nombreCompleto}</p>
+			</div>
+			<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label">Fecha de Solicitud</label>
+			  <p class="form-control-static"><fmt:formatDate value="${tramite.solicitud.fechaIngreso}" pattern="dd/MM/yyyy"/></p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+      	<div class="col-lg-12">      		
+			<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label">Nro. Kardex</label>  
+			  <p class="form-control-static">${tramite.escritura.kardex}</p>
+			</div>
+		</div>
+	</div>
+	
+	</c:if>
+	 <c:if test="${ tramite.estado eq 3 }">
+    <div class="row">
+      	<div class="col-lg-12">      		
+			<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label">Informe de Solicitud</label>  
+			  <p class="form-control-static">${tramite.informeSolicitud}</p>
+			</div>
+		</div>
+	</div>
+	 <div class="row">
+      	<div class="col-lg-6">
+		 <form:form name="frm2" action="responder.htm" method="post" modelAttribute="tramite">	
+		  	<form:hidden path="idTramite"/>
+	    	
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="observacionesNotario">Observaciones del Notario</label>
+			  <form:textarea class="form-control" path="observacionesNotario"/>
+			</div>
+			
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="fechaConclusion">Fecha de Conclusion</label>
+			  <fmt:formatDate value="${tramite.fechaConclusion}" pattern="dd/MM/yyyy" var="f_fechaConclusion"/>
+              <input type="text" name="fechaConclusion" id="fechaConclusion" size="15" value="${f_fechaConclusion}"/>
+              <img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalr" />
+				<script type="text/javascript">
+				Calendar.setup({
+					inputField     :    "fechaConclusion",  // id del campo de texto
+					ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
+					showsTime      :    false,       // Flag para mostrar la Fecha
+					button         :    "triggerCalr",// ID del elemento que llamara al calendario
+					singleClick    :    true         // Flag Modo doble-click 
+				});
+				</script>
+			</div>
+						
+			<input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
+		    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
+		   
+		 </form:form>
+     	</div>
+     </div>
+	
+     </c:if>
+     
+     <c:if test="${ tramite.estado eq 4 }">
+    
+    <div class="row">
+      	<div class="col-lg-12">      		
+			<div class="form-group col-lg-6">
+			  <label class="col-md-4 control-label">Observaciones del Notario</label>  
+			  <p class="form-control-static">${tramite.observacionesNotario}</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+      	<div class="col-lg-6">
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="fechaConclusion">Fecha de Conclusion</label>
+			  <fmt:formatDate value="${tramite.fechaConclusion}" pattern="dd/MM/yyyy"/>
+	            <img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalr" />
+			
+			</div>
+		</div>
+	</div>
+	
+	 <div class="row">
+      	<div class="col-lg-6">
+		 <form:form name="frm2" action="notificar.htm" method="post" modelAttribute="tramite">	
+		  	<form:hidden path="idTramite"/>
+			
+				
+			<div class="form-group">
+			  <label class="col-md-4 control-label" for="detalleNotificacion">Detalle de la Notificacion</label>
+			  <form:textarea class="form-control" path="detalleNotificacion"/>
+			</div>
+			
+						
+			<input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
+		    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
+		   
+		 </form:form>
+     	</div>
+     </div>
+	
+     </c:if>
      
      </div>
      </div>
@@ -226,7 +359,7 @@
 		}
 		
 		function cancelar(){
-		    document.forms[0].action = "lista.htm";
+		    document.forms[0].action = "lista.htm?estado=1";
 		    document.forms[0].submit();
 		}
 		

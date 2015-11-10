@@ -51,8 +51,8 @@ public class SolicitudDAOImpl extends HibernateDaoSupport implements SolicitudDA
 	}
 
 	@Override
-	public void registrarSolicitud(Solicitud solicitud) {
-		this.getHibernateTemplate().merge(solicitud);
+	public Solicitud registrarSolicitud(Solicitud solicitud) {
+		return this.getHibernateTemplate().merge(solicitud);
 	}
 
 	@Override

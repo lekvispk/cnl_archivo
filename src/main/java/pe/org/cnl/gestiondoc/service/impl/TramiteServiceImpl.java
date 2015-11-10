@@ -1,19 +1,28 @@
 package pe.org.cnl.gestiondoc.service.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import pe.org.cnl.gestiondoc.dao.TramiteDAO;
 import pe.org.cnl.gestiondoc.dao.UsuarioDao;
 import pe.org.cnl.gestiondoc.model.Tramite;
+import pe.org.cnl.gestiondoc.model.TramiteAdjunto;
 import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 import pe.org.cnl.gestiondoc.model.Usuario;
+import pe.org.cnl.gestiondoc.service.ArchivoService;
 import pe.org.cnl.gestiondoc.service.TramiteService;
+import pe.org.cnl.gestiondoc.util.ParametroUtil;
 @Service
 public class TramiteServiceImpl implements TramiteService {
 
@@ -63,12 +72,82 @@ public class TramiteServiceImpl implements TramiteService {
 		tramite.setSecUsuario2( usuarioDao.obtenerUsuario( "gjara" ) );
 		tramite.setEstado(1);
 		tramite.setFechaRegistro( new Date() );
-		
-		tramite.getTramite().setEstado( 2 );
-		
-		tramiteDAO.registrar( tramite.getTramite() );
 		tramiteDAO.registrarMovimiento( tramite );
 		
+		tramite.getTramite().setEstado( 2 );		
+		tramiteDAO.registrar( tramite.getTramite() );
+		
+	}
+
+	@Override
+	public void registrarRespuesta(TramiteUsuario tramite) {
+
+		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
+		tramite.setSecUsuario2( usuarioDao.obtenerUsuario( "jculqui" ) );
+		tramite.setEstado(1);
+		tramite.setFechaRegistro( new Date() );
+		tramiteDAO.registrarMovimiento( tramite );
+		
+		tramite.getTramite().setEstado( 4 );		
+		tramiteDAO.registrar( tramite.getTramite() );
+	}
+
+	@Override
+	public void registrarNotificacion(TramiteUsuario tramite) {
+
+		tramiteDAO.registrar( tramite.getTramite() );
+		
+	}
+
+	@Override
+	public void registrarArchivoEnDisco(MultipartFile file, Integer idTramite) throws Exception {
+
+		if(file.getSize() > ParametroUtil.FILE_MAX_SIZE ){
+        	throw new Exception("El archivo es muy grande y no se ha podido grabar en el sistema");
+        }
+		
+		TramiteAdjunto archivo = new TramiteAdjunto();
+		archivo.setNombre( file.getOriginalFilename() );
+        //archivo.setArchivo( file.getBytes() );
+		Tramite doc = new Tramite();
+		doc.setIdTramite( idTramite );
+		archivo.setTramite( doc );
+        tramiteDAO.registrarAdjunto(archivo);
+        
+        try {
+
+        	String diskFolder = ArchivoService.FOLDER_FILE ; 
+			
+        	OutputStream out = new FileOutputStream(new File( diskFolder +  archivo.getIdAdjunto()  ));
+			out.write( file.getBytes() );
+			out.close();
+			
+			System.out.println("Done");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+	}
+
+	@Override
+	public TramiteAdjunto obtenerArchivoEnDisco(Integer idArchivo) {
+		TramiteAdjunto file = tramiteDAO.obtenerAdjunto( idArchivo );
+		
+		File tmp = new File( ArchivoService.FOLDER_FILE + idArchivo );
+		try {
+			file.setArchivo( FileUtils.readFileToByteArray( tmp) );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return file;
+	}
+
+	@Override
+	public void derivar(Tramite tr) {
+		tr.setEstado( tr.getEstado()+1 );
+		tramiteDAO.derivar( tr );
 	}
 
 }
