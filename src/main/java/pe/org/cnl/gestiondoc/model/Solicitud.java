@@ -37,14 +37,6 @@ public class Solicitud implements Serializable {
 	@Transient
 	private Date fechaIngreso2;
 	
-	public Date getFechaIngreso2() {
-		return fechaIngreso2;
-	}
-
-	public void setFechaIngreso2(Date fechaIngreso2) {
-		this.fechaIngreso2 = fechaIngreso2;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_modificacion")
 	private Date fechaModificacion;
@@ -492,4 +484,11 @@ public class Solicitud implements Serializable {
 		this.tramVendedorPaterno = tramVendedorPaterno;
 	}
 
+	public Date getFechaIngreso2() {
+		return fechaIngreso2;
+	}
+
+	public void setFechaIngreso2(Date fechaIngreso2) {
+		this.fechaIngreso2 = fechaIngreso2;
+	}
 }

@@ -1,5 +1,8 @@
 package pe.org.cnl.gestiondoc.controller;
 
+import java.security.KeyStore;
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -21,6 +24,7 @@ import pe.org.cnl.gestiondoc.service.SolicitudService;
 import pe.org.cnl.gestiondoc.service.SolicitudTramiteService;
 import pe.org.cnl.gestiondoc.service.TipoActoService;
 import pe.org.cnl.gestiondoc.service.TramiteService;
+import pe.org.cnl.gestiondoc.test.firmador.KeyStoreGenerator;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
@@ -75,11 +79,28 @@ public class PendientesController {
 	@RequestMapping("firmar.htm")
 	public String firmar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
-			logger.debug(" lista ");
+			logger.debug(" firmar ");
 			String id1 = request.getParameter("id1");
 			logger.debug( id1 );
 			String id2 = request.getParameter("id2");
 			logger.debug( id2 );
+			 KeyStore ks;
+			 
+			    System.gc();
+			 	logger.debug("Cargando certificados ...");
+			    KeyStoreGenerator ksg = new KeyStoreGenerator();
+			    ks = ksg.crearKeyStore(0);
+			    logger.debug("Almacen de llaves cargado ...");
+			    Enumeration enumAlias = ks.aliases();
+			    logger.debug("Almacen de llaves Elementos ...");
+			    while (enumAlias.hasMoreElements()) {
+			        String ali = (String)enumAlias.nextElement();
+			        System.out.println( ali );
+			        if (ks.isKeyEntry(ali)) {
+			          System.out.println(ali);
+			        }
+			    }
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

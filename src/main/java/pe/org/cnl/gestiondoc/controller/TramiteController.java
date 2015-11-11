@@ -238,4 +238,18 @@ public class TramiteController {
 			return "tramite/tramiteForm";
 		}
 	}
+	
+	@RequestMapping(value="/concluir.htm", method=RequestMethod.GET)
+	public String preConcluir( HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			logger.debug(" preConcluir ");
+			Tramite tr = tramiteService.obtener( Integer.parseInt( request.getParameter("idTramite")) ) ;
+			model.put("tramite", tr );
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", e.getMessage());
+		}
+		return "tramite/concluir";
+	}
+	
 }

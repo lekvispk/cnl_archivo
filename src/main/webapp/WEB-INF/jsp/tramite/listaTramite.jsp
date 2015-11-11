@@ -94,7 +94,7 @@
 				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Notificar">Notificar</a>
 			            		</c:when>
 			            		<c:when test="${row.estado==5}">
-			            			<a id="concluir_${row.idTramite}" href="#" data-link="${rooot}tramites/concluir.htm?cod=${row.idTramite}" style="border: 0px;" title="Concluir">Concluir</a>
+			            			<a id="concluir_${row.idTramite}" href="#" data-link="${rooot}tramites/concluir.htm?idTramite=${row.idTramite}" style="border: 0px;" title="Concluir">Concluir</a>
 			            		</c:when>
 			            		<c:otherwise>
 			            			Concluido
@@ -125,6 +125,15 @@
 		<div id="cuerpoDiv"></div>
 	</div>
 	
+	<div class="modal fade" id="firmaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      </div>
+	      </div>
+	  </div>
+	</div>
+
 	<jsp:include page="../includes/pie.jsp" flush="true"/>
 
     <script type="text/javascript">

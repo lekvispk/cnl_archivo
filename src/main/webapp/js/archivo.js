@@ -11,6 +11,10 @@ $(document).undelegate('[id^=ver_], [id^=derivar_]', 'click').delegate('[id^=ver
 	  });
 }); 
 
+//boton cancelar
+$(document).undelegate('#modal_cerrar', 'click').delegate('#modal_cerrar', 'click', function(){
+	$("#modalView").modal('hide');
+});
 
 //boton guardar en la ventana de busqueda realizada, boton grabar
 $(document).undelegate('#modal_detalleEscritura_guardar', 'click').delegate('#modal_detalleEscritura_guardar', 'click', function(){
@@ -33,4 +37,25 @@ $(document).undelegate('#detalleEscrituraCalcularBtn', 'click').delegate('#detal
 	}
 	
 	$("#txtCosto").val( costo * nroFirmas);
+});
+
+/** 
+ * Boton que abre segunda modal para firmar documento
+ * */
+$(document).undelegate('#modal_concluir_actualizar', 'click').delegate('#modal_concluir_actualizar', 'click', function(){
+	
+	console.debug('levanta segunda modal');
+	var idEs = $(this).attr('data-idescritura');
+	var idSol = $(this).attr('data-idsolicitud');
+	var url = $(this).attr('data-url');
+	url = url+'?id1='+idEs+'&id2='+idSol ; 
+	console.debug( url );
+	
+	$('#modalView').modal('hide');
+	var modal = $('#firmaModal').modal({remote: url });
+	modal.modal('show');
+	
+//	$('#firmaModal .modal-content').html( url );
+	//$('#firmaModal').modal('show');
+	
 });
