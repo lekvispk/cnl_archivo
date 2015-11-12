@@ -243,7 +243,9 @@ public class EscrituraController {
 	/**
 	 * Recupera el pdfpendiente de firma.
 	 * hecho para ser invocado desde el applet.
+	 * ya no se usa el applet, todo es por el mismo sistema
 	 * */
+	@Deprecated
 	@RequestMapping("descargarPendiente.htm")
     public String descargarPdf(HttpServletRequest request, HttpServletResponse response, ModelMap model){		
 		logger.debug("obtengo el archivo que estaba grabado");

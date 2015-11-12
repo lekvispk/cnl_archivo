@@ -1,6 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!-- BEGIN firmar.jsp -->
+    <script src="${pageContext.request.contextPath}/js/archivo.js"></script>
+    
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <h4 class="modal-title" id="modalViewLabel">Concluir Escritura</h4>
@@ -9,7 +13,18 @@
 <div class="modal-body">
 
 	<div id="contenido">
-
+	
+	<select>
+		<c:forEach items="${listaNotarios}" var="firma">
+		<option>${firma }</option>
+		</c:forEach>
+	</select>
+	
+	<br>
+	Documento a firmar:- ${archivoPendiente.nombre }
+	
+	 
+<%--
 		<form class="jqtransform" >
 	
 		<object type="application/x-java-applet" height="300" width="400">
@@ -21,12 +36,12 @@
 		</object>
      	
 		</form>
-		
+	 --%>	
 	</div>
 
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+	<button type="button" class="btn btn-primary" id="btnFirmarNuevaEscritura">Firmar</button>
 </div>
-<% System.out.println("sfdsfdsfdsfddddddddddddddd"); %>
 <!-- END firmar.jsp-->

@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.model.TramiteAdjunto;
@@ -22,6 +23,7 @@ import pe.org.cnl.gestiondoc.util.FileUpload;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
+@SessionAttributes("archivoPendiente")
 @RequestMapping(value="/tramites")
 public class TramiteController {
 	
@@ -245,11 +247,40 @@ public class TramiteController {
 			logger.debug(" preConcluir ");
 			Tramite tr = tramiteService.obtener( Integer.parseInt( request.getParameter("idTramite")) ) ;
 			model.put("tramite", tr );
+			request.getSession().removeAttribute("archivoPendiente");
+			model.remove("archivoPendiente");
+			model.put("uploadForm", new FileUpload() );
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError", e.getMessage());
 		}
 		return "tramite/concluir";
+	}
+	
+	@RequestMapping(value="/cargarNuevaEscritura.htm", method=RequestMethod.POST)
+	public String cargarNuevaEscritura(@ModelAttribute("uploadForm") FileUpload formArchivo, HttpServletRequest request, ModelMap model){
+		logger.debug("cargarNuevaEscritura");
+		TramiteAdjunto tr = null;
+		 try{
+			 logger.debug(" id documento " + formArchivo.getIdDocumento());
+			 logger.debug(" file " + formArchivo.getFile());
+			 
+			 tr = new TramiteAdjunto();
+			 tr.setNombre( formArchivo.getFile().getOriginalFilename() );
+			 tr.setArchivo( formArchivo.getFile().getBytes() );
+			 
+			 model.addAttribute("archivoPendiente", tr );
+			
+            model.put("mensaje", "archivo cargado");
+            
+       	}catch(Exception ex) {
+           logger.debug(ex.getMessage());
+       	   model.put("msgError","Error " + ex.getMessage());
+        }finally{
+        	model.put("uploadForm", new FileUpload() );
+            model.put("tramite",  tramiteService.obtener( formArchivo.getIdDocumento() ) );
+        }
+        return "tramite/tramiteForm";
 	}
 	
 }

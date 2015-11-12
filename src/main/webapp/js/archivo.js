@@ -1,6 +1,7 @@
 $(function() {
 	//para darle funcion ajax al displaytag
 	$("#displayTagDiv").displayTagAjax();
+	 
 });
 
 //clic en ver detalle de cualquier lista
@@ -59,3 +60,10 @@ $(document).undelegate('#modal_concluir_actualizar', 'click').delegate('#modal_c
 	//$('#firmaModal').modal('show');
 	
 });
+
+//Firmar nuevo documento y grabarlo en la BD y cerrar la modal 
+$(document).undelegate('#btnFirmarNuevaEscritura', 'click').delegate('#btnFirmarNuevaEscritura', 'click', function(){
+	console.debug("listo para invocar a la firma");
+	$('#firmaModal').modal('hide');
+});
+	

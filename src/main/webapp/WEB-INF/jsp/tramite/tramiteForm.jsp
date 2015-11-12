@@ -184,6 +184,7 @@
    	
    	<div class="row">
       <div class="col-lg-12">
+		
 		<form:form id="frmAdjuntar" name="frmAdjuntar" action="${root_url}tramites/cargarAdjunto.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
 		<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
 		

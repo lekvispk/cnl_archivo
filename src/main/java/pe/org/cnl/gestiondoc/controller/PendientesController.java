@@ -1,7 +1,9 @@
 package pe.org.cnl.gestiondoc.controller;
 
 import java.security.KeyStore;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.org.cnl.gestiondoc.dao.UsuarioDao;
+import pe.org.cnl.gestiondoc.firmador.EscrituraXML;
+import pe.org.cnl.gestiondoc.firmador.Firmador;
+import pe.org.cnl.gestiondoc.firmador.KeyStoreGenerator;
+import pe.org.cnl.gestiondoc.firmador.Util;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
@@ -24,7 +31,6 @@ import pe.org.cnl.gestiondoc.service.SolicitudService;
 import pe.org.cnl.gestiondoc.service.SolicitudTramiteService;
 import pe.org.cnl.gestiondoc.service.TipoActoService;
 import pe.org.cnl.gestiondoc.service.TramiteService;
-import pe.org.cnl.gestiondoc.test.firmador.KeyStoreGenerator;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
@@ -60,8 +66,6 @@ public class PendientesController {
 		return "pendientes/lista";
 	}
 	
-	//
-	
 	@RequestMapping("/pendientes/lFirmados.htm")
 	public String lFirmados(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
@@ -74,40 +78,93 @@ public class PendientesController {
 		return "pendientes/firmados";
 	}
 	
-	
-	
-	@RequestMapping("firmar.htm")
-	public String firmar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	@RequestMapping(value="firmar.htm",method=RequestMethod.GET)
+	public String firmar(HttpServletRequest request, ModelMap model){
 		try {
 			logger.debug(" firmar ");
+			
 			String id1 = request.getParameter("id1");
-			logger.debug( id1 );
 			String id2 = request.getParameter("id2");
+			List<String> firmas = new ArrayList<String>();
+			logger.debug( id1 );
 			logger.debug( id2 );
-			 KeyStore ks;
+			KeyStore ks;
 			 
-			    System.gc();
-			 	logger.debug("Cargando certificados ...");
-			    KeyStoreGenerator ksg = new KeyStoreGenerator();
-			    ks = ksg.crearKeyStore(0);
-			    logger.debug("Almacen de llaves cargado ...");
-			    Enumeration enumAlias = ks.aliases();
-			    logger.debug("Almacen de llaves Elementos ...");
-			    while (enumAlias.hasMoreElements()) {
-			        String ali = (String)enumAlias.nextElement();
-			        System.out.println( ali );
-			        if (ks.isKeyEntry(ali)) {
-			          System.out.println(ali);
-			        }
+			System.gc();
+			logger.debug("Cargando certificados ...");
+			KeyStoreGenerator ksg = new KeyStoreGenerator();
+			ks = ksg.crearKeyStore(0);
+			logger.debug("Almacen de llaves cargado ...");
+			Enumeration enumAlias = ks.aliases();
+			logger.debug("Almacen de llaves Elementos ...");
+			while (enumAlias.hasMoreElements()) {
+				String ali = (String)enumAlias.nextElement();
+				if (ks.isKeyEntry(ali)) {
+			    	logger.debug(ali);
+			    	firmas.add( ali );
 			    }
-			 
+			}
+			model.put("listaNotarios", firmas);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "pendientes/firmar";
 	}
 	
-	//
+	@RequestMapping(value="firmar.htm",method=RequestMethod.POST)
+	public String firmmar( HttpServletRequest request ){
+		
+		Integer id1 = Integer.valueOf(request.getParameter("id1"));
+		Integer id2 = Integer.valueOf(request.getParameter("id2"));
+	
+		try {
+			logger.debug("Inicia Proceso de Firmado");
+	    	String path = "";
+	    	
+	    	SolicitudTramite archivo = archivoService.obtenerArchivoPendiente(id1,id2);
+            EscrituraXML escritura = new EscrituraXML();
+            
+            logger.debug( archivo.getEscritura() );
+            logger.debug( archivo.getEscritura().getNumeroDoc() );
+            
+            escritura.setAnioTramite( archivo.getEscritura().getNumeroDoc() );
+            escritura.setCodigoActo( archivo.getEscritura().getNumeroDoc() ) ;
+            escritura.setFecha( Utiles.DateToString( archivo.getEscritura().getFechaCreacion() , "dd/MM/yyyy") ) ;
+            escritura.setArchivo( archivo.getArchivo() );
+            escritura.setKardex( archivo.getEscritura().getKardex() ) ;
+            escritura.setNumeroTramite( archivo.getEscritura().getNumeroInstrumento() );
+            //escritura.setCodigoNotaria( archivo.getEscritura().getNotaria() ) ;             
+            //escritura.setNotaria( archivo.getEscritura().getNotaria()  );
+            
+            logger.debug("archivo en el applet " + escritura);
+
+            logger.debug(" * * intancio al firmador");
+            Firmador f = new Firmador();
+            logger.debug(" * * cargo KeyStore");
+            f.cargaCertificados();
+            //logger.debug(" * * seteo firma " + this.combo.getSelectedItem().toString());
+            f.setNotarioCert( request.getParameter("cmbNotario"));
+            logger.debug(" * * seteo objeto XML ");
+            f.setObjSunarpXML(escritura);
+            logger.debug(" * *  llamo a firmar");
+            escritura.setArchivoFirmado(f.firmar());
+            escritura.setIdEscritura(id1);
+            escritura.setIdSolicitud(id2);
+
+            logger.debug(" * *  ARCHIVO FIRMADO DENTRO DE ESCRITURAXML");	
+            // path = obtenerURL() + "recibeFirmado.htm";
+
+            String resultado = (String)Util.sendRequest(path, escritura);
+            logger.debug(" Resultado obtenido ");
+            // JOptionPane.showMessageDialog(this, resultado, "Firmador", 1);
+	    }
+	    catch (Exception ex) {
+	      ex.printStackTrace();
+	    }
+	  
+	    
+		return "";
+	}
 	
 	@RequestMapping("/pendientes/preCargaEscritura.htm")
 	public String preAdjuntaEscritura(HttpServletRequest request, HttpServletResponse response, ModelMap model){

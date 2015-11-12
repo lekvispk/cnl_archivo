@@ -45,6 +45,7 @@ public class ArchivoDAOImpl implements ArchivoDAO {
 	    query.executeUpdate();
 	}
 
+	@Deprecated
 	@Override
 	public SolicitudTramite obtenerArchivoPendiente(Integer idEsc, Integer idSol) {
 		logger.debug("obtengo archivo pendiente de firma");
