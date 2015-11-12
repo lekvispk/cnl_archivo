@@ -9,6 +9,7 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.security.cert.Certificate;
 
 class SimpleSigner
   implements Signer
@@ -17,8 +18,9 @@ class SimpleSigner
     throws CertificateException, KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException, InvalidKeyException, SignatureException
   {
     byte[] firma = null;
-    //Certificate cert = keyStore.getCertificate(alias);
+    Certificate cert = keyStore.getCertificate(alias);
     PrivateKey privKey = (PrivateKey)keyStore.getKey(alias, password);
+    System.out.println( "privKey = " + privKey);
     firma = firmar(mensaje, privKey, algoritmo);
     return firma;
   }

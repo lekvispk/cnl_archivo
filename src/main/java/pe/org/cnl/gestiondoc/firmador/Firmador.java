@@ -110,7 +110,7 @@ public class Firmador
   public byte[] firmar() {
     try {
       byte[] pdf = this.objSunarpXML.getArchivo();
-      System.out.println(" - PDF CARGADO, llamo a firmador");
+      System.out.println(" - PDF CARGADO, llamo a firmador " + this.notarioCert);
       Signer sg = new SimpleSigner();
       byte[] firmaParte = sg.firmar(pdf, this.notarioCert, this.ks, null, "SHA1withRSA");
       System.out.println(" - Firmador invocado aunque nose para que lo uso ");
