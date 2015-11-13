@@ -40,12 +40,25 @@ public class TramiteDAOImpl implements TramiteDAO {
 			}
 			
 			if( tramite.getTramiteUsuarios() != null && !tramite.getTramiteUsuarios().isEmpty() ) {
-				logger.debug("tramiteUsuarios.estado="+tramite.getTramiteUsuarios().get(0).getEstado());
-				criteria.createAlias("tramiteUsuarios", "tu")
-				.add( Restrictions.eq("tu.estado", 1 ) );
+				TramiteUsuario tu = tramite.getTramiteUsuarios().get(0); 
+				Criteria tramUser = criteria.createAlias("tramiteUsuarios", "tu");
+				if( tu.getEstado() > 0 ){
+					logger.debug(" tr_usr.estado="+ tu.getEstado());
+					tramUser.add( Restrictions.eq("tu.estado", tu.getEstado()) );	
+				}
+				if( tu.getEstadoTramiteFinal() > 0 ){
+					logger.debug(" tr_usr.estadoTramiteFinal="+ tu.getEstadoTramiteFinal());
+					tramUser.add( Restrictions.eq("tu.estadoTramiteFinal", tu.getEstadoTramiteFinal()) );	
+				}
+				if( tu.getSecUsuario1() != null ){
+					logger.debug(" emisor="+ tu.getSecUsuario1().getUsername() );
+					tramUser.add( Restrictions.eq("tu.secUsuario1.username", tu.getSecUsuario1().getUsername() ) );	
+				}
 			}
-			logger.debug("estado="+  tramite.getEstado() );
-			criteria.add( Restrictions.eq("estado", tramite.getEstado() ) );
+			if( tramite.getEstado() > 0){
+				logger.debug("estado="+  tramite.getEstado() );
+				criteria.add( Restrictions.eq("estado", tramite.getEstado() ) );	
+			}
 			criteria.addOrder( Order.desc("fechaCreacion") );
 		}				
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -59,6 +72,11 @@ public class TramiteDAOImpl implements TramiteDAO {
 
 	@Override
 	public void registrarMovimiento(TramiteUsuario tramiteUsuario) {
+		
+		Query query = this.sessionFactory.getCurrentSession().createQuery(" update TramiteUsuario e set estado=0 where e.tramite.idTramite =:id ")
+		        .setInteger("id", tramiteUsuario.getTramite().getIdTramite() );
+		        query.executeUpdate();
+		        
 		this.sessionFactory.getCurrentSession().saveOrUpdate(tramiteUsuario);
 	}
 	

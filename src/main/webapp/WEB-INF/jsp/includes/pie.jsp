@@ -19,6 +19,6 @@
    
     <script src="${pageContext.request.contextPath}/js/jquery-ui-1.10.4.custom.min.js"></script>
     
-    <script src="${pageContext.request.contextPath}/js/jquery.form.js">
+    <script src="${pageContext.request.contextPath}/js/jquery.form.js"></script>
     
     <script src="${pageContext.request.contextPath}/js/archivo.js"></script>

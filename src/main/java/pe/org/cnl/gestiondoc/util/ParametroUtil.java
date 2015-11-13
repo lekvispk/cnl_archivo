@@ -40,6 +40,14 @@ public class ParametroUtil {
 		public static final int COLEGIO = 4;
 	}
 	
-	
+
+	public static enum EstadoTramite {
+		REGISTRADO(1), ATENDIDO(2), DERIVADO(3), RESPONDIDO(4), NOTIFICADO(5), CONCLUIDO(6);
+		public int value;
+ 
+		private EstadoTramite(int value) {
+			this.value = value;
+		}
+	}
 }
 

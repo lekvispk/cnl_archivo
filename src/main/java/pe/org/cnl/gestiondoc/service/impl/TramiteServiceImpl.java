@@ -68,15 +68,34 @@ public class TramiteServiceImpl implements TramiteService {
 	@Override
 	public void registrarAtencion(TramiteUsuario tramite) {
 		
+		//movimiento de juan hacia juan
 		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
-		tramite.setSecUsuario2( usuarioDao.obtenerUsuario( "gjara" ) );
+		tramite.setSecUsuario2( Usuario.getUsuarioBean() );
 		tramite.setEstado(1);
+		tramite.setEstadoTramiteFinal( ParametroUtil.EstadoTramite.ATENDIDO.value );
 		tramite.setFechaRegistro( new Date() );
 		tramiteDAO.registrarMovimiento( tramite );
 		
-		tramite.getTramite().setEstado( 2 );		
+		tramite.getTramite().setEstado( ParametroUtil.EstadoTramite.ATENDIDO.value );
 		tramiteDAO.registrar( tramite.getTramite() );
 		
+	}
+	
+	@Override
+	public void derivar(Tramite tr) {
+		
+		TramiteUsuario tramite = new TramiteUsuario();
+		tramite.setTramite( tr );
+		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
+		tramite.setSecUsuario2( usuarioDao.obtenerUsuario( "gjara" ) );
+		tramite.setEstado(1);
+		tramite.setEstadoTramiteFinal( ParametroUtil.EstadoTramite.DERIVADO.value );
+		tramite.setFechaRegistro( new Date() );
+		tramiteDAO.registrarMovimiento( tramite );
+		
+		//movimiento de Juan hacia Jara 
+		tr.setEstado( ParametroUtil.EstadoTramite.DERIVADO.value );
+		tramiteDAO.derivar( tr );
 	}
 
 	@Override
@@ -85,16 +104,25 @@ public class TramiteServiceImpl implements TramiteService {
 		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
 		tramite.setSecUsuario2( usuarioDao.obtenerUsuario( "jculqui" ) );
 		tramite.setEstado(1);
+		tramite.setEstadoTramiteFinal( ParametroUtil.EstadoTramite.RESPONDIDO.value );
 		tramite.setFechaRegistro( new Date() );
 		tramiteDAO.registrarMovimiento( tramite );
 		
-		tramite.getTramite().setEstado( 4 );		
+		tramite.getTramite().setEstado( ParametroUtil.EstadoTramite.RESPONDIDO.value );		
 		tramiteDAO.registrar( tramite.getTramite() );
 	}
 
 	@Override
 	public void registrarNotificacion(TramiteUsuario tramite) {
 
+		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
+		tramite.setSecUsuario2( Usuario.getUsuarioBean() );
+		tramite.setEstado(1);
+		tramite.setEstadoTramiteFinal( ParametroUtil.EstadoTramite.NOTIFICADO.value );
+		tramite.setFechaRegistro( new Date() );
+		tramiteDAO.registrarMovimiento( tramite );
+		
+		tramite.getTramite().setEstado( ParametroUtil.EstadoTramite.NOTIFICADO.value );		
 		tramiteDAO.registrar( tramite.getTramite() );
 		
 	}
@@ -143,11 +171,4 @@ public class TramiteServiceImpl implements TramiteService {
 		
 		return file;
 	}
-
-	@Override
-	public void derivar(Tramite tr) {
-		tr.setEstado( tr.getEstado()+1 );
-		tramiteDAO.derivar( tr );
-	}
-
 }

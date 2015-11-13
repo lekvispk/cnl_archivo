@@ -67,3 +67,13 @@ $(document).undelegate('#btnFirmarNuevaEscritura', 'click').delegate('#btnFirmar
 	$('#firmaModal').modal('hide');
 });
 	
+$(document).undelegate('#btnUploadTramiteAdjunto', 'click').delegate('#btnUploadTramiteAdjunto', 'click', function(){
+	console.debug("validar que se haya seleccionado un archivo para cargar");
+	console.info('input del archivo = '+$('#file').val());
+	
+	if( $('#file').val() ){
+		$('#frmAdjuntar').submit();
+	}else{
+		alert('Seleccione un archivo');
+	}
+});

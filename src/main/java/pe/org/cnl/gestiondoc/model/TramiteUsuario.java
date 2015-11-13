@@ -21,6 +21,9 @@ public class TramiteUsuario implements Serializable {
 	private int idRegistro;
 
 	private int estado;
+	
+	@Column(name="estado_tramite_final")
+	private int estadoTramiteFinal;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_registro")
@@ -72,6 +75,10 @@ public class TramiteUsuario implements Serializable {
 		return this.secUsuario1;
 	}
 
+	/**
+	 * Usuario Emisor
+	 * @param secUsuario1 usuario emisor del tramite
+	 */
 	public void setSecUsuario1(Usuario secUsuario1) {
 		this.secUsuario1 = secUsuario1;
 	}
@@ -87,9 +94,20 @@ public class TramiteUsuario implements Serializable {
 	public Usuario getSecUsuario2() {
 		return this.secUsuario2;
 	}
-
+	/**
+	 * 
+	 * @param username_receptor El usuario receptor del tramite
+	 */
 	public void setSecUsuario2(Usuario secUsuario2) {
 		this.secUsuario2 = secUsuario2;
+	}
+
+	public int getEstadoTramiteFinal() {
+		return estadoTramiteFinal;
+	}
+
+	public void setEstadoTramiteFinal(int estadoTramiteFinal) {
+		this.estadoTramiteFinal = estadoTramiteFinal;
 	}
 
 }

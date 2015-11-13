@@ -23,21 +23,11 @@
     
     <div class="panel panel-default">
       <div class="panel-heading">
-          Registro de Tramites
+         Atencion de Solicitud N. ${tramite.solicitud.idsolicitud}
       </div>
       
       <div class="panel-body">
       
-      <div class="row">
-      	<div class="col-lg-12">
-      
-      	<div class="form-group col-lg-12">
-		  <label class="control-label">Atencion de Solicitud N. ${tramite.solicitud.idsolicitud}</label>  
-		</div>
-		
-		</div>
-	</div>
-	
 	<c:if test="${ tramite.estado le 2 }">
 	<div class="row">
       	<div class="col-lg-12">
@@ -172,40 +162,35 @@
      
      
      <c:if test="${ tramite.idTramite != 0 && tramite.estado le 2}">
-	 <div class="row">
-      	<div class="col-lg-12">
-      	
-		<div class="form-group">
-		  <label class="control-label">Adjuntos</label>
-		</div>
 	
-		</div>
-   	</div>
-   	
    	<div class="row">
-      <div class="col-lg-12">
-		
-		<form:form id="frmAdjuntar" name="frmAdjuntar" action="${root_url}tramites/cargarAdjunto.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
-		<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
-		
-		<div class="col-lg-4"><label class="control-label" for="filebutton">Adjuntar</label></div>
-	 	<div class="col-lg-4"><input id="file" name="file" class="input-file" type="file"></div>
-		<div class="col-lg-4"><input type="submit" class="btn btn-success" value="Cargar"></div>
-	
-	 	</form:form>
-	 
-	  </div>
-     </div>
-    
-	 	<c:if test="${ not empty tramite.tramiteAdjuntos }">
-           <c:forEach items="${tramite.tramiteAdjuntos}" var="doc">
-			<div class="row">
-      			<div class="col-lg-12">
-      				<a href="${root_url}tramites/descargar.htm?id=${doc.idAdjunto}">&nbsp;${doc.nombre}</a>
+     
+      <div class="col-lg-6">
+      	<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-bell fa-fw"></i>Archivos Adjuntos
+			</div>
+			<div class="panel-body">
+				
+				<form:form id="frmAdjuntar" name="frmAdjuntar" action="${root_url}tramites/cargarAdjunto.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
+					<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
+					<input id="file" name="file" class="btn" type="file">
+					<input type="button" class="btn btn-outline btn-primary btn-lg btn-block" value="Cargar" id="btnUploadTramiteAdjunto">
+			 	</form:form> 
+			 	
+				<div class="list-group">
+					<c:forEach items="${tramite.tramiteAdjuntos}" var="doc">
+					<a class="list-group-item" href="${root_url}tramites/descargar.htm?id=${doc.idAdjunto}">
+						<i class="fa fa-comment fa-fw"></i> ${doc.nombre}
+						<%-- <span class="pull-right text-muted small"><em>4 minutes ago</em>
+						</span>--%>
+					</a>
+					</c:forEach>
 				</div>
-     		</div>
-           </c:forEach>
-        </c:if>
+			</div>
+		</div>
+      </div>
+    </div>
 
       <div class="row">
       	<div class="col-lg-6">
@@ -250,7 +235,8 @@
 	</div>
 	
 	</c:if>
-	 <c:if test="${ tramite.estado eq 3 }">
+	
+	<c:if test="${ tramite.estado eq 3 }">
     <div class="row">
       	<div class="col-lg-12">      		
 			<div class="form-group col-lg-6">
@@ -293,7 +279,6 @@
      </div>
 	
      </c:if>
-     
      <c:if test="${ tramite.estado eq 4 }">
     
     <div class="row">

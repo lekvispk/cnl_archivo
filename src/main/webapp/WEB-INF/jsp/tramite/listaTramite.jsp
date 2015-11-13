@@ -76,9 +76,9 @@
 			            	6 = concluido
 			            	 --%>
 			            	<spring:url value="/" var="rooot" />
+			            		<a id="ver_${row.idTramite}" href="#" data-link="${rooot}tramites/ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
 			            	<c:choose>
 			            		<c:when test="${row.estado==1}">
-			            			<%-- <a id="ver_${row.idTramite}" href="#" data-link="ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>--%>
 			            			<a id="ver_es_${row.idTramite}" href="#" data-link="${rooot}pendientes/detalleEscritura.htm?idEscritura=${row.escritura.idEscritura}&idSolicitud=${row.solicitud.idsolicitud}" style="border: 0px;" title="Ver Escritura"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
 					               	<a href="preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
 				                 </c:when>
@@ -87,18 +87,21 @@
 				                   	<a id="derivar_${row.idTramite}"   href="${rooot}tramites/derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Atender">Derivar</a>
 				                </c:when>
 			            		<c:when test="${row.estado==3}">
+			            			<security:authorize ifAnyGranted="ROLE_NOTARIO">
 			            			<a href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Responder">Responder</a>
+			            			</security:authorize>
 			            		</c:when>
 			            		<c:when test="${row.estado==4}">
-			            			<a href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver">Ver</a>
-				                   	<a href="derivar.htm?cod=${row.idTramite}" style="border: 0px;" title="Notificar">Notificar</a>
+			            			<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+				                   	<a href="${rooot}tramites/preatender.htm?cod=${row.idTramite}" style="border: 0px;" title="Notificar">Notificar</a>
+				                   	</security:authorize>
 			            		</c:when>
 			            		<c:when test="${row.estado==5}">
+			            			<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
 			            			<a id="concluir_${row.idTramite}" href="#" data-link="${rooot}tramites/concluir.htm?idTramite=${row.idTramite}" style="border: 0px;" title="Concluir">Concluir</a>
+			            			</security:authorize>
 			            		</c:when>
-			            		<c:otherwise>
-			            			Concluido
-			            		</c:otherwise>
+			            		<c:otherwise> &nbsp; </c:otherwise>
 			            	</c:choose>
 			            	<%-- <a href="javascript:eliminar(${row.idTramite});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>--%>
 	                   	</display:column>

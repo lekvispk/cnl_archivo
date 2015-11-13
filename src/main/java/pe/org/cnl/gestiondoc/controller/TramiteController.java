@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.model.TramiteAdjunto;
 import pe.org.cnl.gestiondoc.model.TramiteUsuario;
+import pe.org.cnl.gestiondoc.model.Usuario;
 import pe.org.cnl.gestiondoc.service.TramiteService;
 import pe.org.cnl.gestiondoc.util.FileUpload;
 import pe.org.cnl.gestiondoc.util.Utiles;
@@ -46,9 +47,47 @@ public class TramiteController {
 		tr.setEstado( estado );
 		TramiteUsuario te = new TramiteUsuario();
 		te.setEstado(1);
+		
 		tr.addTramiteUsuario( te );
+		
 		model.put("tramite", new Tramite());
 		model.put("lTramites", tramiteService.buscar(tr));
+		
+		return "tramite/listaTramite";
+	}
+	/**
+	 * Bandeja de respondidos, el notario debe ver solo los tramites que el ha respondido. no importa el estado en que se encuentre el tramite 
+	 * ya que si se ha concluido igual creo que debe de verlos por su historico 
+	 * @param request
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/respondidos.htm")
+	public String respondidos(HttpServletRequest request,ModelMap model){
+		logger.debug(" respondidos.html");
+		
+		Tramite tr = new Tramite();
+		TramiteUsuario te = new TramiteUsuario();
+		
+		if( Usuario.tienePermiso("ROLE_NOTARIO")){
+			//el notario ve todos los que el ha respondido sin importar si esten concluidos o no, por eso no seteo estado
+			te.setEstadoTramiteFinal(4);
+			te.setSecUsuario1( Usuario.getUsuarioBean() );	
+		}else{
+			//personal de archivo ve aqui solo los responndidos recientes, si el los deriva ya deja de verlos aqui 
+			tr.setEstado( 4 );	
+		}
+		
+		tr.addTramiteUsuario( te );
+		
+		//por si lo he invocado luego de un insert o update
+		if( "1".equals(request.getParameter("ex")) ){
+			model.put("mensaje", "El tramite ha sido respondido exitosamente");
+		}
+		
+		model.put("tramite", new Tramite());
+		model.put("lTramites", tramiteService.buscar(tr));
+		
 		return "tramite/listaTramite";
 	}
 	
@@ -75,10 +114,12 @@ public class TramiteController {
 			Integer ultimoEstado = tr.getEstado();
 			tramiteService.derivar( tr );
 			request.setAttribute("estado", ultimoEstado );
+			model.put("mensaje", "Se ha derivado correctamente");
 			return lista(request, model);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.put("msgError", "" + e.getMessage());
 		}
 		return "tramite/listaTramite";
 	}
@@ -88,8 +129,19 @@ public class TramiteController {
 		try {
 			logger.debug(" preAtender "  + request.getParameter("cod") );
 			Tramite tr =  tramiteService.obtener( Integer.parseInt( request.getParameter("cod") ));
-			logger.debug(  "tramite" + tr );
+			//logger.debug(  "tramite" + tr );
+			
+			//por si lo he invocado luego de cargar un adjunto
+			if( "a".equals(request.getParameter("ex")) ){
+				model.put("mensaje", "Se ha cargado el archivo correctamente");
+			}
+			if( "a2".equals(request.getParameter("ex")) ){
+				model.put("msgError", "Error al cargar el archivo.");
+			}
+			
 			model.put("tramite", tr );
+			model.put("uploadForm", new FileUpload() );
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,7 +160,7 @@ public class TramiteController {
 			tu.setTramite( tr );
 			
 			tramiteService.registrarAtencion( tu );
-			model.put("mensaje", "El tramite ha sido creado exitosamente");
+			model.put("mensaje", "Los cambios han sido guardados exitosamente");
 			
 			tr = new Tramite();
 			tr.setEstado( 2 );
@@ -140,21 +192,17 @@ public class TramiteController {
 	
 	@RequestMapping(value="/cargarAdjunto.htm", method=RequestMethod.POST)
 	public String cargarAdjunto(@ModelAttribute("uploadForm") FileUpload formArchivo, HttpServletRequest request, ModelMap model){
-		logger.debug("grabo adjunto en BD");
+		logger.debug("cargarAdjunto -> grabo adjunto en BD");
 		 try{
 			 logger.debug(" id documento " + formArchivo.getIdDocumento());
 			 logger.debug(" file " + formArchivo.getFile());
 			 tramiteService.registrarArchivoEnDisco( formArchivo.getFile() , formArchivo.getIdDocumento() );
-            model.put("mensaje", "archivo cargado");
             
        	}catch(Exception ex) {
            logger.debug(ex.getMessage());
-       	   model.put("msgError","Error " + ex.getMessage());
-        }finally{
-        	model.put("uploadForm", new FileUpload() );
-            model.put("tramite",  tramiteService.obtener( formArchivo.getIdDocumento() ) );
+           return "redirect:/tramites/preatender.htm?cod="+formArchivo.getIdDocumento()+"&ex=a2";
         }
-        return "tramite/tramiteForm";
+		return "redirect:/tramites/preatender.htm?cod="+formArchivo.getIdDocumento()+"&ex=a";
 	}
 	
 	/* DESCARGA DE DOC*/
@@ -191,16 +239,9 @@ public class TramiteController {
 			tu.setTramite( tr );
 			
 			tramiteService.registrarRespuesta( tu );
-			model.put("mensaje", "El tramite ha sido creado exitosamente");
+			//model.addAttribute("mensaje", "El tramite ha sido respondido exitosamente");
 			
-			tr = new Tramite();
-			tr.setEstado( 4 );
-			TramiteUsuario te = new TramiteUsuario();
-			te.setEstado(1);
-			tr.addTramiteUsuario( te );
-			model.put("tramite", new Tramite());
-			model.put("lTramites", tramiteService.buscar(tr));
-			return "tramite/listaTramite";
+			return "redirect:/tramites/respondidos.htm?ex=1";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -220,10 +261,10 @@ public class TramiteController {
 			
 			TramiteUsuario tu = new TramiteUsuario();
 			tu.setTramite( tr );
-			
-			tramiteService.registrarRespuesta( tu );
-			model.put("mensaje", "El tramite ha sido creado exitosamente");
-			
+			//tu.setEstadoTramiteFinal(5);
+			tramiteService.registrarNotificacion( tu );
+			model.put("mensaje", "El cliente ha sido notificado exitosamente");
+			//TODO cambiar por redirectView
 			tr = new Tramite();
 			tr.setEstado( 4 );
 			TramiteUsuario te = new TramiteUsuario();
