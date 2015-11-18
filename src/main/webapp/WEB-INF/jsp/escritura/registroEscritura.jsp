@@ -60,39 +60,47 @@
     <div class="panel-body">
 
           <form:form name="frm2" action="nuevo.htm" method="post" modelAttribute="escritura">
-           <div class="row">
-	   		<div class="col-lg-12">
-	   		
-            <form:hidden path="idEscritura"/>
-          	<table class="bloqueTablaLineal" >
-               <tr>
-                   <th>Notaria:</th>
-                   <td><form:input path="notaria.nombre" size="50"/></td>
-               </tr>
-              
-               <tr>
-                   <th>Nro. Kardex:</th>
-                   <td><form:input path="kardex" size="15"/></td>
-               </tr>
-               <tr>
-                   <th>Nro. Escritura:</th>
-                   <td><form:input path="numeroDoc" size="15"/></td>
-               </tr>
-                <tr>
-                   <th>Nro. Instrumento:</th>
-                   <td><form:input path="numeroInstrumento" size="15"/></td>
-               </tr>
-                <tr>
-                   <th>Nro. Folios:</th>
-                   <td><form:input path="numeroFolios" size="15"/></td>
-               </tr>
-               <tr>
-                   <th>Fecha de Documento:</th>
-                   <td>
-                   	<fmt:formatDate value="${escritura.fechaEscritura}" pattern="dd/MM/yyyy" var="f_tramFechaRegistro"/>
-               		<input type="text" name="tramFechaRegistro" id="tramFechaRegistro" size="15" value="${f_tramFechaRegistro}"/>
-                 		<img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalr" />
-						<script type="text/javascript">
+           <form:hidden path="idEscritura"/>
+          <div class="row">
+		    	<div class="col-lg-3">
+					<label class="control-label">Notaria:</label>
+		    	</div>
+		    	<div class="col-lg-3"><form:input path="notaria.nombre" size="50" cssClass="form-control"/></div>
+		   </div>
+		   <div class="row">
+		    	<div class="col-lg-3">
+					<label class="control-label">Nro. Kardex:</label>
+		    	</div>
+		    	<div class="col-lg-3"><form:input path="kardex" size="15" cssClass="form-control"/></div>
+		   </div>
+		   <div class="row">
+		    	<div class="col-lg-3">
+					<label class="control-label">Nro. Escritura:</label>
+		    	</div>
+		    	<div class="col-lg-3"><form:input path="numeroDoc" size="15" cssClass="form-control"/></div>
+		   </div>
+		   <div class="row">
+		    	<div class="col-lg-3">
+					<label class="control-label">Nro. Instrumento:</label>
+		    	</div>
+		    	<div class="col-lg-3"><form:input path="numeroInstrumento" size="15" cssClass="form-control"/></div>
+		   </div>
+		   <div class="row">
+		    	<div class="col-lg-3">
+					<label class="control-label">Nro. Folios:</label>
+		    	</div>
+		    	<div class="col-lg-3"><form:input path="numeroFolios" size="15" cssClass="form-control"/></div>
+		   </div>
+		    <div class="row">
+		    	<div class="col-lg-3">
+					<label class="control-label">Fecha de Documento:</label>
+		    	</div>
+		    	<div class="col-lg-3">
+		    		<div class="form-group input-group">
+		    		<fmt:formatDate value="${escritura.fechaEscritura}" pattern="dd/MM/yyyy" var="f_tramFechaRegistro"/>
+               		<input type="text" name="tramFechaRegistro" id="tramFechaRegistro" size="15" value="${f_tramFechaRegistro}" class="form-control"/>
+                 	<span class="input-group-addon"><img src="${pageContext.request.contextPath}/images/cal.gif" alt="D&iacute;a/Mes/A&ntilde;o" width="16" height="16" border="0" id="triggerCalr" /></span>
+					<script type="text/javascript">
 						Calendar.setup({
 							inputField     :    "tramFechaRegistro",  // id del campo de texto
 							ifFormat       :    "%d/%m/%Y",  // Formato de la Fecha
@@ -100,24 +108,23 @@
 							button         :    "triggerCalr",// ID del elemento que llamara al calendario
 							singleClick    :    true         // Flag Modo doble-click 
 						});
-						</script>
-					</td>
-                  </tr>                                    
-              </table>
-        </div>
-       </div>    
-                         
+					</script>
+					</div>
+				</div>
+		   </div>
+		      
        <div class="row">
 	   		<div class="col-lg-12">
             
-              	<input type="submit" class="boton" value="Guardar">
-               	<input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
+              	<input type="submit" class="btn btn-success" value="Guardar">
+               	<input type="button" onclick="javascript:cancelar();" class="btn btn-success" value="Cancelar">
                 <c:if test="${ escritura.idEscritura != 0}">
-                   	<input type="button" onclick="javascript:implicados();" class="boton" value="Agregar Participantes">
+                   	<input type="button" onclick="javascript:implicados();" class="btn btn-success" value="Agregar Participantes">
                 </c:if>
                               
            </div>
        </div>
+       
        </form:form>
        
         <div class="row">
@@ -131,7 +138,7 @@
 			<form:form id="frmAdjuntar" name="frmAdjuntar" action="#" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
 			<input type="hidden" name="idDocumento" value="${escritura.idEscritura}"/>
 			                         
-			<table class="bloqueTablaLineal" cellspacing="6">
+			<table class="bloqueTablaLineal">
 				<tr>
                      <th>Seleccionar Archivo:</th>
                      <td><input type="file" name="file"></td>
@@ -140,7 +147,7 @@
              <table summary="Contenedor Botones" class="tablaAnchoAjustable">
                  <tr>
                      <td>
-                         <input type="button" onclick="javascript:cargar();" class="boton" value="Cargar">
+                         <input type="button" onclick="javascript:cargar();" class="btn btn-success" value="Cargar">
                    </td>
                </tr>
        	    </table>
@@ -148,7 +155,7 @@
           </c:if>
            
             <c:if test="${ not empty  escritura.archivos }">
-             <table class="bloqueTablaLineal" cellspacing="6">
+             <table class="bloqueTablaLineal">
 				<c:forEach items="${escritura.archivos}" var="doc">
 				<tr>
                       <th>Descargar Archivo:</th>

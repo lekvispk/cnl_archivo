@@ -129,7 +129,7 @@ public class EscrituraController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "escritura/participantes";
+		return "escritura/participantesEscritura";
 	}
 	
 	@RequestMapping("/escritura/participantes.htm")
@@ -153,7 +153,7 @@ public class EscrituraController {
 			model.put("lTipoRelacion", tipoRelacionService.listarTipos() );
 			model.put("limplicados", escrituraService.obtenerPersonasEscritura(  persona.getEscritura().getIdEscritura() )) ;	
 		}
-		return "escritura/participantes";
+		return "escritura/participantesEscritura";
 	}
 	
 	@RequestMapping("/escritura/ver.htm")

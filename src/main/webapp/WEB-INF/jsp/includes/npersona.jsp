@@ -31,7 +31,7 @@
                 <!--Capa que contiene toda la plantilla-->
                  
                 <div id="cuerpo" align="center">
-                    <table class="anchoTotal" align="center" width="90%" border="1">
+                    <table class="anchoTotal" border="1">
                         <tr>
                             <td id="anchoMenu" >
                               
@@ -75,10 +75,10 @@
                                         <tr>
                                             <th>Tipo Documento:</th>
                                             <td>
-                                            	<form:select path="tipoDocumento"  cssStyle="height: 20px; width: 180px; font-family: Arial; font-size: 9pt">
-                                            		<form:option value="0">DNI</form:option>
-                                            		<form:option value="1">Pasaporte</form:option>
-                                            		<form:option value="2">Carnet de Extranjeria</form:option>
+                                            	<form:select path="documentoIdentidad.idDocumento"  cssStyle="">
+                                            		<form:option value="1">DNI</form:option>
+                                            		<form:option value="2">Pasaporte</form:option>
+                                            		<form:option value="3">Carnet de Extranjeria</form:option>
                                             	</form:select>
                                             </td>
                                         </tr>

@@ -61,6 +61,7 @@ public class AdminController {
 	
 	@RequestMapping(value="*/npersona.htm")
 	public String npersona(@Valid Persona persona, BindingResult result,HttpServletRequest request, ModelMap model){
+		logger.debug("npersona");
 		try {
 			model.put("r", "1");
 			
@@ -69,6 +70,7 @@ public class AdminController {
 			logger.debug("includes/npersona r=1");
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			model.put("msgError", e.getMessage());
 			model.put("r", "0");
 		}

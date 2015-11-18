@@ -62,8 +62,8 @@ function cancelar(){
 	<div class="row">
       	<div class="col-lg-12">	
 			<div class="form-group">
-			 	<input type="button" onclick="javascript:nuevo();" class="boton" value="Aceptar">
-				<input type="button" onclick="javascript:cancelar();" class="boton" value="Cancelar">
+			 	<input type="button" onclick="javascript:nuevo();" class="btn btn-success" value="Aceptar">
+				<input type="button" onclick="javascript:cancelar();" class="btn btn-success" value="Cancelar">
 			</div>
 		</div>
 	</div>
