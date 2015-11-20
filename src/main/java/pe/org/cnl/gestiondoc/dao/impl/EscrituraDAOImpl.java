@@ -25,16 +25,13 @@ public class EscrituraDAOImpl implements EscrituraDAO {
 	private static final Logger logger = Logger.getLogger( EscrituraDAOImpl.class );
 	
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Escritura> buscarEscitura(Escritura escritura) {
 		logger.debug( "buscarEscitura INI " );
-		
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Escritura.class);
-		
-		//DetachedCriteria criteria = DetachedCriteria.forClass(Escritura.class);
 		if(escritura !=null){
 			
 			Disjunction dis = Restrictions.disjunction();

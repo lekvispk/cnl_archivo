@@ -2,27 +2,29 @@ package pe.org.cnl.gestiondoc.dao.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.cnl.gestiondoc.dao.TipoSolicitudDAO;
 import pe.org.cnl.gestiondoc.model.TipoSolicitud;
 
 @Repository
-public class TipoSolicitudDAOImpl extends HibernateDaoSupport implements TipoSolicitudDAO {
+@Transactional
+public class TipoSolicitudDAOImpl implements TipoSolicitudDAO {
 
+	private static final Logger logger = Logger.getLogger(TipoActoDAOImpl.class );
+	
 	@Autowired
-	public TipoSolicitudDAOImpl(SessionFactory sessionFactory){
-		setHibernateTemplate( new HibernateTemplate(sessionFactory));
-	}
+	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TipoSolicitud> listarTipoSolicitud() {
-		return getHibernateTemplate().find(" from TipoSolicitud ");
+		logger.debug("listarTipoSolicitud");
+		return this.sessionFactory.getCurrentSession().createQuery(" from TipoSolicitud ").list();
 	}
 
 }

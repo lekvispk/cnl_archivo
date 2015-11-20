@@ -25,7 +25,7 @@ public class TramiteDAOImpl implements TramiteDAO {
 	private static final Logger logger = Logger.getLogger( TramiteDAOImpl.class );
 	
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@SuppressWarnings("unchecked")
 	@Override

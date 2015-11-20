@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pe.org.cnl.gestiondoc.model.Persona;
 import pe.org.cnl.gestiondoc.model.Usuario;
 import pe.org.cnl.gestiondoc.service.PersonaService;
+import pe.org.cnl.gestiondoc.service.UsuarioService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
@@ -28,6 +29,9 @@ public class AdminController {
 	@Autowired
 	private PersonaService personaService;
 	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@RequestMapping("/login.htm")
 	public String login(HttpServletRequest request){
 		logger.debug(" login.html");
@@ -36,6 +40,10 @@ public class AdminController {
 	
 	@RequestMapping("/inicio.htm")
 	public String inicio(HttpServletRequest request, ModelMap model){
+		
+		if( "c".equals(request.getParameter("1")) ){
+			model.put("mensaje", "La clave ha sido actualizada");
+		}
 		//try {
 		//	String usuario = request.getParameter("j_username");
 		//	String password= request.getParameter("j_password");
@@ -135,13 +143,17 @@ public class AdminController {
 				throw new Exception("Su nueva calve es incorrecta");
 			}
 			
-			model.put("mensaje", "La clave ha sido actualizada");
+			Usuario us = Usuario.getUsuarioBean();
+			us.setClave( Utiles.hashMd5( confirmar ) );
+			
+			usuarioService.modificarusuario(us);
+			//model.put("mensaje", "La clave ha sido actualizada");
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError","Error " + e.getMessage());
 			return "mantenimiento/usuario_clave";
 		}
-		return "inicio";
+		return "redirect:/inicio.htm?c=1";
 	}
 	
 }

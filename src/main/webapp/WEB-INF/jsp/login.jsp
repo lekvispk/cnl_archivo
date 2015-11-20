@@ -14,7 +14,7 @@
     
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" />
 	
-	<title>:: SISEB ::</title>
+	<title>ArchivoNot</title>
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 

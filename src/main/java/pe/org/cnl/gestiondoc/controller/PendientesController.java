@@ -82,7 +82,7 @@ public class PendientesController {
 	}
 	
 	@RequestMapping(value="firmar.htm",method=RequestMethod.GET)
-	public String firmar(HttpServletRequest request, ModelMap model){
+	public String preFirmar(HttpServletRequest request, ModelMap model){
 		try {
 			logger.debug(" firmar ");
 			
@@ -117,7 +117,7 @@ public class PendientesController {
 	}
 	
 	@RequestMapping(value="firmar.htm",method=RequestMethod.POST)
-	public String firmmar( HttpServletRequest request , HttpServletResponse response ){
+	public String firmar( HttpServletRequest request , HttpServletResponse response ){
 		
 		Integer id1 = Integer.valueOf(request.getParameter("id1"));
 		Integer id2 = Integer.valueOf(request.getParameter("id2"));
@@ -137,10 +137,11 @@ public class PendientesController {
             xmlEsccritura.setCodigoActo( escritura.getNumeroDoc() ) ;
             xmlEsccritura.setFecha( Utiles.DateToString( escritura.getFechaCreacion() , "dd/MM/yyyy") ) ;
             xmlEsccritura.setArchivo( archivo.getArchivo() );
+            xmlEsccritura.setNombreArchivo(archivo.getNombre());
             xmlEsccritura.setKardex( escritura.getKardex() ) ;
             xmlEsccritura.setNumeroTramite( escritura.getNumeroInstrumento() );
             
-            logger.debug("archivo en el applet " + xmlEsccritura);
+            logger.debug("archivo en el modal " + xmlEsccritura);
 
             logger.debug(" * * intancio al firmador");
             Firmador f = new Firmador();
@@ -150,7 +151,7 @@ public class PendientesController {
             logger.debug(" * * seteo objeto XML a firmar por " + f.getNotarioCert() );
             f.setObjSunarpXML(xmlEsccritura);
             logger.debug(" * *  llamo a firmar");
-            xmlEsccritura.setArchivoFirmado(f.firmar());
+            xmlEsccritura.setArchivoFirmado(f.firmarConCertificado());
             xmlEsccritura.setIdEscritura(id1);
             xmlEsccritura.setIdSolicitud(id2);
 

@@ -1,18 +1,31 @@
 package pe.org.cnl.gestiondoc.firmador;
 
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.BarcodePDF417;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.util.Date;
 import java.util.Enumeration;
+
 import org.apache.commons.io.IOUtils;
+
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BarcodePDF417;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfSignatureAppearance;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.security.BouncyCastleDigest;
+import com.itextpdf.text.pdf.security.DigestAlgorithms;
+import com.itextpdf.text.pdf.security.ExternalDigest;
+import com.itextpdf.text.pdf.security.ExternalSignature;
+import com.itextpdf.text.pdf.security.MakeSignature;
+import com.itextpdf.text.pdf.security.MakeSignature.CryptoStandard;
+import com.itextpdf.text.pdf.security.PrivateKeySignature;
 
 public class Firmador
 {
@@ -139,6 +152,55 @@ public class Firmador
     return null;
   }
 
+  /**
+   * Este metodo es el que firma con el certificado y agrega datos de  seguridad al PDF
+   * @return
+   */
+  public byte[] firmarConCertificado() {
+	  System.out.println("recibo PDF y devuelvo un nuevo PDF firmado");
+		try {
+			byte[] pdf = this.objSunarpXML.getArchivo();
+			// byte[] firmaParte = sg.firmar(pdf, this.notarioCert, this.ks, null, "SHA1withRSA");
+			KeyStore ks = this.ks;
+			//ks.load(new FileInputStream(PATH+"cherreracred.p12"), "cherrerap12".toCharArray());
+			String alias = this.notarioCert ;
+			PrivateKey key = (PrivateKey)ks.getKey(alias, "lesliedp12".toCharArray());
+			Certificate[] chain = ks.getCertificateChain(alias);
+			PdfReader reader = new PdfReader( pdf );
+			
+			String nombre = this.objSunarpXML.getNombreArchivo();
+			nombre = nombre.substring(0, nombre.length()-4 );
+			nombre = nombre + "_" + new Date().getTime()+".pdf";
+			
+			//String nombrePdfFirmado = nombre;
+			String PdfWithBidTempPath = getObjSunarpXML().getKardex() + "_bid.pdf";
+			
+			FileOutputStream fout = new FileOutputStream( PdfWithBidTempPath );
+			
+			/* COLOCAR RECTANGULO CON FIRMA VISIBLE */
+			PdfStamper stp = PdfStamper.createSignature(reader, fout, '\0');			
+			PdfSignatureAppearance sap = stp.getSignatureAppearance();
+			sap.setCertificationLevel(PdfSignatureAppearance.CERTIFIED_NO_CHANGES_ALLOWED);
+			sap.setReason("Soy el autor del Documento");
+			sap.setLocation("Lima - Peru");
+			//sap.setImage(Image.getInstance( PATH+"logo.gif"));
+			sap.setVisibleSignature(new Rectangle(400, 700, 550, 750), 1, null);
+			
+			
+			ExternalSignature es = new PrivateKeySignature(key, DigestAlgorithms.SHA256 , null);
+		    ExternalDigest digest = new BouncyCastleDigest();
+		    MakeSignature.signDetached(sap, digest, es, chain, null, null, null, 0, CryptoStandard.CMS);
+		    
+		    
+		    System.out.println("Fin de la firma. OK");
+		    return IOUtils.toByteArray(new FileInputStream(PdfWithBidTempPath));
+			  
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} 
+  }
+  
   public void cargaCertificados()
   {
     try

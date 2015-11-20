@@ -18,7 +18,7 @@ public class ArchivoDAOImpl implements ArchivoDAO {
 	private static final Logger logger = Logger.getLogger( ArchivoDAOImpl.class );
 	
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public Archivo obtenerArchivo(Integer idArchivo) {

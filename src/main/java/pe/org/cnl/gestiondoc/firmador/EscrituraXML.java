@@ -39,7 +39,7 @@ public class EscrituraXML implements Serializable {
 	private String NumeroTramite;
 	private byte[] archivo;
 	private byte[] archivoFirmado;
-
+	private String nombreArchivo;
 	
 	public byte[] getArchivoFirmado() {
 		return archivoFirmado;
@@ -134,6 +134,14 @@ public class EscrituraXML implements Serializable {
 	public void setArchivo(byte[] archivo) {
 		this.archivo = archivo;
 	}
-	  
-	  
+
+	public String getNombreArchivo() {
+		return nombreArchivo;
+	}
+
+	public void setNombreArchivo(String nombreArchivo) {
+		this.nombreArchivo = nombreArchivo;
+	}
+
+	
 }

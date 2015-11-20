@@ -6,7 +6,7 @@
 	
 <script>
 function nuevo(){
-	document.forms[0].action = "cpass.htm";
+	document.forms[0].action = "${pageContext.request.contextPath}/cambioDeClave.htm";
    	document.forms[0].submit();
 }
 
@@ -37,9 +37,8 @@ function cancelar(){
       </div>
       
       <div class="panel-body">
-      
-    	<spring:url value="/" var="rooot" />           
-   		<form action="${rooot}cambioDeClave.htm" name="frm1" method="post">
+               
+   		<form action="${pageContext.request.contextPath}/cambioDeClave.htm" name="frm1" method="post">
 	
 	<div class="row">
       	<div class="col-lg-6">
