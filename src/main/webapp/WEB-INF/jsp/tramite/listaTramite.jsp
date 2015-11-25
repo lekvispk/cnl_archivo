@@ -45,7 +45,10 @@
 						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 120px;">
 						
 			            	<c:choose>
-			            		<c:when test="${row.estado==1}">
+			            		<c:when test="${row.estado==0}">
+					            	Eliminado
+				                 </c:when>
+				                 <c:when test="${row.estado==1}">
 					            	Por Atender
 				                 </c:when>
 			            		<c:when test="${row.estado==2}">
@@ -76,7 +79,9 @@
 			            	6 = concluido
 			            	 --%>
 			            	<spring:url value="/" var="rooot" />
-			            		<a id="ver_${row.idTramite}" href="#" data-link="${rooot}tramites/ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+			            	<a id="ver_${row.idTramite}" href="#" data-link="${rooot}tramites/ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
+			            	
+			            	<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
 			            	<c:choose>
 			            		<c:when test="${row.estado==1}">
 			            			<a id="ver_es_${row.idTramite}" href="#" data-link="${rooot}pendientes/detalleEscritura.htm?idEscritura=${row.escritura.idEscritura}&idSolicitud=${row.solicitud.idsolicitud}" style="border: 0px;" title="Ver Escritura"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
@@ -103,6 +108,7 @@
 			            		</c:when>
 			            		<c:otherwise> &nbsp; </c:otherwise>
 			            	</c:choose>
+			            	</security:authorize>
 			            	<%-- <a href="javascript:eliminar(${row.idTramite});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>--%>
 	                   	</display:column>
 				 </display:table>

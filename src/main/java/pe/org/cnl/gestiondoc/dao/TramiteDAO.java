@@ -9,6 +9,7 @@ import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 public interface TramiteDAO {
 	
 	public List<Tramite> buscar(Tramite tramite);
+	public List<Tramite> buscarParaSecretaria(Tramite tramite);
 	public void registrar(Tramite tramite);
 	public void registrarMovimiento( TramiteUsuario tramiteUsuario);
 	public void eliminar(Integer idTramite);

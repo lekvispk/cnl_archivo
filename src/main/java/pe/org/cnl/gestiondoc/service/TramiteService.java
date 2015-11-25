@@ -11,6 +11,7 @@ import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 public interface TramiteService {
 	
 	public List<Tramite> buscar(Tramite tramite);
+	public List<Tramite> buscarParaSecretaria(Tramite tramite);
 	public void registrar(Tramite tramite, String username);
 	public void registrarAtencion( TramiteUsuario tramite );
 	public void registrarRespuesta( TramiteUsuario tramite );

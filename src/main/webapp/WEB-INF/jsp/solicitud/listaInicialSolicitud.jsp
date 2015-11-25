@@ -46,7 +46,12 @@
 						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 100px;">
 			            	
 			            	<c:if test="${row.estado=='1'}">
-			            		<a href="${pageContext.request.contextPath}/pendientes/preCargaEscritura.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Seleccionar Escrituras">Por buscar</a>
+			            		<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+			            			<a href="${pageContext.request.contextPath}/pendientes/preCargaEscritura.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Seleccionar Escrituras">Por buscar</a>
+			            		</security:authorize>
+			            		<security:authorize ifNotGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+			            			Por buscar
+			            		</security:authorize>
 			            	</c:if>
 			            	<c:if test="${row.estado=='2'}">
 			            		Atendido
@@ -57,7 +62,7 @@
 			            	
 		                </display:column>
 	                   	<display:column title="Detalle" sortable="true" headerClass="sortable" style=" width: 100px;">
-			            	<a id="ver_${row.idsolicitud}" href="#" data-link="ver.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Ver">Ver</a>
+			            	<a id="ver_${row.idsolicitud}" href="#" data-link="${pageContext.request.contextPath}/solicitud/ver.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Ver">Ver</a>
 			           	</display:column>
 				 </display:table>
 				</div>

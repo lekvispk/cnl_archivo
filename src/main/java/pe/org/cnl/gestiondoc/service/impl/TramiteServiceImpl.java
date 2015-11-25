@@ -171,4 +171,9 @@ public class TramiteServiceImpl implements TramiteService {
 		
 		return file;
 	}
+
+	@Override
+	public List<Tramite> buscarParaSecretaria(Tramite tramite) {
+		return tramiteDAO.buscarParaSecretaria(tramite);
+	}
 }

@@ -61,16 +61,6 @@
                         </security:authorize>
                         <security:authorize ifAnyGranted="ROLE_ADMIN">
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Reportes<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li><a href="${pageContext.request.contextPath}/reportes/lista.htm?tipo=1">Reporte 1</a></li>
-                                <li><a href="${pageContext.request.contextPath}/reportes/lista.htm?tipo=2">Reporte 2</a></li>
-                                <li><a href="${pageContext.request.contextPath}/reportes/lista.htm?tipo=3">Reporte 3</a></li>
-                                <li><a href="${pageContext.request.contextPath}/reportes/lista.htm?tipo=4">Reporte 4</a></li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Administraci&oacute;n<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li><a href="${pageContext.request.contextPath}/admin/lpersonas.htm">Personas</a></li>
@@ -79,6 +69,18 @@
                                 <li><a href="${pageContext.request.contextPath}/admin/lnotarias.htm">Notar&iacute;as</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/ltipotramite.htm">Tipo de Tramite</a></li>
                                 <li><a href="${pageContext.request.contextPath}/escritura/lista.htm">Lista de Escrituras</a></li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        </security:authorize>
+                        <security:authorize ifAnyGranted="ROLE_SEC">
+                         <li>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Consultas<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="${pageContext.request.contextPath}/secretaria/solicitudes.htm">Solicitudes</a></li>
+                                <li><a href="${pageContext.request.contextPath}/secretaria/enArchivo.htm">Tramites en archivo</a></li>
+                                <li><a href="${pageContext.request.contextPath}/secretaria/enNotaria.htm">Tramites en Notaria</a></li>
+                                <li><a href="${pageContext.request.contextPath}/secretaria/reportes.htm">Reportes</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

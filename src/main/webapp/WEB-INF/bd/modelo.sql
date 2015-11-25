@@ -98,6 +98,23 @@ CREATE TABLE documento_identidad (
 ENGINE=INNODB;
 
 -- ------------------------------------------------------------
+-- Tabla en donde se registra el cambio de notario encargado de archivo
+-- ------------------------------------------------------------
+
+CREATE TABLE encargado_archivo (
+  id_encargado_archivo INTEGER NOT NULL AUTO_INCREMENT,
+  id_notaria INTEGER NOT NULL,
+  estado INTEGER NULL,
+  fecha_creacion DATETIME NULL,
+  usuario_creacion VARCHAR(50) NULL,
+  PRIMARY KEY(id_encargado_archivo),
+  FOREIGN KEY(id_notaria)
+    REFERENCES notaria(id_notaria)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+)
+ENGINE=INNODB;
+-- ------------------------------------------------------------
 -- datos de cada una de las escrituras  en la base de datos
 -- ------------------------------------------------------------
 
@@ -425,11 +442,11 @@ ENGINE=INNODB;
 
 insert into `gestiondoc`.`tipo_acto` (id_acto, nombre_acto, estado) values
 (1, 'Compra Venta de Inmueble', 1),
-(2, 'Compra Venta de Veh?culo', 1),
+(2, 'Compra Venta de Vehículo', 1),
 (3, 'Sucesion Intestada', 1),
 (4, 'Testimonio', 1),
 (5, 'Poderes', 1),
-(6, 'Rectificaci?n de Partida', 1),
+(6, 'Rectificación de Partida', 1),
 (7, 'Testamento', 1);
 
 insert into `gestiondoc`.`tipo_solicitud` (id_tipo_solicitud, nombre_tipo_solicitud,costo_servicio,estado,fecha_creacion) values
@@ -454,7 +471,8 @@ insert into `gestiondoc`.`sec_permisos` (id_permiso, desc_permiso, estado) value
 (4, 'ROLE_ARCHIVO', 1),
 (5, 'ROLE_MP', 1),
 (6, 'ROLE_NOTARIO', 1),
-(7, 'ROLE_USER', 1);
+(7, 'ROLE_USER', 1),
+(8, 'ROLE_SEC', 1);
 
 insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creacion) values
 (1, 'Notaria Almeyda', 1, 'notaria@notariaalmeyda.com',now()),
@@ -502,7 +520,11 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (25, 'Luis', 'Campos', 'Agurto', '', '', 'Luis Campos Agusto', '44111832', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (26, 'Henry', 'Salgado', 'Flores', '', '', 'Henry Salgado Flores', '44111833', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
 (27, 'Saul', 'Sotomayor', 'Ozco', '', '', 'Saul Sotomayor Flores', '44111834', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
-(28, 'Gerardo', 'Berrocal', 'Salinas', '', '', 'Gerardo Berrocal Salinas', '45176535', 1, now(), null, 'ecampos', null, 1,'a@a.com');
+(28, 'Gerardo', 'Berrocal', 'Salinas', '', '', 'Gerardo Berrocal Salinas', '45176535', 1, now(), null, 'ecampos', null, 1,'a@a.com'),
+(29, 'Jenny Heydi', 'Collazos', 'Tejada', '', '', 'Jenny Heydi Collazos Tejada', '45176536', 1, now(), null, 'jcollazos', null, 1,'a@a.com'),
+(30, 'María del Rosario', 'Arguelles', 'Nobile', '', '', 'María del Rosario Arguelles Nobile', '45176537', 1, now(), null, 'marguelles', null, 1,'a@a.com'),
+(31, 'Cintya', 'Zapata', 'Feraldo', '', '', 'Cintya Zapata Feraldo', '45176538', 1, now(), null, 'czapata', null, 1,'a@a.com'),
+(32, 'Leslie Corinne', 'Dextre', 'Castagnetto', '', '', 'Leslie Corinne Dextre Castagnetto', '45176539', 1, now(), null, 'ldextre', null, 1,'a@a.com');
 
 insert into `gestiondoc`.`sec_usuarios` (username, clave, estado, id_persona) values
 ('wmanrique', 'e10adc3949ba59abbe56e057f20f883e', 1,  1),
@@ -510,16 +532,23 @@ insert into `gestiondoc`.`sec_usuarios` (username, clave, estado, id_persona) va
 ('jculqui', 'e10adc3949ba59abbe56e057f20f883e', 1, 3),
 ('jgomero', 'e10adc3949ba59abbe56e057f20f883e', 1, 4),
 ('jvargas', 'e10adc3949ba59abbe56e057f20f883e', 1, 5),
-('gjara', 'e10adc3949ba59abbe56e057f20f883e', 1, 6);
+('gjara', 'e10adc3949ba59abbe56e057f20f883e', 1, 6),
+('jcollazos', 'e10adc3949ba59abbe56e057f20f883e', 1, 29),
+('marguelles', 'e10adc3949ba59abbe56e057f20f883e', 1, 30),
+('czapata', 'e10adc3949ba59abbe56e057f20f883e', 1, 31),
+('ldextre', 'e10adc3949ba59abbe56e057f20f883e', 1, 32);
 
 insert into `gestiondoc`.`sec_authorities` (username, authorithy) values
 ('ecampos', 'ROLE_ADMIN'),('ecampos', 'ROLE_USER'),
-('wmanrique', 'ROLE_CONSULTA'),('wmanrique', 'ROLE_USER'),
+('wmanrique', 'ROLE_ADMIN'),('wmanrique', 'ROLE_USER'),
 ('jculqui', 'ROLE_ARCHIVO'),('jculqui', 'ROLE_USER'),
 ('jgomero', 'ROLE_ARCHIVO'),('jgomero', 'ROLE_USER'),
 ('jvargas', 'ROLE_MP'),('jvargas', 'ROLE_USER'),
-('gjara', 'ROLE_NOTARIO'),('gjara', 'ROLE_USER');
-
+('gjara', 'ROLE_NOTARIO'),('gjara', 'ROLE_USER'),
+('jcollazos', 'ROLE_ADMIN'),('jcollazos', 'ROLE_USER'),
+('marguelles', 'ROLE_MP'),('marguelles', 'ROLE_USER'),
+('czapata', 'ROLE_NOTARIO'),('czapata', 'ROLE_USER'),
+('ldextre', 'ROLE_SEC'),('ldextre', 'ROLE_USER');
 
 insert into `gestiondoc`.`escritura` (id_escritura, id_notaria, kardex, fecha_escritura, numero_instrumento, numero_minuta, numero_doc, numero_folios, cantidad_fojas, tipo_fojas, numero_fojas, estado_escritura, firmas_restantes, anio_tomo, numero_tomo, ubicacion_fisica, ubicacion_digital, estado, fecha_creacion, fecha_modificacion, usuario_creacion,  usuario_modificacion) 	values
 (1, 1, '002300', '2010-01-0', '002300', '002300', '002300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante uno', 'disco externo uno', 1, now(), null, 'ecampos', null),

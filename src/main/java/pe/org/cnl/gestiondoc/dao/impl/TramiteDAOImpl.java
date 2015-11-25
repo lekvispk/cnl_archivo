@@ -120,4 +120,42 @@ public class TramiteDAOImpl implements TramiteDAO {
 		this.sessionFactory.getCurrentSession().saveOrUpdate( tr );
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Tramite> buscarParaSecretaria(Tramite tramite) {
+		
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Tramite.class);
+		if(tramite !=null){
+			
+			if( !Utiles.nullToBlank(tramite.getFechaCreacion()).equals("")){
+				criteria.add( Restrictions.ge("fechaCreacion", tramite.getFechaCreacion() ) );
+				logger.debug( "fechaCreacion"+ tramite.getFechaCreacion() );
+			}
+			
+			if( tramite.getTramiteUsuarios() != null && !tramite.getTramiteUsuarios().isEmpty() ) {
+				TramiteUsuario tu = tramite.getTramiteUsuarios().get(0); 
+				Criteria tramUser = criteria.createAlias("tramiteUsuarios", "tu");
+				if( tu.getEstado() > 0 ){
+					logger.debug(" tr_usr.estado="+ tu.getEstado());
+					tramUser.add( Restrictions.eq("tu.estado", tu.getEstado()) );	
+				}
+				if( tu.getEstadoTramiteFinal() > 0 ){
+					logger.debug(" tr_usr.estadoTramiteFinal="+ tu.getEstadoTramiteFinal());
+					tramUser.add( Restrictions.eq("tu.estadoTramiteFinal", tu.getEstadoTramiteFinal()) );	
+				}
+				if( tu.getSecUsuario1() != null ){
+					logger.debug(" emisor="+ tu.getSecUsuario1().getUsername() );
+					tramUser.add( Restrictions.eq("tu.secUsuario1.username", tu.getSecUsuario1().getUsername() ) );	
+				}
+			}
+			if( tramite.getEstado() > 0){
+				logger.debug("estado="+  tramite.getEstado() );
+				criteria.add( Restrictions.le("estado", tramite.getEstado() ) );	
+			}
+			criteria.addOrder( Order.desc("fechaCreacion") );
+		}				
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return  criteria.list();
+	}
+
 }
