@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,8 +23,6 @@ import pe.org.cnl.gestiondoc.dao.UsuarioDao;
 import pe.org.cnl.gestiondoc.firmador.EscrituraXML;
 import pe.org.cnl.gestiondoc.firmador.Firmador;
 import pe.org.cnl.gestiondoc.firmador.KeyStoreGenerator;
-import pe.org.cnl.gestiondoc.firmador.Util;
-import pe.org.cnl.gestiondoc.model.Archivo;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
@@ -37,6 +36,7 @@ import pe.org.cnl.gestiondoc.service.TramiteService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
+@Scope("session")
 public class PendientesController {
 
 	private static final Logger logger = Logger.getLogger(PendientesController.class );

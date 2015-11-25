@@ -27,7 +27,10 @@ public class Notaria implements Serializable {
 	private Date fecCreacion;
 
 	private String nombre;
-
+	
+	@Column(name="encargado_archivo")
+	private Integer encargadoArchivo;
+	
 	private String email;
 	
 	//bi-directional many-to-one association to Escritura
@@ -123,6 +126,14 @@ public class Notaria implements Serializable {
 		solicitud.setNotaria(null);
 
 		return solicitud;
+	}
+
+	public Integer getEncargadoArchivo() {
+		return encargadoArchivo;
+	}
+
+	public void setEncargadoArchivo(Integer encargadoArchivo) {
+		this.encargadoArchivo = encargadoArchivo;
 	}
 
 }

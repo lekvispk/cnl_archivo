@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import pe.org.cnl.gestiondoc.service.TipoActoService;
 import pe.org.cnl.gestiondoc.util.FileUpload;
 
 @Controller
+@Scope("session")
 @RequestMapping(value="/archivo")
 public class EscrituraArchivo {
 

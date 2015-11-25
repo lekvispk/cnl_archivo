@@ -77,6 +77,7 @@ CREATE TABLE notaria (
   estado INTEGER NULL,
   email VARCHAR(250) NULL,
   fec_creacion DATETIME NULL,
+  encargado_archivo INTEGER NULL,
   PRIMARY KEY(id_notaria)
 )
 ENGINE=INNODB;
@@ -474,18 +475,19 @@ insert into `gestiondoc`.`sec_permisos` (id_permiso, desc_permiso, estado) value
 (7, 'ROLE_USER', 1),
 (8, 'ROLE_SEC', 1);
 
-insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creacion) values
-(1, 'Notaria Almeyda', 1, 'notaria@notariaalmeyda.com',now()),
-(2, 'Notaria Aliaga', 1, 'notaria@notariaaliaga.com',now()),
-(3, 'Notaria Alberti', 1, 'notaria@notariaalberti.com', now()),
-(4, 'Notaria Bazan Naveda', 1,  'notaria@notariabazannaveda.com',now()),
-(5, 'Notaria Delgado', 1,  'notaria@notariadelgado.com',now()),
-(6, 'Notaria Herrera Portuondo', 1,  'notaria@notariaherrera.com',now()),
-(7, 'Notaria Jara Briceño', 1,  'notaria@notariajara.com',now()),
-(8, 'Notaria Paino', 1,  'notaria@notariapaino.com',now()),
-(9, 'Notaria Sotomayor Bernos', 1,  'notaria@notariasotomayorbernos.com',now()),
-(10, 'Notaria Sotomayor Vitela', 1,  'notaria@notariatotomayorvitela.com',now()),
-(11, 'Notaria Canelo', 1,'notaria@notariacanelo.com',now());
+insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creacion,encargado_archivo) values
+(1, 'Notaria Almeyda', 1, 'notaria@notariaalmeyda.com',now(),0),
+(2, 'Notaria Aliaga', 1, 'notaria@notariaaliaga.com',now(),0),
+(3, 'Notaria Alberti', 1, 'notaria@notariaalberti.com', now(),0),
+(4, 'Notaria Bazan Naveda', 1,  'notaria@notariabazannaveda.com',now(),0),
+(5, 'Notaria Delgado', 1,  'notaria@notariadelgado.com',now(),0),
+(6, 'Notaria Herrera Portuondo', 1,  'notaria@notariaherrera.com',now(),0),
+(7, 'Notaria Jara Briceño', 1,  'notaria@notariajara.com',now(),0),
+(8, 'Notaria Paino', 1,  'notaria@notariapaino.com',now(),0),
+(9, 'Notaria Sotomayor Bernos', 1,  'notaria@notariasotomayorbernos.com',now(),0),
+(10, 'Notaria Sotomayor Vitela', 1,  'notaria@notariatotomayorvitela.com',now(),0),
+(11, 'Notaria Canelo', 1,'notaria@notariacanelo.com',now(),0),
+(12, 'Notaria Zapata', 1,'notaria@notariacanelo.com',now(),1);
 
 insert into `gestiondoc`.`documento_identidad` (id_documento, nombre, abreviacion, estado) values 
 (1, 'Documento Nacional de Identidad', 'D.N.I.', 1),

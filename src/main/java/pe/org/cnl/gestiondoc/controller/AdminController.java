@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,7 @@ import pe.org.cnl.gestiondoc.service.UsuarioService;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
+@Scope("session")
 public class AdminController {
 
 	private static final Logger logger = Logger.getLogger(AdminController.class );
