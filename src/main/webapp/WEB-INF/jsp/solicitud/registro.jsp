@@ -180,8 +180,10 @@
     	
     <div class="row">
 		<div class="col-lg-12">
-			<input type="submit" class="btn btn-success" value="Aceptar">
+			
        		<input type="button" onclick="javascript:cancelar();" class="btn btn-success" value="Cancelar">
+       		<input type="submit" class="btn btn-success" value="Guardar">
+       		
         </div>
     </div>   
     </form:form>
@@ -257,6 +259,7 @@
     });	
     
     </script>
-    <!-- END registro.jsp -->
+    
    </body>
 </html>
+<!-- END registro.jsp -->

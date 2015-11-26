@@ -60,6 +60,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
+               <%--
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -110,6 +111,9 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
+                 --%>
+                 
+                <%-- 
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -189,8 +193,10 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>
+                --%>
+                
+                <%--
                 <!-- /.dropdown -->
-                 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -250,13 +256,15 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
-               
+                --%>
+                
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
+                    <%-- <ul class="dropdown-menu dropdown-user"> --%>
+                    <ul class="dropdown-menu dropdown-messages">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile (${pageContext.request.userPrincipal.name})</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>

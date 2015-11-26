@@ -172,12 +172,6 @@
 			</div>
 			<div class="panel-body">
 				
-				<form:form id="frmAdjuntar" name="frmAdjuntar" action="${root_url}tramites/cargarAdjunto.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
-					<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
-					<input id="file" name="file" class="btn" type="file">
-					<input type="button" class="btn btn-outline btn-primary btn-lg btn-block" value="Cargar" id="btnUploadTramiteAdjunto">
-			 	</form:form> 
-			 	
 				<div class="list-group">
 					<c:forEach items="${tramite.tramiteAdjuntos}" var="doc">
 					<a class="list-group-item" href="${root_url}tramites/descargar.htm?id=${doc.idAdjunto}">
@@ -187,6 +181,13 @@
 					</a>
 					</c:forEach>
 				</div>
+				
+				<form:form id="frmAdjuntar" name="frmAdjuntar" action="${root_url}tramites/cargarAdjunto.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
+					<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
+					<input id="file" name="file" class="btn" type="file">
+					<input type="button" class="btn btn-default btn-block" value="Cargar" id="btnUploadTramiteAdjunto">
+			 	</form:form> 
+			 	
 			</div>
 		</div>
       </div>
@@ -196,14 +197,15 @@
       	<div class="col-lg-6">
 		 <form:form name="frm2" action="atender.htm" method="post" modelAttribute="tramite">	
 		  	<form:hidden path="idTramite"/>
+	    	
 	    	<!-- Textarea -->
 			<div class="form-group">
-			  <label class="col-md-4 control-label" for="detalleNotificacion">Detalle de Notificacion</label>
-			  <form:textarea class="form-control" path="informeSolicitud"/>
+			  <label class="control-label" for="detalleNotificacion">Informe de Escritura</label>
+			  <form:textarea class="form-control" path="informeSolicitud" rows="6"/>
 			</div>
 			
-			 <input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
-		    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
+			<input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
+		    <button id="button1id" name="button1id" class="btn btn-success">Guardar</button>
 		   
 		 </form:form>
      	</div>
@@ -240,7 +242,7 @@
     <div class="row">
       	<div class="col-lg-12">      		
 			<div class="form-group col-lg-6">
-			  <label class="col-md-4 control-label">Informe de Solicitud</label>  
+			  <label class="control-label">Informe de Solicitud</label>  
 			  <p class="form-control-static">${tramite.informeSolicitud}</p>
 			</div>
 		</div>
@@ -305,16 +307,14 @@
       	<div class="col-lg-6">
 		 <form:form name="frm2" action="notificar.htm" method="post" modelAttribute="tramite">	
 		  	<form:hidden path="idTramite"/>
-			
 				
 			<div class="form-group">
-			  <label class="col-md-4 control-label" for="detalleNotificacion">Detalle de la Notificacion</label>
+			  <label class="control-label" for="detalleNotificacion">Detalle de la Notificacion</label>
 			  <form:textarea class="form-control" path="detalleNotificacion"/>
 			</div>
 			
-						
 			<input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
-		    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
+		    <button id="button1id" name="button1id" class="btn btn-success">Notificar</button>
 		   
 		 </form:form>
      	</div>

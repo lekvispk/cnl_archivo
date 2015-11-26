@@ -1,5 +1,6 @@
 package pe.org.cnl.gestiondoc.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class NotariaServiceImpl  implements NotariaService {
 
 	@Override
 	public void registrar(Notaria notaria) {
+		if(notaria.getIdNotaria()>1){
+			notaria.setFecCreacion( new Date() );
+		}
 		notariaDAO.registrar(notaria);
 	}
 
@@ -33,6 +37,11 @@ public class NotariaServiceImpl  implements NotariaService {
 	@Override
 	public Notaria obtener(Integer idNotaria) {
 		return notariaDAO.obtener(idNotaria);
+	}
+
+	@Override
+	public void encargar(Integer idNotaria) {
+		notariaDAO.encargar(idNotaria);
 	}
 
 }

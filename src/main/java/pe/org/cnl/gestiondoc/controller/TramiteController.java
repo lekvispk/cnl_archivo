@@ -1,10 +1,14 @@
 package pe.org.cnl.gestiondoc.controller;
 
+import java.net.URL;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -265,7 +269,62 @@ public class TramiteController {
 			tu.setTramite( tr );
 			//tu.setEstadoTramiteFinal(5);
 			tramiteService.registrarNotificacion( tu );
+			
+			try {
+				
+				 // Create the email message
+				  HtmlEmail email = new HtmlEmail();
+				  
+				  email.setHostName("smtp.gmail.com");
+				  email.setSmtpPort(587);
+				  email.setAuthenticator(new DefaultAuthenticator("lekvispk@gmail.com","10fuck##"));
+				  email.setSSLOnConnect(true);
+				    
+//				  email.setSmtpPort(587);
+//				  email.setHostName("smtp.gmail.com");
+//				  email.setAuthentication("lekvispk@gmail.com","10fuck##");
+//				  email.getMailSession().getProperties().put("mail.smtps.auth", "true");
+//				  email.getMailSession().getProperties().put("mail.debug", "true");
+//				  email.getMailSession().getProperties().put("mail.smtps.port", "587");
+//				  email.getMailSession().getProperties().put("mail.smtps.socketFactory.port", "587");
+//				  email.getMailSession().getProperties().put("mail.smtps.socketFactory.class",   "javax.net.ssl.SSLSocketFactory");
+//				  email.getMailSession().getProperties().put("mail.smtps.socketFactory.fallback", "false");
+//				  email.getMailSession().getProperties().put("mail.smtp.starttls.enable", "true");
+//				  email.setTLS(true);
+
+				  logger.debug( tr.getSolicitud().getPersona().getEmail() );
+				  email.addTo( "ecampos@avatar-global.com" , tr.getSolicitud().getPersona().getNombreCompleto());
+				  email.setFrom("lekvispk@gmail.com", "Archivo CNL");
+				  email.setSubject("Notificacion ");
+				  
+				  // embed the image and get the content id
+				  URL url = new URL("http://www.apache.org/images/asf_logo_wide.gif");
+				  String cid = email.embed(url, "Apache logo");
+				  
+				  // set the html message
+				  StringBuilder mensaje = new StringBuilder();
+				  mensaje.append("<html>");
+				  mensaje.append("The apache logo - <img src=\"cid:"+cid+"\">");
+				  mensaje.append("<p>");
+				  mensaje.append(tr.getDetalleNotificacion());
+				  mensaje.append("</p>");
+				  mensaje.append("</html>");
+				  email.setHtmlMsg( mensaje.toString() );
+
+				  // set the alternative message
+				  email.setTextMsg("Your email client does not support HTML messages");
+
+				  // send the email
+				  email.send();
+				
+				
+			} catch (Exception e) {
+				logger.error( e.getMessage() );
+				model.put("msgError", "" + e.getMessage() );
+			}
 			model.put("mensaje", "El cliente ha sido notificado exitosamente");
+			
+			
 			//TODO cambiar por redirectView
 			tr = new Tramite();
 			tr.setEstado( 4 );

@@ -1,5 +1,6 @@
 package pe.org.cnl.gestiondoc.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.cnl.gestiondoc.dao.NotariaDAO;
+import pe.org.cnl.gestiondoc.model.EncargadoArchivo;
 import pe.org.cnl.gestiondoc.model.Notaria;
+import pe.org.cnl.gestiondoc.model.Usuario;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Repository
@@ -66,6 +69,29 @@ public class NotariaDAOImpl implements NotariaDAO {
 					.createQuery(" from Notaria where idNotaria = :id ")
 					.setInteger("id", idNotaria);
         return (Notaria) query.uniqueResult();
+	}
+
+	@Override
+	public void encargar(Integer idNotaria) {
+		
+		Query query = this.sessionFactory.getCurrentSession()
+				.createQuery(" update Notaria set encargadoArchivo=0  ");
+		query.executeUpdate();
+		
+		query = this.sessionFactory.getCurrentSession()
+				.createQuery(" update Notaria set encargadoArchivo=1 where idNotaria =:id ")
+				.setInteger("id", idNotaria);
+		query.executeUpdate();
+		
+		EncargadoArchivo ea = new EncargadoArchivo();
+		ea.setEstado(1);
+		ea.setFechaCreacion( new Date() );
+		Notaria n = new Notaria();
+		n.setIdNotaria( idNotaria );
+		ea.setNotaria( n );
+		ea.setUsuarioCreacion( Usuario.getUsuarioBean().getUsername() );
+		this.sessionFactory.getCurrentSession().saveOrUpdate(ea);
+    
 	}
 
 }

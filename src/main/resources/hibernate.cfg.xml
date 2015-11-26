@@ -9,6 +9,7 @@
      <mapping class="pe.org.cnl.gestiondoc.model.Archivo"/>
      <mapping class="pe.org.cnl.gestiondoc.model.Authority"/>
      <mapping class="pe.org.cnl.gestiondoc.model.DocumentoIdentidad"/>
+     <mapping class="pe.org.cnl.gestiondoc.model.EncargadoArchivo"/>
      <mapping class="pe.org.cnl.gestiondoc.model.Escritura"/>
      <mapping class="pe.org.cnl.gestiondoc.model.Notaria"/>
      <mapping class="pe.org.cnl.gestiondoc.model.Permiso"/>

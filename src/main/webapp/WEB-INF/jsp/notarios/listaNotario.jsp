@@ -31,6 +31,14 @@
      		<form:form name="frmlista" action="buscar.htm" method="post" modelAttribute="escritura">
   	 		<input type="hidden" name="tipoTram1.idTipotram" value="1" />
           
+            <div class="row">
+		    	<div class="col-lg-12">          
+	  
+	                  <input type="button" onclick="javascript:nuevo();" class="btn btn-success" value="Nuevo">
+	          
+	           </div> 
+	        </div>
+	        
           	<div class="row">
 	    	<div class="col-lg-12">
 	    		<div id="tablaDinamica">
@@ -42,9 +50,10 @@
 									<display:column title="Notario" property="nombre" sortable="true" headerClass="sortable"/>
 									<display:column title="email" property="email" sortable="true" headerClass="sortable" />
 									<display:column title="Encargado de Archivo" property="encargadoArchivo" sortable="true" headerClass="sortable" />
-									<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 80px;">
-						            	<a id="ver_${row.idNotaria}" href="#" data-link="ver.htm?cod=${row.idNotaria}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
-						            	<a href="editar.htm?cod=${row.idNotaria}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>                                    	
+									<display:column title="Acciones" sortable="true" headerClass="sortable" style=" width: 120px;">
+						            	<%--<a id="ver_${row.idNotaria}" href="#" data-link="ver.htm?cod=${row.idNotaria}" style="border: 0px;" title="Ver"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a> --%>
+						            	<a href="editar.htm?cod=${row.idNotaria}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>
+						            	<a href="encargar.htm?cod=${row.idNotaria}" style="border: 0px;" title="Nuevo Encargado de Archivo"><img src="${pageContext.request.contextPath}/images/edit.png" width="18" height="18" border="0"></a>                                    	
                                     	<a href="javascript:eliminar(${row.idNotaria});" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/images/error.png" width="18" height="18" border="0"></a>
                                     </display:column>
 							 </display:table>
@@ -77,8 +86,7 @@
     <script type="text/javascript">
     
     	function nuevo(){
-    			document.forms[0].action="prenuevo.htm";
-    			document.forms[0].submit();
+    		window.location.assign("${pageContext.request.contextPath}/notario/nuevo.htm");
     	}
     	function buscar(){
 			document.forms[0].action="buscar.htm";
