@@ -1,18 +1,20 @@
 package pe.org.cnl.gestiondoc.controller;
 
+import java.io.File;
 import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -33,6 +35,7 @@ import pe.org.cnl.gestiondoc.service.SolicitudService;
 import pe.org.cnl.gestiondoc.service.SolicitudTramiteService;
 import pe.org.cnl.gestiondoc.service.TipoActoService;
 import pe.org.cnl.gestiondoc.service.TramiteService;
+import pe.org.cnl.gestiondoc.util.Mail;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
@@ -55,6 +58,8 @@ public class PendientesController {
 	private UsuarioDao usuarioDao;
 	@Autowired
 	private TramiteService tramiteService;
+	@Autowired
+	private Mail mailService;
 	
 	@RequestMapping("/pendientes/lista.htm")
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -123,6 +128,9 @@ public class PendientesController {
 		Integer id2 = Integer.valueOf(request.getParameter("id2"));
 	
 		try {
+			
+			Solicitud sol = solicitudService.obtenerSolicitud( id2 );
+			
 			logger.debug("Inicia Proceso de Firmado");
 	    	String path = "";
 	    	
@@ -156,8 +164,31 @@ public class PendientesController {
             xmlEsccritura.setIdSolicitud(id2);
 
             logger.debug(" * *  ARCHIVO FIRMADO DENTRO DE ESCRITURAXML");	
-           
-            try {                   
+
+            // actualizar el archivo nuevo por el archivo antiguo 
+            
+            //enviar email al usuario con el nuevo archivo
+            StringBuilder mensaje = new StringBuilder();
+			mensaje.append("<html>");
+			mensaje.append("<p>");
+			mensaje.append( "Se ha completado el proceso de conclusion de firma. Se le remite el archivo firmado." );
+			mensaje.append("</p>");
+			mensaje.append("</html>");
+			
+			File fff = new File("tmp_"+archivo.getNombre());
+			FileUtils.writeByteArrayToFile(fff, xmlEsccritura.getArchivoFirmado());
+			FileSystemResource file = new FileSystemResource( fff );
+			
+            mailService.sendMailWithAttachment(
+						            		"archivocnl@acsserviciosgenerales.com", 
+						            		sol.getPersona().getEmail() ,
+						            		null,
+						            		"Fin de Conclusion de Firma", 
+						            		mensaje.toString() , 
+						            		archivo.getNombre() , 
+						            		file );
+            
+          /*  try {                   
                 response.reset(); 
                 response.setContentType("application/pdf");             
                 ServletOutputStream out = response.getOutputStream();
@@ -168,7 +199,7 @@ public class PendientesController {
             } catch (Exception e) {
                 e.printStackTrace();
               //  model.put("msgError","Error " + e.getMessage());
-            }
+            }*/
             
 	    }
 	    catch (Exception ex) {

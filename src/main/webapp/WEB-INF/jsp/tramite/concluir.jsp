@@ -46,23 +46,25 @@
 	    </div>
 	    
 	    <c:if test="${ empty archivoPendiente }">
-
-		<div id="preUpload" class="row">
+    	<form:form id="frmAdjuntar" name="frmAdjuntar" action="${pageContext.request.contextPath}/tramites/cargarNuevaEscritura.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
+		
+		<div id="preUpload">
+		<div class="row">
 		    <div class="col-lg-12">
 		    	<div class="form-group">
-		    	
-		    	<form:form id="frmAdjuntar" name="frmAdjuntar" action="${pageContext.request.contextPath}/tramites/cargarNuevaEscritura.htm" method="POST" modelAttribute="uploadForm" enctype="multipart/form-data">
 					<input type="hidden" name="idDocumento" value="${tramite.idTramite}"/>
-					
 					<div class="col-lg-4"><label class="control-label" for="filebutton">Actualizar escritura</label></div>
 				 	<div class="col-lg-4"><input id="file" name="file" class="input-file" type="file"></div>
-					<div class="col-lg-4"><input type="submit" id="btnuploadPendienteXXXXX"  class="btn btn-success" value="Cargar"></div>
-				
-				</form:form>
-					
 		    	</div>
 		    </div>
 	    </div>
+	    <div class="row">
+	    	 <div class="col-lg-12">
+	    	 	<input type="submit" id="btnuploadPendienteXXXXX"  class="btn btn-success btn-block" value="Cargar">
+	    	 </div>
+	    </div>
+	    </div>
+	    </form:form>
 		</c:if>
 		
 		<div id="uploadOutput">

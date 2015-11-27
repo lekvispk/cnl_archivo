@@ -113,6 +113,7 @@ public class TramiteServiceImpl implements TramiteService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void registrarNotificacion(TramiteUsuario tramite) {
 
 		tramite.setSecUsuario1( Usuario.getUsuarioBean() );

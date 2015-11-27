@@ -27,6 +27,7 @@
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
 	
 	<import resource="applicationContext-security.xml" /> 
+	<import resource="Spring-Mail.xml" />
 	
    <aop:aspectj-autoproxy />
    <tx:annotation-driven transaction-manager="txManager"/>
