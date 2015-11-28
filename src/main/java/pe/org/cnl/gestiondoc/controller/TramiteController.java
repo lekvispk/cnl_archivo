@@ -97,6 +97,49 @@ public class TramiteController {
 		return "tramite/listaTramite";
 	}
 	
+	@RequestMapping("/porConcluir.htm")
+	public String porConcluir(HttpServletRequest request,ModelMap model){
+		logger.debug("porConcluir.htm");
+		
+		Tramite tr = new Tramite();
+		TramiteUsuario te = new TramiteUsuario();
+ 
+		tr.setEstado( 5 );
+		tr.addTramiteUsuario( te );
+		
+		//falla al concluir
+		if( "2".equals(request.getParameter("a")) ){
+			model.put("msgError", "El tramite no se ha podido concluir");
+		}
+		
+		model.put("tramite", new Tramite());
+		model.put("lTramites", tramiteService.buscar(tr));
+		
+		return "tramite/listaTramite";
+	}
+	
+	@RequestMapping("/concluidos.htm")
+	public String concluidos(HttpServletRequest request,ModelMap model){
+		logger.debug(" concluidos.html");
+		
+		Tramite tr = new Tramite();
+		TramiteUsuario te = new TramiteUsuario();
+ 
+		tr.setEstado( 6 );
+		
+		tr.addTramiteUsuario( te );
+		
+		//por si lo he invocado luego de un insert o update
+		if( "1".equals(request.getParameter("a")) ){
+			model.put("mensaje", "El tramite ha sido concluido exitosamente");
+		}
+		
+		model.put("tramite", new Tramite());
+		model.put("lTramites", tramiteService.buscar(tr));
+		
+		return "tramite/listaTramite";
+	}
+	
 	@RequestMapping("/buscar.htm")
 	public String buscar(@Valid Tramite tramite, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {

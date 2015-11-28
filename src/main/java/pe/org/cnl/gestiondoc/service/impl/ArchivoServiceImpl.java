@@ -8,9 +8,12 @@ import java.io.OutputStream;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import pe.org.cnl.gestiondoc.dao.ArchivoDAO;
+import pe.org.cnl.gestiondoc.firmador.EscrituraXML;
 import pe.org.cnl.gestiondoc.model.Archivo;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
@@ -118,6 +121,35 @@ public class ArchivoServiceImpl implements ArchivoService {
 		}
 		
 		return file;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void actualizarArchivoEnDisco( EscrituraXML xmlEsccritura, Integer idEscritura) throws Exception {
+		
+		Archivo archivo = new Archivo();
+		archivo.setNombre( xmlEsccritura.getNombreArchivo() );
+       
+		Escritura doc = new Escritura();
+		doc.setIdEscritura( idEscritura );
+		archivo.setEscritura( doc );
+		
+		archivoDAO.eliminarArchivos( idEscritura );
+        archivoDAO.registrarArchivo(archivo);
+        
+        try {
+
+        	String diskFolder = ArchivoService.FOLDER_FILE ; 
+			
+        	OutputStream out = new FileOutputStream(new File( diskFolder +  archivo.getIdArchivo()  ));
+			out.write( xmlEsccritura.getArchivoFirmado() );
+			out.close();
+			
+			System.out.println("Done");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

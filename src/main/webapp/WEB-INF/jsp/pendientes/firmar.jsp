@@ -16,7 +16,8 @@
 	<div id="contenido">
 
 	<input type="hidden" name="id1" value="${id1}">
-	<input type="hidden" name="id2" value="${id2}">	
+	<input type="hidden" name="id2" value="${id2}">
+	<input type="hidden" name="id3" value="${id3}">		
 	<select name="cmbNotario">
 		<c:forEach items="${listaNotarios}" var="firma">
 		<option>${firma }</option>

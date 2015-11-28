@@ -71,4 +71,11 @@ public class ArchivoDAOImpl implements ArchivoDAO {
 		return arch.getArchivo();
 	}
 
+	@Override
+	public void eliminarArchivos(Integer idEscritura) {
+		Query query = this.sessionFactory.getCurrentSession().createQuery(" delete from Archivo where escritura.idEscritura = :id ")
+		        .setInteger("id", idEscritura);
+			    query.executeUpdate();
+	}
+
 }

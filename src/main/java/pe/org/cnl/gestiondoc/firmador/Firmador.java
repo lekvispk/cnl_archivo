@@ -160,11 +160,11 @@ public class Firmador
 	  System.out.println("recibo PDF y devuelvo un nuevo PDF firmado");
 		try {
 			byte[] pdf = this.objSunarpXML.getArchivo();
-			// byte[] firmaParte = sg.firmar(pdf, this.notarioCert, this.ks, null, "SHA1withRSA");
 			KeyStore ks = this.ks;
+			pintarAlias();
 			//ks.load(new FileInputStream(PATH+"cherreracred.p12"), "cherrerap12".toCharArray());
 			String alias = this.notarioCert ;
-			PrivateKey key = (PrivateKey)ks.getKey(alias, "lesliedp12".toCharArray());
+			PrivateKey key = (PrivateKey)ks.getKey(alias, "cherrerap12".toCharArray());
 			Certificate[] chain = ks.getCertificateChain(alias);
 			PdfReader reader = new PdfReader( pdf );
 			
@@ -201,28 +201,33 @@ public class Firmador
 		} 
   }
   
-  public void cargaCertificados()
-  {
-    try
-    {
+  public void cargaCertificados(){
+    try{
       System.gc();
       System.out.println(" - Cargando certificados ...");
       KeyStoreGenerator ksg = new KeyStoreGenerator();
       this.ks = ksg.crearKeyStore(0);
       System.out.println(" - Almacen de llaves cargado ...");
-      Enumeration enumAlias = this.ks.aliases();
-      System.out.println(" - Almacen de llaves Elementos ...");
-      while (enumAlias.hasMoreElements()) {
-        String ali = (String)enumAlias.nextElement();
-        if (this.ks.isKeyEntry(ali))
-          System.out.println(ali);
-      }
-    }
-    catch (Exception e) {
+      pintarAlias();
+    }catch (Exception e) {
       e.printStackTrace();
     }
   }
 
+  private void pintarAlias(){
+	  System.out.println("pintarAlias");
+	  try {
+		  Enumeration<String> enumAlias = this.ks.aliases();
+	      while (enumAlias.hasMoreElements()) {
+	        String ali = enumAlias.nextElement();
+	        if (this.ks.isKeyEntry(ali))
+	          System.out.println(ali);
+	      }	
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+  }
+  
   public boolean Generar(SunarpXML objSunarpXML, String strPdfInputPath, String strPdfOutputPath) {
     System.out.println(" - inicio genera");
     boolean blnGenerado = false;

@@ -28,7 +28,9 @@ import pe.org.cnl.gestiondoc.firmador.KeyStoreGenerator;
 import pe.org.cnl.gestiondoc.model.Escritura;
 import pe.org.cnl.gestiondoc.model.Solicitud;
 import pe.org.cnl.gestiondoc.model.SolicitudTramite;
+import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.model.TramiteAdjunto;
+import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 import pe.org.cnl.gestiondoc.service.ArchivoService;
 import pe.org.cnl.gestiondoc.service.EscrituraService;
 import pe.org.cnl.gestiondoc.service.SolicitudService;
@@ -93,9 +95,11 @@ public class PendientesController {
 			
 			String id1 = request.getParameter("id1");
 			String id2 = request.getParameter("id2");
+			String id3 = request.getParameter("id3");
 			List<String> firmas = new ArrayList<String>();
 			logger.debug( id1 );
 			logger.debug( id2 );
+			logger.debug( id3 );
 			KeyStore ks;
 			 
 			System.gc();
@@ -115,6 +119,7 @@ public class PendientesController {
 			model.put("listaNotarios", firmas);
 			model.put("id1", id1);
 			model.put("id2", id2);
+			model.put("id3", id3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,8 +129,9 @@ public class PendientesController {
 	@RequestMapping(value="firmar.htm",method=RequestMethod.POST)
 	public String firmar( HttpServletRequest request , HttpServletResponse response ){
 		
-		Integer id1 = Integer.valueOf(request.getParameter("id1"));
-		Integer id2 = Integer.valueOf(request.getParameter("id2"));
+		Integer id1 = Integer.valueOf(request.getParameter("id1"));//escritura
+		Integer id2 = Integer.valueOf(request.getParameter("id2"));//solicitud
+		Integer idTramite = Integer.valueOf(request.getParameter("id3"));//tramite
 	
 		try {
 			
@@ -151,21 +157,29 @@ public class PendientesController {
             
             logger.debug("archivo en el modal " + xmlEsccritura);
 
-            logger.debug(" * * intancio al firmador");
             Firmador f = new Firmador();
-            logger.debug(" * * cargo KeyStore");
             f.cargaCertificados();
             f.setNotarioCert( request.getParameter("cmbNotario"));
-            logger.debug(" * * seteo objeto XML a firmar por " + f.getNotarioCert() );
             f.setObjSunarpXML(xmlEsccritura);
-            logger.debug(" * *  llamo a firmar");
             xmlEsccritura.setArchivoFirmado(f.firmarConCertificado());
             xmlEsccritura.setIdEscritura(id1);
             xmlEsccritura.setIdSolicitud(id2);
 
+            if(xmlEsccritura.getArchivoFirmado()==null){
+            	throw new Exception("No se pudo realizar la firma del nuevo archivo");
+            }
             logger.debug(" * *  ARCHIVO FIRMADO DENTRO DE ESCRITURAXML");	
 
             // actualizar el archivo nuevo por el archivo antiguo 
+            archivoService.actualizarArchivoEnDisco(xmlEsccritura, escritura.getIdEscritura());
+            
+
+			Tramite tr = tramiteService.obtener( idTramite ) ;
+			
+			TramiteUsuario tu = new TramiteUsuario();
+			tu.setTramite( tr );
+			
+            tramiteService.registrarConclusion( tu);
             
             //enviar email al usuario con el nuevo archivo
             StringBuilder mensaje = new StringBuilder();
@@ -188,26 +202,12 @@ public class PendientesController {
 						            		archivo.getNombre() , 
 						            		file );
             
-          /*  try {                   
-                response.reset(); 
-                response.setContentType("application/pdf");             
-                ServletOutputStream out = response.getOutputStream();
-                response.addHeader("Content-Disposition", "attachment;filename=\""+ archivo.getNombre() +"\"");
-                out.write(  xmlEsccritura.getArchivoFirmado() , 0,  xmlEsccritura.getArchivoFirmado().length );
-                out.flush();
-                out.close();                  
-            } catch (Exception e) {
-                e.printStackTrace();
-              //  model.put("msgError","Error " + e.getMessage());
-            }*/
             
-	    }
-	    catch (Exception ex) {
+	    }catch (Exception ex) {
 	      ex.printStackTrace();
+	      return "redirect:/tramites/porConcluir.htm?a=2";
 	    }
-	  
-	    
-		return null;
+		return "redirect:/tramites/concluidos.htm?a=1";
 	}
 	
 	@RequestMapping("/pendientes/preCargaEscritura.htm")

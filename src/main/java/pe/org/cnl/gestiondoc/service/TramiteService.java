@@ -21,4 +21,5 @@ public interface TramiteService {
 	public void registrarArchivoEnDisco(MultipartFile file, Integer idTramite) throws Exception;
 	public TramiteAdjunto obtenerArchivoEnDisco(Integer idArchivo);
 	public void derivar(Tramite tr);
+	public void registrarConclusion(TramiteUsuario tu);
 }

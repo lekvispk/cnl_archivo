@@ -177,4 +177,20 @@ public class TramiteServiceImpl implements TramiteService {
 	public List<Tramite> buscarParaSecretaria(Tramite tramite) {
 		return tramiteDAO.buscarParaSecretaria(tramite);
 	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void registrarConclusion(TramiteUsuario tramite) {
+
+		tramite.setSecUsuario1( Usuario.getUsuarioBean() );
+		tramite.setSecUsuario2( Usuario.getUsuarioBean() );
+		tramite.setEstado(1);
+		tramite.setEstadoTramiteFinal( ParametroUtil.EstadoTramite.CONCLUIDO.value );
+		tramite.setFechaRegistro( new Date() );
+		tramiteDAO.registrarMovimiento( tramite );
+		
+		tramite.getTramite().setEstado( ParametroUtil.EstadoTramite.CONCLUIDO.value );		
+		tramiteDAO.registrar( tramite.getTramite() );
+		
+	}
 }

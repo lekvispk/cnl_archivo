@@ -95,7 +95,7 @@
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-	<a class="btn btn-primary" data-target="#firmaModal" data-toggle="modal" href="${pageContext.request.contextPath}/firmar.htm?id1=${tramite.escritura.idEscritura}&id2=${tramite.solicitud.idsolicitud}">Actualizar</a>
+	<a class="btn btn-primary" data-target="#firmaModal" data-toggle="modal" href="${pageContext.request.contextPath}/firmar.htm?id1=${tramite.escritura.idEscritura}&id2=${tramite.solicitud.idsolicitud}&id3=${tramite.idTramite}">Actualizar</a>
 </div>
 
 <script type="text/javascript">

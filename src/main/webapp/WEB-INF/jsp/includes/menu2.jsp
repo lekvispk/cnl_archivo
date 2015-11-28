@@ -52,8 +52,8 @@
                                 <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=3">Derivados</a></li>
                                 <li><a href="${pageContext.request.contextPath}/tramites/respondidos.htm">Respondidos</a></li>
                                 <security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=5">Por Concluir</a></li>
-                                <li><a href="${pageContext.request.contextPath}/tramites/lista.htm?estado=6">Concluidos</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/porConcluir.htm">Por Concluir</a></li>
+                                <li><a href="${pageContext.request.contextPath}/tramites/concluidos.htm">Concluidos</a></li>
                                 </security:authorize>
                             </ul>
                             <!-- /.nav-second-level -->
