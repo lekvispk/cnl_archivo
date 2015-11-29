@@ -23,6 +23,8 @@ public class TramiteAdjunto implements Serializable {
 
 	private String nombre;
 
+	private String mimetype;
+	
 	//bi-directional many-to-one association to Tramite
 	@ManyToOne
 	@JoinColumn(name="id_tramite")
@@ -72,6 +74,14 @@ public class TramiteAdjunto implements Serializable {
 
 	public void setArchivo(byte[] archivo) {
 		this.archivo = archivo;
+	}
+
+	public String getMimetype() {
+		return mimetype;
+	}
+
+	public void setMimetype(String mimetype) {
+		this.mimetype = mimetype;
 	}
 
 }

@@ -87,6 +87,7 @@ public class ArchivoServiceImpl implements ArchivoService {
 		
 		Archivo archivo = new Archivo();
 		archivo.setNombre( file.getOriginalFilename() );
+		archivo.setMimetype( file.getContentType() );
         //archivo.setArchivo( file.getBytes() );
 		Escritura doc = new Escritura();
 		doc.setIdEscritura( idEscritura );

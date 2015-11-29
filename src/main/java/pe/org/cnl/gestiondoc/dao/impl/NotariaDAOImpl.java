@@ -94,4 +94,11 @@ public class NotariaDAOImpl implements NotariaDAO {
     
 	}
 
+	@Override
+	public EncargadoArchivo obtenerEncargado() {
+		Query query = this.sessionFactory.getCurrentSession()
+				.createQuery(" from EncargadoArchivo where estado = 1 ");
+		return (EncargadoArchivo) query.uniqueResult();
+	}
+
 }

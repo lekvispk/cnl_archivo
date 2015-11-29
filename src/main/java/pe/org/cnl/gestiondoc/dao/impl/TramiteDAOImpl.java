@@ -158,4 +158,11 @@ public class TramiteDAOImpl implements TramiteDAO {
 		return  criteria.list();
 	}
 
+	@Override
+	public void eliminarAdjunto(Integer idAdjunto) {
+		Query query = this.sessionFactory.getCurrentSession().createQuery(" delete from TramiteAdjunto where  idAdjunto=:id ")
+		        .setInteger("id", idAdjunto);
+		        query.executeUpdate();
+	}
+
 }

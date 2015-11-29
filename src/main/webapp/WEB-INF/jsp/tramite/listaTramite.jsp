@@ -83,7 +83,7 @@
 			            		<a id="ver_${row.idTramite}" href="#" data-link="${rooot}tramites/ver.htm?cod=${row.idTramite}" style="border: 0px;" title="Ver Tramite"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>
 			            	</c:if>
 			            	
-			            	<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+			            	<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN,ROLE_NOTARIO">
 			            	<c:choose>
 			            		<c:when test="${row.estado==1}">
 			            			<a id="ver_es_${row.idTramite}" href="#" data-link="${rooot}pendientes/detalleEscritura.htm?idEscritura=${row.escritura.idEscritura}&idSolicitud=${row.solicitud.idsolicitud}" style="border: 0px;" title="Ver Escritura"><img src="${pageContext.request.contextPath}/images/view.jpg" width="18" height="18" border="0"></a>

@@ -2,13 +2,15 @@ package pe.org.cnl.gestiondoc.util;
 
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.core.io.FileSystemResource;
+import org.apache.log4j.Logger;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
  
 public class Mail {
 
+	private static final Logger logger = Logger.getLogger(Mail.class );
+	
 	private JavaMailSender mailSender;
 
 	public void setMailSender(JavaMailSender mailSender) {
@@ -35,6 +37,7 @@ public class Mail {
 			helper.setSubject(subject);
 			helper.setText(msg, true);
 			mailSender.send(message);
+			logger.debug("mensaje enviado");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,6 +56,7 @@ public class Mail {
 			helper.setSubject(subject);
 			helper.setText(msg, true);
 			mailSender.send(message);
+			logger.debug("mensaje enviado");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,6 +73,7 @@ public class Mail {
 			helper.setSubject(subject);
 			helper.setText(msg, true);
 			mailSender.send(message);
+			logger.debug("mensaje enviado");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

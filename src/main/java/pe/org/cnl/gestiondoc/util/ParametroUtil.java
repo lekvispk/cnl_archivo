@@ -25,6 +25,7 @@ public class ParametroUtil {
 	public static final int TIPO_RELACION_AUTORIOZACION = 4;
 	public static final int TIPO_RELACION_PODERONP = 5;
 	
+	public static final String REMITENTE_DEFAULT="archivocnl@notarios.org.pe";
 	public static enum TipoOperacion{CREAR,ACTUALIZAR,ELIMINAR};
 	
 	public static final String TIPO_OPERACION_CREACION = "CREACION";

@@ -35,7 +35,12 @@
        </tr>
        <tr>
            <th>Acto:</th>
-           <td>{escritura.tipoActos.nombreActo} </td>
+           <td>
+           	<c:forEach items="${escritura.actosEscrituras}" var="acto">
+           		${acto.tipoActo.nombreActo} |
+           	</c:forEach>
+           	 
+           </td>
        </tr>
        <tr>
            <th>Nro. Kardex:</th>

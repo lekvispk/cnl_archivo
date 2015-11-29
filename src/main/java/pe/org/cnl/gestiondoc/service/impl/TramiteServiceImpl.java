@@ -137,6 +137,7 @@ public class TramiteServiceImpl implements TramiteService {
 		
 		TramiteAdjunto archivo = new TramiteAdjunto();
 		archivo.setNombre( file.getOriginalFilename() );
+		archivo.setMimetype( file.getContentType() );
         //archivo.setArchivo( file.getBytes() );
 		Tramite doc = new Tramite();
 		doc.setIdTramite( idTramite );
@@ -192,5 +193,10 @@ public class TramiteServiceImpl implements TramiteService {
 		tramite.getTramite().setEstado( ParametroUtil.EstadoTramite.CONCLUIDO.value );		
 		tramiteDAO.registrar( tramite.getTramite() );
 		
+	}
+
+	@Override
+	public void eliminarAdjunto(Integer idAdjunto) {
+		tramiteDAO.eliminarAdjunto(idAdjunto);
 	}
 }

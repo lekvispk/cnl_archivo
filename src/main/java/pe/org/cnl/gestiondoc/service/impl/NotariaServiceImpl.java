@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.org.cnl.gestiondoc.dao.NotariaDAO;
+import pe.org.cnl.gestiondoc.model.EncargadoArchivo;
 import pe.org.cnl.gestiondoc.model.Notaria;
 import pe.org.cnl.gestiondoc.service.NotariaService;
 
@@ -42,6 +43,11 @@ public class NotariaServiceImpl  implements NotariaService {
 	@Override
 	public void encargar(Integer idNotaria) {
 		notariaDAO.encargar(idNotaria);
+	}
+
+	@Override
+	public EncargadoArchivo obtenerEncargado() {
+		return notariaDAO.obtenerEncargado();
 	}
 
 }

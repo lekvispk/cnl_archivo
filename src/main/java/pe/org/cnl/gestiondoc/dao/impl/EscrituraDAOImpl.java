@@ -106,7 +106,7 @@ public class EscrituraDAOImpl implements EscrituraDAO {
 	@Override
 	public Escritura obtenerEscritura(Integer idescritura) {
 		Query query = this.sessionFactory.getCurrentSession()
-				.createQuery(" from Escritura d where d.idEscritura = :id ")
+				.createQuery(" from Escritura d join fetch d.actosEscrituras where d.idEscritura = :id ")
 				.setInteger("id", idescritura);
         return (Escritura) query.uniqueResult();
 	}

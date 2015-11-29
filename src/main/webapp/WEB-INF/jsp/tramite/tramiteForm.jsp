@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri='http://www.springframework.org/security/tags' prefix='security'%>
+
 <!-- BEGIN tramiteForm.jsp-->
 	<spring:url value="/" var="root_url" />
 	
@@ -174,11 +176,15 @@
 				
 				<div class="list-group">
 					<c:forEach items="${tramite.tramiteAdjuntos}" var="doc">
-					<a class="list-group-item" href="${root_url}tramites/descargar.htm?id=${doc.idAdjunto}">
+					<div class="list-group-item" >
 						<i class="fa fa-comment fa-fw"></i> ${doc.nombre}
-						<%-- <span class="pull-right text-muted small"><em>4 minutes ago</em>
-						</span>--%>
-					</a>
+						<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+						<span class="pull-right text-muted small"><em><a href="${root_url}tramites/eliminarAdjunto.htm?id=${doc.idAdjunto}&idTr=${tramite.idTramite}" title="Eliminar">Eliminar</a></em></span>
+						</security:authorize>
+						<security:authorize ifAnyGranted="ROLE_NOTARIO">
+						<span class="pull-right text-muted small"><em><a href="${root_url}tramites/eliminarAdjunto.htm?id=${doc.idAdjunto}&idTr=${tramite.idTramite}" title="Descargar">Ver</a></em></span>
+						</security:authorize>
+					</div>
 					</c:forEach>
 				</div>
 				
@@ -274,7 +280,7 @@
 			</div>
 						
 			<input type="button" id="button2id" name="button2id" class="btn btn-success" onclick="cancelar();" value="Cancelar"/>
-		    <button id="button1id" name="button1id" class="btn btn-success">Grabar</button>
+		    <button id="button1id" name="button1id" class="btn btn-success">Guardar</button>
 		   
 		 </form:form>
      	</div>

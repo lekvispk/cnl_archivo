@@ -1,6 +1,7 @@
 package pe.org.cnl.gestiondoc.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -22,7 +23,9 @@ public class Archivo implements Serializable {
 	private byte[] archivo;
 
 	private String nombre;
-
+	
+	private String mimetype;
+	
 	//bi-directional many-to-one association to Escritura
 	@ManyToOne
 	@JoinColumn(name="id_escritura")
@@ -61,6 +64,14 @@ public class Archivo implements Serializable {
 
 	public void setEscritura(Escritura escritura) {
 		this.escritura = escritura;
+	}
+
+	public String getMimetype() {
+		return mimetype;
+	}
+
+	public void setMimetype(String mimetype) {
+		this.mimetype = mimetype;
 	}
 
 }

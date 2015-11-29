@@ -37,6 +37,13 @@ public class EscrituraArchivo {
 	public String cargar(@ModelAttribute("uploadForm") FileUpload formArchivo, HttpServletRequest request, ModelMap model){
 		logger.debug("grabo adjunto en BD");
 		 try{
+			 
+			 logger.debug(" file " + formArchivo.getFile() +  " extension = " +formArchivo.getFile().getContentType()); 
+			 String extension = formArchivo.getFile().getOriginalFilename();
+			 if( !extension.contains( ".pdf" ) ){
+				 throw new Exception("Formato no permitido. Cargar archivos .PDF");
+			 }
+			 
             archivoService.registrarArchivoEnDisco( formArchivo.getFile() , formArchivo.getIdDocumento() );
             //request.setAttribute("idDocumento", formArchivo.getIdDocumento() );
             model.put("mensaje", "archivo cargado");
@@ -74,9 +81,9 @@ public class EscrituraArchivo {
          try {                   
              response.reset(); 
              Integer id = Integer.parseInt( request.getParameter("id") );
-             response.setContentType("application/pdf");             
-             ServletOutputStream out = response.getOutputStream();
              Archivo archivo = archivoService.obtenerArchivoEnDisco(id);
+             response.setContentType( archivo.getMimetype() );
+             ServletOutputStream out = response.getOutputStream();
              response.addHeader("Content-Disposition", "attachment;filename=\""+ archivo.getNombre() +"\"");
              out.write( archivo.getArchivo() , 0,  archivo.getArchivo().length );
              out.flush();

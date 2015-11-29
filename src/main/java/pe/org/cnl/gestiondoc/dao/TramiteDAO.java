@@ -18,5 +18,6 @@ public interface TramiteDAO {
 	public TramiteAdjunto obtenerAdjunto(Integer idAdjunto);
 	public void registrarAdjunto(TramiteAdjunto archivo);
 	public void derivar(Tramite tr);
+	public void eliminarAdjunto(Integer idAdjunto);
 	
 }

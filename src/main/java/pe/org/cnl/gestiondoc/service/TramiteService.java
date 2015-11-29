@@ -18,8 +18,15 @@ public interface TramiteService {
 	public void registrarNotificacion( TramiteUsuario tramite );
 	public void eliminar(Integer idTramite);
 	public Tramite obtener(Integer idTramite);
+	/**
+	 * registra el documento adjunto de un tramite
+	 * @param file
+	 * @param idTramite
+	 * @throws Exception
+	 */
 	public void registrarArchivoEnDisco(MultipartFile file, Integer idTramite) throws Exception;
 	public TramiteAdjunto obtenerArchivoEnDisco(Integer idArchivo);
 	public void derivar(Tramite tr);
 	public void registrarConclusion(TramiteUsuario tu);
+	public void eliminarAdjunto(Integer idAdjunto);
 }

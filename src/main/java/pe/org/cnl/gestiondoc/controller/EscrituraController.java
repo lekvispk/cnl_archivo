@@ -55,6 +55,7 @@ public class EscrituraController {
 			logger.debug(" lista ");
 			model.put("ltipoacto", tipoActoService.listarTiposActos() );
 			model.put("escritura", new Escritura());
+			model.put("lEscrituras", escrituraService.buscarEscitura( new Escritura()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

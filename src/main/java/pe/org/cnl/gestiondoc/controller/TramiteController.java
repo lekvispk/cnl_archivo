@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,13 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import pe.org.cnl.gestiondoc.model.EncargadoArchivo;
 import pe.org.cnl.gestiondoc.model.Tramite;
 import pe.org.cnl.gestiondoc.model.TramiteAdjunto;
 import pe.org.cnl.gestiondoc.model.TramiteUsuario;
 import pe.org.cnl.gestiondoc.model.Usuario;
+import pe.org.cnl.gestiondoc.service.NotariaService;
 import pe.org.cnl.gestiondoc.service.TramiteService;
 import pe.org.cnl.gestiondoc.util.FileUpload;
 import pe.org.cnl.gestiondoc.util.Mail;
+import pe.org.cnl.gestiondoc.util.ParametroUtil;
 import pe.org.cnl.gestiondoc.util.Utiles;
 
 @Controller
@@ -39,6 +43,9 @@ public class TramiteController {
 	@Autowired
 	private Mail mailService;
 	
+	@Autowired
+	private NotariaService notariaService;
+	
 	@RequestMapping("/lista.htm")
 	public String lista(HttpServletRequest request,ModelMap model){
 		logger.debug(" lista.html");
@@ -50,6 +57,15 @@ public class TramiteController {
 		else
 			estado = (Integer)request.getAttribute("estado");
 		
+		if( "2".equals(request.getParameter("a")) ){
+			model.put("mensaje", "Los datos del tramite has sido grabados correctamente");
+		}
+		if( "3".equals(request.getParameter("a")) ){
+			model.put("mensaje", "Se ha derivado el tramite");
+		}
+		if( "4".equals(request.getParameter("a")) ){
+			model.put("msgError", "El tramite no esta completo. Revise los adjuntos o el informe");
+		}
 		tr.setEstado( estado );
 		TramiteUsuario te = new TramiteUsuario();
 		te.setEstado(1);
@@ -154,25 +170,6 @@ public class TramiteController {
 		return  "tramite/listaTramite";
 	}
 	
-	@RequestMapping("/derivar.htm")
-	public String derivar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		try {
-			
-			logger.debug(" derivar ");
-			Tramite tr =  tramiteService.obtener( Integer.parseInt(request.getParameter("cod")) ) ;
-			Integer ultimoEstado = tr.getEstado();
-			tramiteService.derivar( tr );
-			request.setAttribute("estado", ultimoEstado );
-			model.put("mensaje", "Se ha derivado correctamente");
-			return lista(request, model);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("msgError", "" + e.getMessage());
-		}
-		return "tramite/listaTramite";
-	}
-	
 	@RequestMapping("/preatender.htm")
 	public String preAtender(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
@@ -185,9 +182,11 @@ public class TramiteController {
 				model.put("mensaje", "Se ha cargado el archivo correctamente");
 			}
 			if( "a2".equals(request.getParameter("ex")) ){
-				model.put("msgError", "Error al cargar el archivo.");
+				model.put("msgError", "Error al cargar el archivo. Recuerde cargar archivos .PDF, JPG o PNG");
 			}
-			
+			if( "e".equals(request.getParameter("ex")) ){
+				model.put("msgError", "Se ha eliminado el archivo.");
+			}
 			model.put("tramite", tr );
 			model.put("uploadForm", new FileUpload() );
 			
@@ -204,21 +203,11 @@ public class TramiteController {
 			
 			Tramite tr = tramiteService.obtener( tramite.getIdTramite() ) ;
 			tr.setInformeSolicitud( tramite.getInformeSolicitud() );
-			
 			TramiteUsuario tu = new TramiteUsuario();
 			tu.setTramite( tr );
 			
 			tramiteService.registrarAtencion( tu );
-			model.put("mensaje", "Los cambios han sido guardados exitosamente");
-			
-			tr = new Tramite();
-			tr.setEstado( 2 );
-			TramiteUsuario te = new TramiteUsuario();
-			te.setEstado(1);
-			tr.addTramiteUsuario( te );
-			model.put("tramite", new Tramite());
-			model.put("lTramites", tramiteService.buscar(tr));
-			return "tramite/listaTramite";
+			return "redirect:lista.htm?estado=2&a=2";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,6 +215,49 @@ public class TramiteController {
 			model.put("msgError", e.getMessage());
 			return "tramite/tramiteForm";
 		}
+	}
+	
+
+	@RequestMapping("/derivar.htm")
+	public String derivar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		try {
+			logger.debug(" derivar ");
+			Tramite tr =  tramiteService.obtener( Integer.parseInt(request.getParameter("cod")) ) ;
+			
+			if( StringUtils.isEmpty( tr.getInformeSolicitud() ) || (tr.getTramiteAdjuntos()!=null && tr.getTramiteAdjuntos().isEmpty()) ){
+				return "redirect:lista.htm?estado=2&a=4";
+			}
+			
+			Integer ultimoEstado = tr.getEstado();
+			tramiteService.derivar( tr );
+			request.setAttribute("estado", ultimoEstado );
+			model.put("mensaje", "Se ha derivado correctamente");
+			
+			StringBuilder mensaje = new StringBuilder();
+			mensaje.append("<html>");
+			mensaje.append("<p>");
+			mensaje.append("Doctora, se le ha enviado un tramite. Revise su bandeja");
+			mensaje.append("</p>");
+			mensaje.append("</html>");
+			
+			logger.debug( tr.getSolicitud().getPersona().getEmail() );
+			logger.debug( mensaje.toString() );
+			
+			EncargadoArchivo encargado = notariaService.obtenerEncargado();
+			mailService.sendMail(
+					ParametroUtil.REMITENTE_DEFAULT,
+					encargado.getNotaria().getEmail(),
+					null,
+					"Notificaciones - Archivo CNL",
+					mensaje.toString());
+			
+			return "redirect:lista.htm?estado=2&a=3";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "" + e.getMessage());
+		}
+		return "tramite/listaTramite";
 	}
 	
 	@RequestMapping("/ver.htm")
@@ -244,7 +276,13 @@ public class TramiteController {
 		logger.debug("cargarAdjunto -> grabo adjunto en BD");
 		 try{
 			 logger.debug(" id documento " + formArchivo.getIdDocumento());
-			 logger.debug(" file " + formArchivo.getFile());
+			 logger.debug(" file " + formArchivo.getFile() +  " extension = " +formArchivo.getFile().getContentType()); 
+			 
+			 String extension = formArchivo.getFile().getOriginalFilename();
+			 if( !extension.contains( ".pdf" ) && !extension.contains( ".jpg" ) &&
+					 !extension.contains( ".jpeg" ) &&  !extension.contains( ".png" )){
+				 throw new Exception("Formato no permitido. Cargar archivos .PDF, JPG o PNG");
+			 }
 			 tramiteService.registrarArchivoEnDisco( formArchivo.getFile() , formArchivo.getIdDocumento() );
             
        	}catch(Exception ex) {
@@ -261,9 +299,9 @@ public class TramiteController {
          try {                   
              response.reset(); 
              Integer id = Integer.parseInt( request.getParameter("id") );
-             response.setContentType("application/pdf");             
-             ServletOutputStream out = response.getOutputStream();
              TramiteAdjunto archivo = tramiteService.obtenerArchivoEnDisco(id);
+             response.setContentType( archivo.getMimetype() );
+             ServletOutputStream out = response.getOutputStream();
              response.addHeader("Content-Disposition", "attachment;filename=\""+ archivo.getNombre() +"\"");
              out.write( archivo.getArchivo() , 0,  archivo.getArchivo().length );
              out.flush();
@@ -320,15 +358,18 @@ public class TramiteController {
 				mensaje.append("<p>");
 				mensaje.append(tr.getDetalleNotificacion());
 				mensaje.append("</p>");
-				mensaje.append("<p>");
+				mensaje.append("<p> Fecha de conclusion:");
 				mensaje.append( Utiles.DateToString(tr.getFechaConclusion(), "dd/MM/yyyy") );
 				mensaje.append("</p>");
+				mensaje.append("<p>Hora de atencion: de 3 a 5 PM.</p>");
 				mensaje.append("</html>");
 				
 				logger.debug( tr.getSolicitud().getPersona().getEmail() );
 				logger.debug( mensaje.toString() );
 				  
-				mailService.sendMail("archivocnl@acsserviciosgenerales.com",  tr.getSolicitud().getPersona().getEmail() , null, "Notificaciones", mensaje.toString());
+				mailService.sendMail(
+						ParametroUtil.REMITENTE_DEFAULT,
+						tr.getSolicitud().getPersona().getEmail() , null, "Notificaciones", mensaje.toString());
 				  
 				model.put("mensaje", "El cliente ha sido notificado exitosamente");	
 				//TODO cambiar por redirectView
@@ -397,5 +438,22 @@ public class TramiteController {
         }
         return "tramite/tramiteForm";
 	}
+
+	@RequestMapping("/eliminarAdjunto.htm")
+    public String eliminarAdjunto(HttpServletRequest request, HttpServletResponse response, ModelMap model){		
+		logger.debug("borrar el archivo adjunto");
+		Integer idTramite = 0;
+         try {                   
+             
+        	 Integer idAdjunto = Integer.parseInt( request.getParameter("id") );
+        	 idTramite = Integer.parseInt( request.getParameter("idTr") );
+        	 tramiteService.eliminarAdjunto( idAdjunto );
+        	 
+         } catch (Exception e) {
+             e.printStackTrace();
+             model.put("msgError","Error " + e.getMessage());
+         }
+         return "redirect:/tramites/preatender.htm?cod="+idTramite+"&ex=e";
+    }
 	
 }

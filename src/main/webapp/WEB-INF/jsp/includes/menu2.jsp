@@ -16,7 +16,7 @@
                             <!-- /input-group -->
                         </li>
                          --%>
-                        <security:authorize ifAnyGranted="ROLE_CONSULTA,ROLE_ARCHIVO,ROLE_ADMIN">
+                        <security:authorize ifAnyGranted="ROLE_MP,ROLE_ADMIN">
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Mesa de Partes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -63,11 +63,13 @@
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Administraci&oacute;n<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <%--
                                 <li><a href="${pageContext.request.contextPath}/admin/lpersonas.htm">Personas</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/lusuarios.htm">Usuarios</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/ltipodocumentos.htm">Tipo de Documentos</a></li>
-                                <li><a href="${pageContext.request.contextPath}/notario/lista.htm">Notar&iacute;as</a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/ltipotramite.htm">Tipo de Tramite</a></li>
+                               --%>
+                                 <li><a href="${pageContext.request.contextPath}/notario/lista.htm">Notar&iacute;as</a></li>
                                 <li><a href="${pageContext.request.contextPath}/escritura/lista.htm">Lista de Escrituras</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
