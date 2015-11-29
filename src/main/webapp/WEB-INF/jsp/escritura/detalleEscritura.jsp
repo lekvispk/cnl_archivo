@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri='http://www.springframework.org/security/tags' prefix='security'%>
+
 <!-- BEGIN detalleEscritura.jsp -->
 	
 <script>
@@ -74,6 +76,7 @@
            <th>Ubicacion Digital:</th>
            <td>${escritura.ubicacionDigital}</td>
        </tr> 
+       <security:authorize ifAnyGranted="ROLE_MP,ROLE_ADMIN">
        <c:if test="${ not empty solicitud }">
         <tr>
            <th>Nro. de firmas faltantes:</th>
@@ -87,7 +90,8 @@
            		<a id="detalleEscrituraCalcularBtn" class="btn btn-outline btn-info btn-xs">Calcular</a>  
            	</td>
        </tr>
-       </c:if>   
+       </c:if>
+       </security:authorize>
    </table>
     
    <h3> <span>PARTICIPANTES</span> </h3>

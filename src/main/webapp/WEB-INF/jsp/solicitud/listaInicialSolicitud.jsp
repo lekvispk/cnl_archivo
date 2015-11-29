@@ -46,10 +46,10 @@
 						<display:column title="Estado" sortable="true" headerClass="sortable" style=" width: 100px;">
 			            	
 			            	<c:if test="${row.estado=='1'}">
-			            		<security:authorize ifAnyGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+			            		<security:authorize ifAnyGranted="ROLE_MP,ROLE_ADMIN">
 			            			<a href="${pageContext.request.contextPath}/pendientes/preCargaEscritura.htm?cod=${row.idsolicitud}" style="border: 0px;" title="Seleccionar Escrituras">Por buscar</a>
 			            		</security:authorize>
-			            		<security:authorize ifNotGranted="ROLE_ARCHIVO,ROLE_ADMIN">
+			            		<security:authorize ifNotGranted="ROLE_MP,ROLE_ADMIN">
 			            			Por buscar
 			            		</security:authorize>
 			            	</c:if>
