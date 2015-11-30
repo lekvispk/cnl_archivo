@@ -82,7 +82,8 @@
                                 <li><a href="${pageContext.request.contextPath}/secretaria/solicitudes.htm">Solicitudes</a></li>
                                 <li><a href="${pageContext.request.contextPath}/secretaria/enArchivo.htm">Tramites en archivo</a></li>
                                 <li><a href="${pageContext.request.contextPath}/secretaria/enNotaria.htm">Tramites en Notaria</a></li>
-                                <li><a href="${pageContext.request.contextPath}/secretaria/reportes.htm">Reportes</a></li>
+                                <li><a href="${pageContext.request.contextPath}/reportes/reporteAnual.htm">Reporte por a&ntilde;os</a></li>
+                                <li><a href="${pageContext.request.contextPath}/reportes/reporteMensual.htm">Reportes por meses</a></li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

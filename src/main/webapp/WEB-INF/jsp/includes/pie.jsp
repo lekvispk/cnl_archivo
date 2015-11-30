@@ -14,6 +14,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="${pageContext.request.contextPath}/dist/js/sb-admin-2.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/bower_components/raphael/raphael-min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/bower_components/morrisjs/morris.min.js"></script>
    
    <script src="${pageContext.request.contextPath}/js/jquery.displaytag-ajax-1.2.js"></script> 
    
