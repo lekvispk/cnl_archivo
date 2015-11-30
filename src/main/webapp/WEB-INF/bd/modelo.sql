@@ -450,7 +450,8 @@ insert into `gestiondoc`.`tipo_acto` (id_acto, nombre_acto, estado) values
 (4, 'Testimonio', 1),
 (5, 'Poderes', 1),
 (6, 'Rectificación de Partida', 1),
-(7, 'Testamento', 1);
+(7, 'Testamento', 1),
+(8, 'Arrendamiento Financiero', 1);
 
 insert into `gestiondoc`.`tipo_solicitud` (id_tipo_solicitud, nombre_tipo_solicitud,costo_servicio,estado,fecha_creacion) values
 (1, 'Testimonio',50,1,now()),
@@ -489,7 +490,9 @@ insert into `gestiondoc`.`notaria` (id_notaria, nombre, estado, email,fec_creaci
 (9, 'Notaria Sotomayor Bernos', 1,  'wpmanrique@gmail.com',now(),0),
 (10, 'Notaria Sotomayor Vitela', 1,  'wpmanrique@gmail.com',now(),0),
 (11, 'Notaria Canelo', 1,'wpmanrique@gmail.com',now(),0),
-(12, 'Notaria Zapata', 1,'wpmanrique@gmail.com',now(),1);
+(12, 'Notaria Ortiz de Zevallos', 1,'wpmanrique@gmail.com',now(),1),
+(13, 'Notaria Zapata', 1,'wpmanrique@gmail.com',now(),1);
+
 
 insert into `gestiondoc`.`encargado_archivo` (id_encargado_archivo, id_notaria, estado, fecha_creacion, usuario_creacion) values
 (1, 7, 1, now(), 'ecampos' );
@@ -509,8 +512,8 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (7, 'Juana Alicia', 'Pérez', 'De Chavarria', '', '', 'Juana Alicia Perez de Chavarria', '02113318', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (8, 'Carlos', 'Tarazona', 'Pérez', '', '', 'Carlos Tarazona Pérez', '44111263', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (9, 'Luis Angel', 'Ulloa', 'Peña', '', '', 'Luis Angel Ulloa Peña', '33132456', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(10, 'Enrique', 'Cotrina', 'Tirado', '', '', 'Enrique Cotrina Tirado', '22111460', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(11, 'Tadeo', 'Albornoz', 'Pascual', '', '', 'Tadeo Albornoz Campos', '03111284', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(10, 'Jorge', 'Rodrigues', 'Elias', '', '', 'Jorge Rodrigues Elias', '22111460', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(11, 'Jose Eduardo', 'Yenobi', 'Minamoto', '', '', 'Jose Eduardo Yenobi Minamoto', '03111284', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (12, 'Bianka', 'Vazques', 'Portocarrero', '', '', 'Bianka Vazques Portocarrero', '44111893', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (13, 'Lucero', 'Santiesteban', 'Carrasco', '', '', 'Lucero Santiesteban Carrasco', '44111820', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (14, 'Alberto', 'Gamonal', 'Cabezas', '', '', 'Alberto Gamonal Cabezas', '44111821', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
@@ -519,7 +522,7 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (17, 'Lucila', 'Tarazona', 'Alvarado', '', '', 'Lucila Tarazona Alvarado', '44111824', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (18, 'Carmen', 'Bernal', 'Prudencio', '', '', 'Carmen Bernal Prudencio', '44111825', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (19, 'Ernesto', 'Portocarrero', 'Guerra', '', '', 'Ernesto Portocarrero Guerra', '44111826', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(20, 'Ericka', 'Pérez', 'Huarcaya', '', '', 'Ericka P?rez Huarcaya', '44111827', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(20, 'Ericka', 'Pérez', 'Huarcaya', '', '', 'Ericka Pérez Huarcaya', '44111827', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (21, 'Karina', 'Calderon', 'Colchón', '', '', 'Karina Calderon Colchón', '44111828', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (22, 'Robert', 'Santana', 'Espejo', '', '', 'Robert Santana Espejo', '44111829', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (23, 'Robin', 'Santa Cruz', 'Cama', '', '', 'Robin Santa Cruz Cama', '44111830', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
@@ -557,18 +560,20 @@ insert into `gestiondoc`.`sec_authorities` (username, authorithy) values
 ('czapata', 'ROLE_NOTARIO'),('czapata', 'ROLE_USER'),
 ('ldextre', 'ROLE_SEC'),('ldextre', 'ROLE_USER');
 
-insert into `gestiondoc`.`escritura` (id_escritura, id_notaria, kardex, fecha_escritura, numero_instrumento, numero_minuta, numero_doc, numero_folios, cantidad_fojas, tipo_fojas, numero_fojas, estado_escritura, firmas_restantes, anio_tomo, numero_tomo, ubicacion_fisica, ubicacion_digital, estado, fecha_creacion, fecha_modificacion, usuario_creacion,  usuario_modificacion) 	values
-(1, 1, '002300', '2010-01-0', '002300', '002300', '002300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante uno', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(2, 2, '011100', '2010-01-0', '011100', '011100', '011100', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante dos', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(3, 3, '099900', '2010-01-0', '099900', '099900', '099900', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante grande', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(4, 4, '044400', '2010-01-0', '044400', '044400', '044400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante mediano', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(5, 5, '022200', '2010-01-0', '022200', '022200', '022200', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante final', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(6, 6, '033300', '2010-01-0', '033300', '077700', '033300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante ultimo', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(7, 7, '066600', '2010-01-0', '066600', '066600', '066600', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante antiguo', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(8, 1, '077700', '2010-01-0', '077700', '077700', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante lateral', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(9, 2, '088800', '2010-01-0', '088800', '088800', '088800', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante marron', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(10,3, '055500', '2010-01-0', '055500', '055500', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante externo', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(11,4, '087400', '2010-01-0', '087400', '087400', '087400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante nuevo', 'disco externo uno', 1, now(), null, 'ecampos', null);
+insert into `gestiondoc`.`escritura` (id_escritura, id_notaria, kardex, fecha_escritura, numero_instrumento, numero_minuta, numero_doc, 
+numero_folios, cantidad_fojas, tipo_fojas, numero_fojas, estado_escritura, firmas_restantes, anio_tomo, numero_tomo, 
+ubicacion_fisica, ubicacion_digital, estado, fecha_creacion, fecha_modificacion, usuario_creacion,  usuario_modificacion) 	values
+(1, 12, '181272', '2009-12-30', '9201', '002300', '002300', 112367, 2, 1, 0362867, 1, 0, 2009, 140, 'F-2-M', 'D:\ESCRITURAS\NROZ\181272-2009', 1, now(), null, 'ecampos', null),
+(2, 12, '123334', '2003-09-25', '3614', '011100', '011100', 41379, 6, 1, 0152069, 1, 0, 2010, 3, 'estante dos', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(3, 12, '099900', '2010-01-0', '099900', '099900', '099900', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante grande', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(4, 12, '044400', '2010-01-0', '044400', '044400', '044400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante mediano', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(5, 12, '022200', '2010-01-0', '022200', '022200', '022200', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante final', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(6, 12, '033300', '2010-01-0', '033300', '077700', '033300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante ultimo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(7, 12, '066600', '2010-01-0', '066600', '066600', '066600', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante antiguo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(8, 12, '077700', '2010-01-0', '077700', '077700', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante lateral', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(9, 12, '088800', '2010-01-0', '088800', '088800', '088800', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante marron', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(10,12, '055500', '2010-01-0', '055500', '055500', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante externo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(11,12, '087400', '2010-01-0', '087400', '087400', '087400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante nuevo', 'disco externo uno', 1, now(), null, 'ecampos', null);
 
 insert into `gestiondoc`.`archivo` (id_archivo, id_escritura, nombre, archivo, mimetype) values 
 (1, 1, "escritura.pdf", null,'application/pdf'),
@@ -584,8 +589,8 @@ insert into `gestiondoc`.`archivo` (id_archivo, id_escritura, nombre, archivo, m
 (11, 11, "escritura.pdf", null,'application/pdf');
 
 insert into `gestiondoc`.`actos_escritura` (id_acto, id_escritura) values
-(1, 1),(2, 1),
-(3, 2),(4, 2),
+(8, 1),(2, 1),
+(3, 2),(1, 2),
 (4, 3),(5, 3),
 (6, 4),(7, 4),
 (1, 5),(3, 5),
@@ -614,36 +619,36 @@ fecha_ingreso, fecha_solucion, tram_comprador, tram_vendedor, tram_escritura, tr
  tram_kardex, tram_fojas, tram_minuta_num, tram_instrumento_num, tram_solicitado, tram_apod_telefono, tram_apoderado, 
 tram_apod_documento, tram_apod_direccion, tipo_comprobante, numero_ruc, estado, fecha_creacion, fecha_modificacion, 
 usuario_creacion, usuario_modificacion) values
-(1, 1, 7, 1, 1, '0000001', now(), null, 'Carlos Pérez', 'Santiago Segura', '077700', '2010-07-05','2010-08-05', '011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
-(2, null, 8, 3, 2, '0000002', now(), null, 'Victoria Almeyda', null, '00034560', '2010-07-05','2010-08-05', '011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
-(3, null, 9, 3, 3, '0000003', now(), null, 'Karen Risco', null, '00789500', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
-(4, null, 10, 1, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', '099900', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 3, null, 1, now(), null, 'ecampos', null),
-(5, null, 11, 2, 5, '0000005', now(), null, 'Aurelia Vazques', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
-(6, 2, 12, 3, null, '0000006', now(), null, 'Orlando Sevillano', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
-(7, 3, 7, 3, null, '0000007', now(), null, 'Paúl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(8, 4, 8, 3, 1, '0000008', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(9, 4, 9, 3, 2, '0000009', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(10, 4, 10, 3, 3, '0000010', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(11, 4, 11, 3, 4, '0000011', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(12, 4, 12, 3, 5, '0000012', now(), null, 'Esteban Santiesteban', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(13, 4, 13, 3, 6, '0000013', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(14, 4, 14, 3, 7, '0000014', now(), null, 'Aurelia Vazques', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(15, 4, 15, 3, 1, '0000015', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(16, 4, 16, 3, 2, '0000016', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(17, 4, 17, 3, 3, '0000017', now(), null, 'Paúl Solis', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(18, 4, 18, 3, 4, '0000018', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(19, 4, 19, 3, 5, '0000019', now(), null, 'Esteban Santiesteban', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(20, 4, 20, 3, 6, '0000020', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(21, 4, 21, 3, 7, '0000021', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(22, 4, 22, 3, 1, '0000022', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(23, 4, 23, 3, 2, '0000023', now(), null, 'Paúl Solis', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(24, 4, 24, 3, 3, '0000024', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(25, 4, 25, 3, 4, '0000025', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(26, 4, 26, 3, 5, '0000026', now(), null, 'Esteban Santiesteban', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(27, 4, 27, 3, 6, '0000027', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(28, 4, 28, 3, 7, '0000028', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(29, 4, 29, 3, 1, '0000029', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
-(30, 4, 30, 3, 2, '0000030', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null);
+(1, 1, 7, 4, 1, '0000001', now(), null, 'Carlos Pérez', 'Santiago Segura', '077700', '2010-07-05','2010-08-05', '011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 1, now(), null, 'ecampos', null),
+(2, null, 8, 4, 2, '0000002', now(), null, 'Victoria Almeyda', null, '00034560', '2010-07-05','2010-08-05', '011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(3, null, 9, 4, 3, '0000003', now(), null, 'Karen Risco', null, '00789500', '2010-07-05','2010-08-05', null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(4, null, 10, 4, 4, '0000004', now(), null, 'Esteban Santiesteban', null, '00083245', '2010-07-05','2010-08-05', '099900', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 3, null, 1, now(), null, 'ecampos', null),
+(5, null, 11, 4, 5, '0000005', now(), null, 'Aurelia Vazques', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(6, 2, 12, 4, null, '0000006', now(), null, 'Orlando Sevillano', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 2, now(), null, 'ecampos', null),
+(7, 3, 7, 4, null, '0000007', now(), null, 'Paúl Solis', null, null, '2010-07-05', '2010-08-05',null, null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(8, 4, 8, 4, 1, '0000008', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(9, 4, 9, 4, 2, '0000009', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(10, 4, 10, 4, 3, '0000010', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(11, 4, 11, 4, 4, '0000011', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(12, 4, 12, 4, 5, '0000012', now(), null, 'Esteban Santiesteban', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(13, 4, 13, 4, 6, '0000013', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(14, 4, 14, 4, 7, '0000014', now(), null, 'Aurelia Vazques', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(15, 4, 15, 4, 1, '0000015', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(16, 4, 16, 4, 2, '0000016', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(17, 4, 17, 4, 3, '0000017', now(), null, 'Paúl Solis', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(18, 4, 18, 4, 4, '0000018', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(19, 4, 19, 4, 5, '0000019', now(), null, 'Esteban Santiesteban', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(20, 4, 20, 4, 6, '0000020', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(21, 4, 21, 4, 7, '0000021', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(22, 4, 22, 4, 1, '0000022', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(23, 4, 23, 4, 2, '0000023', now(), null, 'Paúl Solis', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(24, 4, 24, 4, 3, '0000024', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(25, 4, 25, 4, 4, '0000025', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(26, 4, 26, 4, 5, '0000026', now(), null, 'Esteban Santiesteban', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(27, 4, 27, 4, 6, '0000027', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(28, 4, 28, 4, 7, '0000028', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(29, 4, 29, 4, 1, '0000029', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null),
+(30, 4, 30, 4, 2, '0000030', now(), null, 'Miguel Arturo Tuesta Sologorré', null, '15902500', '2010-07-01', '2010-08-05','011100', null, null, null, 'tram_solicitado', '254 - 2458', '', '', '', 1, null, 3, now(), null, 'ecampos', null);
 
 insert into `gestiondoc`.`tramite` (id_tramite, idsolicitud,id_escritura, cant_hojas, costo_hoja, costo_total, informe_solicitud, observaciones_notario, fecha_conclusion, detalle_notificacion, fecha_creacion, estado) values
 (1, 1, 1, 5, 5, 25, 'Doctor, hay este tramite pendiente. favor de validar', 'Juan, coordinar para la conclusion', '2015-10-25', 'presetarse juntos a los otros paticipantes', now(), 6),
