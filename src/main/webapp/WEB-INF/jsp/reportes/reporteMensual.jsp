@@ -63,7 +63,7 @@
     			    { y: 'Setiembre', a: 95, b: 66 },
     			    { y: 'Octubre', a: 60, b: 90 },
     			    { y: 'Noviembre', a: 66, b: 95 },
-    			    { y: 'Diciembre', a: 68, b: 88 }
+    			    <!--  { y: 'Diciembre', a: 68, b: 88 }-->
     			  ],
     			  xkey: 'y',
     			  ykeys: ['a', 'b'],

@@ -13,13 +13,19 @@
                        <h1 class="page-header">Bienvenidos</h1>
                        
 					     <div class="parrafo">
-					     	El Colegio de Notarios de Lima (CNL) pone a disposici&oacute;n de los Miembros de la Orden este m&oacute;dulo de consultas en l&iacute;nea. 
-					     	En este espacio virtual podr&aacute;n tener acceso a toda la informaci&oacute;n importante que el CNL proporciona a los Notarios, como: 
+					     	El Colegio de Notarios de Lima (CNL) pone a disposici&oacute;n de los Miembros de la Orden este m&oacute;dulo de "Servico Ex Notarios". 
+					     	En este espacio virtual podr&aacute;n tener acceso a toda la informaci&oacute;n importante que el CNL proporciona a los Clientes, como: 
 					     </div>
 					     
-					     <h3> <span>COPIAS DE ESCRITURAS PUBLICAS</span> </h3>
+					     <h3> <span>CONCLUSIÓN DE ESCRITURAS P&Uacute;BLICAS</span> </h3>
 					     <div class="parrafo">
-					     	Para mpresion mas rapida de Partes, escrituras y muchos otros documentos, garantizando su legalidad empleando Firma Digital.
+					     	Para la registrar la solicitud de b&uacute;squeda y atenci&oacute;n del servicio de Conclusi&oacute;n de Escrituras, culminando con la 
+					     	entrega del Parte Notarial en formato digital, garantizando su legalidad empleando Firma Digital.
+					     </div>
+					     
+					      <h3> <span>COPIAS SIMPLES DE ESCRITURAS P&Uacute;BLICAS</span> </h3>
+					     <div class="parrafo">
+					     	Para el registro de b&uacute;squeda y atenci&oacute;n de las copias simples de Escrituras P&uacute;blicas de una manera r&aacute;pida y segura.
 					     </div>
 					                       
                    </div>

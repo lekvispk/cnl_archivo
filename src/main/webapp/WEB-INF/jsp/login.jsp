@@ -46,6 +46,9 @@
 					<c:if test="${not empty mensaje}"><div class="alert alert-success">  <strong><c:out value="${mensaje}"/></strong> </div></c:if>
 				
                     <div class="panel-heading">
+                    
+                    	<center><img src = "images/LOGO_CNL_Final.PNG"WIDTH=160 HEIGHT=160 class="img-responsive"></center>
+                        
                         <h3 class="panel-title">Iniciar sesi&oacute;n</h3>
                     </div>
                     
