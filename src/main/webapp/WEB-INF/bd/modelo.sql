@@ -514,11 +514,11 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (9, 'Luis Angel', 'Ulloa', 'Peña', '', '', 'Luis Angel Ulloa Peña', '33132456', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (10, 'Jorge', 'Rodrigues', 'Elias', '', '', 'Jorge Rodrigues Elias', '22111460', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (11, 'Jose Eduardo', 'Yenobi', 'Minamoto', '', '', 'Jose Eduardo Yenobi Minamoto', '03111284', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(12, 'Bianka', 'Vazques', 'Portocarrero', '', '', 'Bianka Vazques Portocarrero', '44111893', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(12, 'Luzmila', 'Vizcarra', 'Flores de Delgado', '', '', 'Luzmila Vizcarra Flores de Delgado', '44111893', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (13, 'Lucero', 'Santiesteban', 'Carrasco', '', '', 'Lucero Santiesteban Carrasco', '44111820', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(14, 'Alberto', 'Gamonal', 'Cabezas', '', '', 'Alberto Gamonal Cabezas', '44111821', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(15, 'Aurelia', 'Salazar', 'Escobar', '', '', 'Aurelia Salazar Escobar', '44111822', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(16, 'Karen', 'Shaw', 'Acuña', '', '', 'Karen Shaw Acuña', '44111823', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(14, 'Alan Chistian ', 'Davey', 'Chavez', '', '', 'Alan Chistian Davey Chavez', '44111821', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(15, 'Luis', 'Hernan', 'Delgado', '', '', 'Luis Hernan Delgado', '44111822', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(16, 'Jose', 'Bresani', 'Ferer', '', '', 'Jose Bresani Ferer', '44111823', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (17, 'Lucila', 'Tarazona', 'Alvarado', '', '', 'Lucila Tarazona Alvarado', '44111824', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (18, 'Carmen', 'Bernal', 'Prudencio', '', '', 'Carmen Bernal Prudencio', '44111825', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (19, 'Ernesto', 'Portocarrero', 'Guerra', '', '', 'Ernesto Portocarrero Guerra', '44111826', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
@@ -527,8 +527,8 @@ insert into `gestiondoc`.`persona` (id_persona, nombre, ape_paterno, ape_materno
 (22, 'Robert', 'Santana', 'Espejo', '', '', 'Robert Santana Espejo', '44111829', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (23, 'Robin', 'Santa Cruz', 'Cama', '', '', 'Robin Santa Cruz Cama', '44111830', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (24, 'Carlos', 'Muñoz', 'Vera', '', '', 'Carlos Muñoz Vera', '44111831', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(25, 'Luis', 'Campos', 'Agurto', '', '', 'Luis Campos Agusto', '44111832', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
-(26, 'Henry', 'Salgado', 'Flores', '', '', 'Henry Salgado Flores', '44111833', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(25, 'Adolfo', 'Torres', 'Zegarra', '', '', 'Adolfo Torres Zegarra', '44111832', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
+(26, 'Miguel Javier Efren', 'Astudillo', 'Garcia', '', '', 'Miguel Javier Efren Astudillo Garcia', '44111833', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (27, 'Saul', 'Sotomayor', 'Ozco', '', '', 'Saul Sotomayor Flores', '44111834', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (28, 'Gerardo', 'Berrocal', 'Salinas', '', '', 'Gerardo Berrocal Salinas', '45176535', 1, now(), null, 'ecampos', null, 1,'wpmanrique@gmail.com'),
 (29, 'Jenny Heydi', 'Collazos', 'Tejada', '', '', 'Jenny Heydi Collazos Tejada', '45176536', 1, now(), null, 'jcollazos', null, 1,'wpmanrique@gmail.com'),
@@ -564,15 +564,15 @@ insert into `gestiondoc`.`escritura` (id_escritura, id_notaria, kardex, fecha_es
 numero_folios, cantidad_fojas, tipo_fojas, numero_fojas, estado_escritura, firmas_restantes, anio_tomo, numero_tomo, 
 ubicacion_fisica, ubicacion_digital, estado, fecha_creacion, fecha_modificacion, usuario_creacion,  usuario_modificacion) 	values
 (1, 12, '181272', '2009-12-30', '9201', '002300', '002300', 112367, 2, 1, 0362867, 1, 0, 2009, 140, 'F-2-M', 'D:\ESCRITURAS\NROZ\181272-2009', 1, now(), null, 'ecampos', null),
-(2, 12, '123334', '2003-09-25', '3614', '011100', '011100', 41379, 6, 1, 0152069, 1, 0, 2010, 3, 'estante dos', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(3, 12, '099900', '2010-01-0', '099900', '099900', '099900', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante grande', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(4, 12, '044400', '2010-01-0', '044400', '044400', '044400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante mediano', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(5, 12, '022200', '2010-01-0', '022200', '022200', '022200', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante final', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(6, 12, '033300', '2010-01-0', '033300', '077700', '033300', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante ultimo', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(7, 12, '066600', '2010-01-0', '066600', '066600', '066600', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante antiguo', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(8, 12, '077700', '2010-01-0', '077700', '077700', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante lateral', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(9, 12, '088800', '2010-01-0', '088800', '088800', '088800', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante marron', 'disco externo uno', 1, now(), null, 'ecampos', null),
-(10,12, '055500', '2010-01-0', '055500', '055500', '077700', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante externo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(2, 12, '123334', '2003-09-25', '3614', '011100', '011100', 41379, 6, 1, 0152069, 1, 0, 2003, 65, 'B-4-C', 'D:\ESCRITURAS\NROZ\123334-2003', 1, now(), null, 'ecampos', null),
+(3, 12, '2172',   '1985-07-19', '1764', '099900', '099900', 15742, 3, 1, 3245218, 1, 0, 1985, 30, 'estante grande', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(4, 12, '125022', '2003-12-26', '044400', '044400', '044400', 183, 3, 1, 3, 1, 0, 2003, 204, 'estante mediano', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(5, 12, '130499', '2004-09-20', '022200', '022200', '022200', 183, 3, 1, 3, 1, 0, 2004, 308, 'estante final', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(6, 12, '16897', '1996-03-13', '033300', '077700', '033300', 183, 3, 1, 3, 1, 0, 1996, 195, 'estante ultimo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(7, 12, '193472', '2011-01-03', '066600', '066600', '066600', 183, 3, 1, 3, 1, 0, 2011, 220, 'estante antiguo', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(8, 12, '197380', '2011-03-10', '2087', '077700', '077700', 183, 1, 1, 1097257, 1, 0, 2011, 223, 'F-3-C', 'D:\ESCRITURAS\NROZ\197380-2011', 1, now(), null, 'ecampos', null),
+(9, 12, '107676', '2001-05-17', '088800', '088800', '088800', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante marron', 'disco externo uno', 1, now(), null, 'ecampos', null),
+(10,12, '30741', '1986-06-10', '5514', '055500', '077700', 47686, 3, 1, 8687780, 1, 0, 1986, 34, 'E-8-B', 'D:\ESCRITURAS\NROZ\30741-1986', 1, now(), null, 'ecampos', null),
 (11,12, '087400', '2010-01-0', '087400', '087400', '087400', 183, 3, 1, 3, 1, 0, 2010, 3, 'estante nuevo', 'disco externo uno', 1, now(), null, 'ecampos', null);
 
 insert into `gestiondoc`.`archivo` (id_archivo, id_escritura, nombre, archivo, mimetype) values 
@@ -596,9 +596,9 @@ insert into `gestiondoc`.`actos_escritura` (id_acto, id_escritura) values
 (1, 5),(3, 5),
 (4, 6),(5, 6),
 (6, 7),(2, 7),
-(6, 8),(2, 8),
+(8, 8),
 (6, 9),(2, 9),
-(6, 10),(2, 10),
+(1, 10),
 (6, 11),(2, 11);
 
 insert into `gestiondoc`.`persona_escritura` (id_escritura, id_persona, idTipoRelacion, estado) values
@@ -611,7 +611,7 @@ insert into `gestiondoc`.`persona_escritura` (id_escritura, id_persona, idTipoRe
 (7, 23, 1, 1),(7, 24, 2, 1),
 (8, 25, 1, 1),(8, 26, 2, 1),(8, 14, 3, 1),
 (9, 27, 4, 1),(9, 28, 5, 1),(9, 10, 6, 1),(9, 12, 3, 1),
-(10, 12, 1, 1),(10, 15, 2, 1),
+(10, 12, 1, 1),(10, 15, 2, 1),(10, 16, 2, 1),
 (11, 16, 1, 1),(11, 17, 2, 1),(11, 19, 3, 1),(11, 25, 4, 1);
 
 insert into `gestiondoc`.`solicitud` (idsolicitud, id_notaria, id_persona, id_tipo_solicitud, id_acto, cod_solicitud, 
